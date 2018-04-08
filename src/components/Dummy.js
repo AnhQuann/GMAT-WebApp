@@ -19,10 +19,10 @@ class Dummy extends Component {
             </div>
         );
     }
-};
+}
 
 function mapStateToProps({ dummyReducer }) {
     return { dummyReducer };
-};
+}
 
 export default connect(mapStateToProps, { increaseDummyNumber })(Dummy);

@@ -1,4 +1,5 @@
 export const INCREASE_DUMMY_NUMBER = 'INCREASE DUMMY NUMBER';
+export const LOGIN = 'LOGIN';
 
 export function increaseDummyNumber() {
     return {
@@ -6,3 +7,5 @@ export function increaseDummyNumber() {
         payload: null
     };
 };
+
+export { login } from './login';
