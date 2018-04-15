@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,10 +17,8 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" component={App} />
-            </Switch>
+        <BrowserRouter >
+            <App />
         </BrowserRouter>
     </Provider>
     , document.getElementById('root'));

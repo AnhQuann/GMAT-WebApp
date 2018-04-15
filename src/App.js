@@ -1,49 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
+import { Route, Switch } from 'react-router-dom';
 
-import { isAuth } from './actions';
+import { checkToken } from './actions';
 
 import Login from './components/user/login';
+import Main from './components/main';
 import Dummy from './components/dummy';
 import Loading from './components/common/loading';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeToken = this.removeToken.bind(this);
-    this.renderChild = this.renderChild.bind(this);
-  }
-
   componentWillMount() {
-    this.props.isAuth();
-  }
-
-  removeToken() {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
-
-  renderChild() {
-    if (this.props.authReducer.isAuth) {
-      if(this.props.authReducer.isLoggedIn) {
-        return  <Dummy />;
-      } else {
-        return (
-          <div>
-            {this.removeToken()}
-            <Login />
-          </div>
-        );
-      }
-    } else {
-      return <Loading />;
-    }
+    this.props.checkToken();
   }
 
   render() {
     return (
-      <Container>{this.renderChild()}</Container>
+      <Container>{
+        this.props.authReducer.doneCheckToken
+          ? (this.props.authReducer.isLoggedIn
+            ? (<main>
+              <Switch>
+                <Route exact path="/" component={Main} />
+                <Route path="/dummy" component={Dummy} />
+              </Switch>
+            </main>)
+            : <Login />)
+          : <Loading />
+      }</Container>
     );
   }
 }
@@ -52,4 +37,4 @@ function mapStateToProps({ authReducer }) {
   return { authReducer };
 }
 
-export default connect(mapStateToProps, { isAuth })(App);
+export default connect(mapStateToProps, { checkToken })(App);
