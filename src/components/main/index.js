@@ -19,6 +19,7 @@ class Main extends Component {
     onLogoutClick() {
         this.toggleConfirmLogout();
         this.props.logout();
+        window.location.reload();
     }
 
     toggleConfirmLogout() {
