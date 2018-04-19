@@ -11,8 +11,8 @@ import Dummy from './components/dummy';
 import Loading from './components/common/loading';
 
 class App extends Component {
-  componentWillMount() {
-    this.props.checkToken();
+  componentWillMount() {  
+    this.props.checkToken();      
   }
 
   render() {
