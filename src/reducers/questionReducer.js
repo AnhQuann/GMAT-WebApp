@@ -11,7 +11,8 @@ const DUMMY_STATE = {
         `const root = document.getElementById`,
         `import { combineReducers } from 'redux'`
       ],
-      right_choice: 1
+      right_choice: 1,
+      slug: 'Here is my store-js'
     },
     {
       stimulus: `Here is my store.js calling the routerMiddleware. Here is my rootReducer applying the routerReducer
@@ -24,7 +25,8 @@ const DUMMY_STATE = {
         `const root = document.getElementById`,
         `import { combineReducers } from 'redux'`
       ],
-      right_choice: 4
+      right_choice: 4,
+      slug: ' calling-the-routerMiddleware'
     },
     {
       stimulus: `Here is my store.js calling the routerMiddleware. Here is my rootReducer applying the routerReducer
@@ -37,7 +39,8 @@ const DUMMY_STATE = {
         `const root = document.getElementById`,
         `import { combineReducers } from 'redux'`
       ],
-      right_choice: 6
+      right_choice: 6,
+      slug: 'component-calling-and-firing'
     },
   ],
 };

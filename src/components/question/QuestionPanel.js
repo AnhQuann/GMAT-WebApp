@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import QuestionEditModal from './QuestionEditModal';
+
+import './QuestionPanel.css';
  
 class QuestionPanel extends Component {
 
@@ -9,6 +13,11 @@ class QuestionPanel extends Component {
         <td>{index + 1}</td>
         <td>{question.stimulus}</td>
         <td>{question.stem}</td>
+        <td></td>
+        <td className="question-action">
+          <span>Edit</span>
+          <span>Delete</span>
+        </td>
       </tr>
     );
   }
@@ -23,6 +32,7 @@ class QuestionPanel extends Component {
             <th>Stimulus</th>
             <th>Stem</th>
             <th>Packs</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +47,7 @@ class QuestionPanel extends Component {
   render() {
     return (
       <div className="question-panel">
+        <QuestionEditModal />
         {this.renderQuestions()}
       </div>
     );
