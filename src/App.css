@@ -1,0 +1,6 @@
+.app-wrapper {
+  background-color: #CECECE;
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+} 
