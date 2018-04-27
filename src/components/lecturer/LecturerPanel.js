@@ -7,6 +7,7 @@ import QuestionPackPanel from '../question-pack/QuestionPackPanel';
 import './LecturerPanel.css';
 
 class LecturerPanel extends Component {
+
   render() {
     return (
       <div className="lecturer-panel">
