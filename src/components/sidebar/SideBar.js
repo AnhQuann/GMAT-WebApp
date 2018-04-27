@@ -10,12 +10,12 @@ class SideBar extends Component {
         {
           "title": "Questions",
           "image": "No image yet :( ",
-          "href": "/lecturer/questions"
+          "href": "/lecturer/question"
         },
         {
           "title": "Question packs",
           "image": "No image yet :( ",
-          "href": "/lecturer/question-packs"
+          "href": "/lecturer/question-pack"
         },
       ]
     }

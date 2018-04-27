@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
  
  
-class QuestionPanel extends Component {
+class QuestionPack extends Component {
     render() {
         return (
             <div>
-              Questions
+              Question packs
             </div>
         );
     }
 }
  
- 
-export default QuestionPanel;
+
+export default QuestionPack;

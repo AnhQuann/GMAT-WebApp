@@ -1,4 +1,5 @@
 .lecturer-container {
   display: flex;
-  background-color: white;
+  flex-flow: row;
+  width: 100%;
 }
