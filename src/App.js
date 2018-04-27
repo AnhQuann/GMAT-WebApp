@@ -7,7 +7,6 @@ import { checkToken } from './actions';
 
 import Login from './components/user/login';
 import Main from './components/main';
-import Dummy from './components/dummy';
 import Loading from './components/common/loading';
 
 class App extends Component {
@@ -23,7 +22,6 @@ class App extends Component {
             ? (<main>
               <Switch>
                 <Route exact path="/" component={Main} />
-                <Route path="/dummy" component={Dummy} />
               </Switch>
             </main>)
             : <Login />)
