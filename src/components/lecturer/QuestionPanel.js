@@ -8,15 +8,15 @@ class QuestionPanel extends Component {
   render() {
       return (
           <div className="question-panel">
-            <table>
-              <thead className="container">
-                <tr>
-                  <th>#</th>
-                  <th>Stimulus</th>
-                  <th>Difficulty</th>
+            <table className="table table-stripped">
+              <thead className="">
+                <tr className="">
+                  <th className="th-no">#</th>
+                  <th className="th-stimulus">Stimulus</th>
+                  <th className="th-difficulty">Difficulty</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="container">
                 { this.renderQuestions(this.props.questionReducer) }
               </tbody>
             </table>
@@ -28,9 +28,9 @@ class QuestionPanel extends Component {
     return questions.map((question, index) => {
       return (
         <tr key={index}>
-          <td>{ index + 1 } </td>
-          <td>{ question.stimulus }</td>
-          <td>{ this.renderDifficulty(question.difficulty) }</td>
+          <td scope="col" className="td-no">{ index + 1 } </td>
+          <td scope="col" className="td-stimulus">{ this.elipsis(question.stimulus) }</td>
+          <td scope="col" className="td-difficulty">{ this.renderDifficulty(question.difficulty) }</td>
         </tr>
       );
     });
@@ -43,6 +43,14 @@ class QuestionPanel extends Component {
       case 2: return (<span className="q-hard">Hard</span>);
       case 3: return (<span className="q-very-hard">Very hard</span>);
       default: return (<span>Unknown</span>);
+    }
+  }
+
+  elipsis(text) {
+    if(text.length > 100) {
+      return text.substring(0, 100) + "...";
+    } else {
+      return text;
     }
   }
 }

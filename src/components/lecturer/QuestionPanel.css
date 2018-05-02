@@ -1,12 +1,35 @@
-/* .question-panel thead tr {
-  display: flex;
-  flex-flow: row;
-  align-items: flex-start;
+/* .th-no {
+  width: 10%;
+}
+
+.th-stimulus {
+  width: 80%;
+}
+
+.th-difficulty {
+  width: 10%;
+}
+
+.td-stimulus {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 30px;
+  width: 80%;
+}
+
+.td-no {
+  width: 10%;
+}
+
+.td-difficulty {
+  width: 10%;
 } */
 
-/* .th-no {
-  flex-grow: 1;
-} */
+.question-panel {
+  flex: 1 1 auto;
+}
 
 .q-easy {
   color: #4F703C;
