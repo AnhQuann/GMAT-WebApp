@@ -10,7 +10,8 @@ const DUMMY_QUESTIONS = [
       `For most firms that invest in training their employees, the value added by that investment in employees who stay exceeds the value lost through other employees’ leaving to work for other companies`
     ],
     rightChoice: 1,
-    explanation: `Before we actually jump into game programming, we need to know something called event driven programming. Event driven programming refers to that style of programming wherein the user of the application is free to choose from several options rather than be confined to a predetermined sequence of interactions with the program. Game programming is one common example of event driven programming.`
+    explanation: `Before we actually jump into game programming, we need to know something called event driven programming. Event driven programming refers to that style of programming wherein the user of the application is free to choose from several options rather than be confined to a predetermined sequence of interactions with the program. Game programming is one common example of event driven programming.`,
+    difficulty: 0,
   },
   {
     stimulus: `Political theorist: Even with the best spies, area experts, and satellite surveillance, foreign policy assessments can still lack important information. In such circumstances intuitive judgment is vital. A national leader with such judgment can make good decisions about foreign policy even when current information is incomplete, since __________.`,
@@ -23,7 +24,8 @@ const DUMMY_QUESTIONS = [
       `intuitive judgment can produce good decisions based on past experience, even when there are important gaps in current information`
     ],
     rightChoice: 2,
-    explanation: `i.e., complete and self sufficient formal system that represents a subset of reality. A game is a perfect combination of actions-reactions or event-responses where every response is based on the most-recently occurred event.`
+    explanation: `i.e., complete and self sufficient formal system that represents a subset of reality. A game is a perfect combination of actions-reactions or event-responses where every response is based on the most-recently occurred event.`,
+    difficulty: 1,
   },
   {
     stimulus: `Archaeologists use technology to analyze ancient sites. It is likely that this technology will advance considerably in the near future, allowing archaeologists to gather more information than is currently possible. If they study certain sites now, they risk contaminating or compromising them for future studies. Therefore, in order to maximize the potential for gathering knowledge in the long run, a team of archaeologists plans to delay the examination of a newly excavated site.`,
@@ -36,7 +38,8 @@ const DUMMY_QUESTIONS = [
       `Whether the anticipated technology will damage objects under study`
     ],
     rightChoice: 3,
-    explanation: `Graphics consists of any images that are displayed and any effects that are performed on them. This includes 3D objects, textures, 2D tiles, 2D full screen shots, Full Motion Video (FMV) and anything else that the player will see.`
+    explanation: `Graphics consists of any images that are displayed and any effects that are performed on them. This includes 3D objects, textures, 2D tiles, 2D full screen shots, Full Motion Video (FMV) and anything else that the player will see.`,
+    difficulty: 2,
   }
 ];
 
