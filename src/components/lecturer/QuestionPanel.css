@@ -1,34 +1,16 @@
-/* .th-no {
-  width: 10%;
-}
-
-.th-stimulus {
-  width: 80%;
-}
-
-.th-difficulty {
-  width: 10%;
-}
-
-.td-stimulus {
-  display: block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-height: 30px;
-  width: 80%;
-}
-
-.td-no {
-  width: 10%;
-}
-
-.td-difficulty {
-  width: 10%;
-} */
-
 .question-panel {
   flex: 1 1 auto;
+  margin: 16px;
+  background-color: #FFFF;
+}
+
+.question-edit {
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.question-remove {
+  cursor: pointer;
 }
 
 .q-easy {

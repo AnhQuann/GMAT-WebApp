@@ -14,6 +14,7 @@ class QuestionPanel extends Component {
                   <th className="th-no">#</th>
                   <th className="th-stimulus">Stimulus</th>
                   <th className="th-difficulty">Difficulty</th>
+                  <th className="">Actions</th>
                 </tr>
               </thead>
               <tbody className="container">
@@ -21,16 +22,20 @@ class QuestionPanel extends Component {
               </tbody>
             </table>
           </div>
-      )
+      );
   }
 
   renderQuestions(questions) {
     return questions.map((question, index) => {
       return (
         <tr key={index}>
-          <td scope="col" className="td-no">{ index + 1 } </td>
+          <th scope="row" className="td-no">{ index + 1 } </th>
           <td scope="col" className="td-stimulus">{ this.elipsis(question.stimulus) }</td>
           <td scope="col" className="td-difficulty">{ this.renderDifficulty(question.difficulty) }</td>
+          <td scope="col">
+            <i className="far fa-edit question-edit"></i>
+            <i className="fas fa-trash question-remove"></i>
+          </td>
         </tr>
       );
     });
