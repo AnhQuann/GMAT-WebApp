@@ -11,9 +11,9 @@ class QuestionPanel extends Component {
             <table>
               <thead className="container">
                 <tr>
-                  <th>#</th>
-                  <th>Stimulus</th>
-                  <th>Difficulty</th>
+                  <th className="th-no">#</th>
+                  <th className="th-stimulus">Stimulus</th>
+                  <th className="th-difficulty">Difficulty</th>
                 </tr>
               </thead>
               <tbody>

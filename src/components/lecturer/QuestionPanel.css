@@ -1,12 +1,15 @@
-/* .question-panel thead tr {
-  display: flex;
-  flex-flow: row;
-  align-items: flex-start;
-} */
 
-/* .th-no {
-  flex-grow: 1;
-} */
+.th-no {
+  width: 4%;
+}
+
+.th-stimulus {
+  width: 80%;
+}
+
+.th-difiiculty {
+  width: 16%;
+}
 
 .q-easy {
   color: #4F703C;
