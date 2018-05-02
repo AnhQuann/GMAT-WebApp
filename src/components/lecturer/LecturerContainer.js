@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 
 import SideBar from '../sidebar/SideBar';
+import LecturerPanel from './LecturerPanel';
  
 class LecturerComtainer extends Component {
     render() {
+        const sideBaritems = [
+            {
+                title: "Questions",
+                image: <i className="fab fa-pied-piper"></i>,
+                href: "/lecturer/question"
+            },
+            {
+                title: "Packs",
+                image: <i className="fas fa-archive"></i>,
+                href: "/lecturer/question-pack"
+            },
+        ]
         return (
-            <div>
-                <SideBar/>
+            <div className="h-100 d-flex">    
+                <SideBar items={sideBaritems} title="GMAT" />
+                <LecturerPanel />
             </div>
         )
     }
