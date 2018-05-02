@@ -24,7 +24,7 @@ class SideBar extends Component {
 
     renderItem(item, index) {
         return (
-            <SideBarItem title={item.title} image={item.image} href={item.href} />
+            <SideBarItem key={index} title={item.title} image={item.image} href={item.href} />
         );
     }
 }
