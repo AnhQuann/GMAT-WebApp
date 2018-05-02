@@ -5,11 +5,22 @@ import { Modal, ModalHeader, ModalBody, Form, Label, Input, FormGroup } from 're
 class QuestionEditModal extends Component {
     constructor(props) {
       super(props);
-      this.state = {
-        isOpen: true
-      };
       this.hide = this.hide.bind(this);
+      
     }
+
+    componentWillMount() {
+      this.setState({
+        isOpen: this.props.isOpen
+      });
+      console.log("constructor");
+    }
+
+    // componentWillUpdate() {
+    //   this.setState({
+    //     isOpen: this.props.isOpen
+    //   });
+    // }
 
     hide() {
       this.setState({
@@ -25,19 +36,23 @@ class QuestionEditModal extends Component {
     }
 
     render() {
-        return (
-            <Modal 
-              isOpen={this.state.isOpen}
-              toggle={this.hide}
-            >
-              <ModalHeader>
-                Edit question
-              </ModalHeader>
-              <ModalBody>
-                {this.renderForm()}
-              </ModalBody>
-            </Modal>
-        );
+        console.log(this.state);
+        return (<div>Modal</div>);
+        // const question = this.state.question;
+        // const isOpen = this.state.isOpen;
+        // return (
+        //     <Modal 
+        //       // isOpen={this.state.isOpen? true: false}
+        //       toggle={this.hide}
+        //     >
+        //       <ModalHeader>
+        //         Edit question
+        //       </ModalHeader>
+        //       <ModalBody>
+        //         {this.renderForm()}
+        //       </ModalBody>
+        //     </Modal>
+        // );
     }
 }
  

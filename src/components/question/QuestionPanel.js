@@ -7,6 +7,17 @@ import './QuestionPanel.css';
  
 class QuestionPanel extends Component {
 
+  constructor(props) {
+    super(props);
+    this.openEditDialog = this.openEditDialog.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      dialogOpen: false
+    });
+  }
+
   renderQuestion(question, index) {
     return (
       <tr key={index}>
@@ -15,11 +26,17 @@ class QuestionPanel extends Component {
         <td>{question.stem}</td>
         <td></td>
         <td className="question-action">
-          <span>Edit</span>
+          <span onClick={this.openEditDialog}>Edit</span>
           <span>Delete</span>
         </td>
       </tr>
     );
+  }
+
+  openEditDialog() {
+    this.setState({
+      dialogOpen: true
+    });
   }
   
   renderQuestions() {
@@ -28,7 +45,7 @@ class QuestionPanel extends Component {
       <table>
         <thead>
           <tr>
-            <th>No</th>
+            <th>#</th>
             <th>Stimulus</th>
             <th>Stem</th>
             <th>Packs</th>
@@ -45,9 +62,10 @@ class QuestionPanel extends Component {
   }
 
   render() {
+    // const dialogOpen = this.state.dialogOpen;
     return (
       <div className="question-panel">
-        <QuestionEditModal />
+        <QuestionEditModal isOpen={this.state.dialogOpen} />
         {this.renderQuestions()}
       </div>
     );
