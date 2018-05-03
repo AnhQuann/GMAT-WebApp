@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 
 import { checkToken } from './actions';
 
@@ -26,4 +26,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

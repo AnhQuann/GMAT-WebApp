@@ -1,5 +1,9 @@
-const DUMMY_QUESTIONS = [
+import _ from 'lodash';
+import { REMOVE_QUESTION } from '../actions';
+
+const DUMMY_QUESTION_ARRAYS = [
   {
+    id: 1,
     stimulus: `With employer-paid training, workers have the potential to become more productive not only in their present employment but also in any number of jobs with different employers. To increase the productivity of their workforce, many firms are planning to maintain or even increase their investments in worker training. But some training experts object that if a trained worker is hired away by another firm, the employer that paid for the training has merely subsidized a competitor. They note that such hiring has been on the rise in recent years.`,
     stem: `Which of the following would, if true, contribute most to defeating the training experts’ objection to the firms’ strategy?`,
     choices: [
@@ -14,6 +18,7 @@ const DUMMY_QUESTIONS = [
     difficulty: 0,
   },
   {
+    id: 2,
     stimulus: `Political theorist: Even with the best spies, area experts, and satellite surveillance, foreign policy assessments can still lack important information. In such circumstances intuitive judgment is vital. A national leader with such judgment can make good decisions about foreign policy even when current information is incomplete, since __________.`,
     stem: `Which of the following, if true, most logically completes the argument?`,
     choices: [
@@ -28,6 +33,7 @@ const DUMMY_QUESTIONS = [
     difficulty: 1,
   },
   {
+    id: 3,
     stimulus: `Archaeologists use technology to analyze ancient sites. It is likely that this technology will advance considerably in the near future, allowing archaeologists to gather more information than is currently possible. If they study certain sites now, they risk contaminating or compromising them for future studies. Therefore, in order to maximize the potential for gathering knowledge in the long run, a team of archaeologists plans to delay the examination of a newly excavated site.`,
     stem: `Which of the following would be most useful to investigate for the purpose of evaluating the plan’s prospects for achieving its goal?`,
     choices: [
@@ -43,9 +49,13 @@ const DUMMY_QUESTIONS = [
   }
 ];
 
+const DUMMY_QUESTIONS = _.mapKeys(DUMMY_QUESTION_ARRAYS, "id");
+
 export default function(state = DUMMY_QUESTIONS, action) {
   switch(action.type) {
-    // case :
-    default: return state;
+    case REMOVE_QUESTION:
+      return _.omit(state, [action.payload]);
+    default:
+      return state;
   }
 };

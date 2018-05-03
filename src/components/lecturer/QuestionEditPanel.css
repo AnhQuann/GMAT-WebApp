@@ -1,0 +1,8 @@
+.choice-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.choice-input-wrapper span {
+  margin-right: 8px;
+}

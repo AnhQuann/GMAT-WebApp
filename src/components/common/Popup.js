@@ -10,13 +10,15 @@ class Popup extends Component {
       const prompt = popupReducer.prompt? popupReducer.prompt: "Do you want to delete?";
       const yesColor = popupReducer.yesColor? popupReducer.yesColor: "danger";
       const noColor = popupReducer.noColor? popupReducer.noColor: "secondary";
+      const noCallBack = popupReducer.noCallBack? popupReducer.noCallBack : this.props.closePopup;
+      const yesCallBack = popupReducer.yesCallBack;
       return (
           <Modal isOpen={ popupReducer.isOpen } toggle={ this.props.closePopup }>
             <ModalHeader>{ header }</ModalHeader>
             <ModalBody>{ prompt }</ModalBody>
             <ModalFooter>
-              <Button color={ noColor } onClick={ popupReducer.noCallBack } >No</Button>
-              <Button color={ yesColor } onClick={ popupReducer.yesCallBack } >Yes</Button>
+              <Button color={ noColor } onClick={ noCallBack } >No</Button>
+              <Button color={ yesColor } onClick={ yesCallBack } >Yes</Button>
             </ModalFooter>
           </Modal>
       );
