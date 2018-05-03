@@ -1,0 +1,55 @@
+const DUMMY_QUESTIONS = [
+    {
+        id: 0,
+        stimulus: `With employer-paid training, workers have the potential to become more productive not only in their present employment but also in any number of jobs with different employers. To increase the productivity of their workforce, many firms are planning to maintain or even increase their investments in worker training. But some training experts object that if a trained worker is hired away by another firm, the employer that paid for the training has merely subsidized a competitor. They note that such hiring has been on the rise in recent years.`,
+        stem: `Which of the following would, if true, contribute most to defeating the training experts’ objection to the firms’ strategy?`,
+        choices: [
+            `Firms that promise opportunities for advancement to their employees get, on average, somewhat larger numbers of job applications from untrained workers than do firms that make no such promise.`,
+            `In many industries, employees who take continuing-education courses are more competitive in the job market.`,
+            `More and more educational and training institutions are offering reduced tuition fees to firms that subsidize worker training.`,
+            `Research shows that workers whose training is wholly or partially subsidized by their employer tend to get at least as much training as do workers who pay for all their own training.`,
+            `For most firms that invest in training their employees, the value added by that investment in employees who stay exceeds the value lost through other employees’ leaving to work for other companies`
+        ],
+        rightChoice: 1,
+        expalaination: `1`,
+        difficulty: 0
+    },
+    {
+        id: 1,
+        stimulus: `Political theorist: Even with the best spies, area experts, and satellite surveillance, foreign policy assessments can still lack important information. In such circumstances intuitive judgment is vital. A national leader with such judgment can make good decisions about foreign policy even when current information is incomplete, since __________.`,
+        stem: `Which of the following, if true, most logically completes the argument?`,
+        choices: [
+            `the central reason for failure in foreign policy decision making is the absence of critical information`,
+            `those leaders whose foreign policy decisions have been highly ranked have also been found to have good intuitive judgment`,
+            `both intuitive judgment and good information are required for sound decision making `,
+            `good foreign policy decisions often lead to improved methods of gathering information`,
+            `intuitive judgment can produce good decisions based on past experience, even when there are important gaps in current information`
+        ],
+        rightChoice: 2,
+        expalaination: `2`,
+        difficulty: 1
+    },
+    {
+        id: 2,
+        stimulus: `Archaeologists use technology to analyze ancient sites. It is likely that this technology will advance considerably in the near future, allowing archaeologists to gather more information than is currently possible. If they study certain sites now, they risk contaminating or compromising them for future studies. Therefore, in order to maximize the potential for gathering knowledge in the long run, a team of archaeologists plans to delay the examination of a newly excavated site.`,
+        stem: `Which of the following would be most useful to investigate for the purpose of evaluating the plan’s prospects for achieving its goal?`,
+        choices: [
+            `Whether any of the contents of the site will significantly deteriorate before the anticipated technology is available`,
+            `Whether there will continue to be improvements on the relevant technology`,
+            `Whether the team can study a site other than the newly excavated site for the time being`,
+            `Whether the site was inhabited by a very ancient culture`,
+            `Whether the anticipated technology will damage objects under study`
+        ], 
+        rightChoice: 3,
+        expalaination: `3`,
+        difficulty: 2
+    }
+]
+
+export default function(state = DUMMY_QUESTIONS, action) {
+    switch (action.type) {
+        // case:
+
+        default: return state;
+    }
+}

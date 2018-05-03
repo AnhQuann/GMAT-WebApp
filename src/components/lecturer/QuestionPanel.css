@@ -1,0 +1,33 @@
+/* .question-panel thead tr {
+    display: flex;
+    flex-flow: row;
+    background-color: springgreen
+}
+
+.th-no {
+    flex-grow: 1;
+}
+
+.th-stimulus {
+    flex-grow: 8;
+}
+
+.th-difficulty {
+    flex-grow: 1;
+} */
+
+.q-easy {
+    color: #4f703c !important
+}
+
+.q-medium {
+    color: #d9a143 !important
+}
+
+.q-hard {
+    color: #bd2224 !important
+}
+
+.q-very-hard {
+    color: red !important
+}
