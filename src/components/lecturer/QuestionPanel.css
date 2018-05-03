@@ -9,6 +9,11 @@
   margin-right: 8px;
 }
 
+/* .q-difficulty {
+  background-color: black;
+  padding: 8px;
+} */
+
 .question-remove {
   cursor: pointer;
 }

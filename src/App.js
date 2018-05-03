@@ -9,13 +9,19 @@ import { checkToken } from './actions';
 import Login from './components/user/login';
 import Main from './components/main';
 import Loading from './components/common/loading';
-import LecturerContainer from './components/lecturer/LecturerContainer'
+
+import LecturerContainer from './components/lecturer/LecturerContainer';
+import Popup from './components/common/Popup';
+
 
 class App extends Component {
 
   render() {
     return (
-      <LecturerContainer />
+      <div>
+        <Popup />
+        <LecturerContainer />
+      </div>
     );
   }
 }
