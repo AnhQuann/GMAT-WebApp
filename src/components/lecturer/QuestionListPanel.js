@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Button } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 
 import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion  } from '../../actions';
 import { elipsis } from '../../utils';
@@ -64,7 +64,7 @@ class QuestionListPanel extends Component {
             >
               Add new question
           </Button>
-          <table className="table table-stripped">
+          <Table striped>
             <thead className="">
               <tr className="">
                 <th className="th-no">#</th>
@@ -76,7 +76,7 @@ class QuestionListPanel extends Component {
             <tbody className="container">
               { this.renderQuestions(this.props.questionReducer) }
             </tbody>
-          </table>
+          </Table>
         </div>
       );
   }

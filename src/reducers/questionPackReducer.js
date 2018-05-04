@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { LOAD_QUESTION_PACK } from '../actions';
+import { LOAD_QUESTION_PACK, REMOVE_QUESTION_PACK } from '../actions';
 
 const DEFAULT_STATE = {
   
@@ -25,6 +25,9 @@ const DUMMY_STATE = _.mapKeys([
 
 export default function(state = DUMMY_STATE, action) {
   switch(action.type) {
+    case REMOVE_QUESTION_PACK:
+      const questionPackToDelete = action.payload;
+      return _.omit(state, questionPackToDelete.id);
     default: return state;
   }
 };
