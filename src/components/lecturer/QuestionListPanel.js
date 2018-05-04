@@ -86,7 +86,7 @@ class QuestionListPanel extends Component {
   renderDifficulty(difficulty) {
     switch(difficulty) {
       case 0: return (<span className="q-difficulty q-easy">Easy</span>);
-      case 1: return (<span className="q-difficulty q-medium">Easy</span>);
+      case 1: return (<span className="q-difficulty q-medium">Medium</span>);
       case 2: return (<span className="q-difficulty q-hard">Hard</span>);
       case 3: return (<span className="q-difficulty q-very-hard">Very hard</span>);
       default: return (<span>Unknown</span>);

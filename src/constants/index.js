@@ -1,18 +1,18 @@
 export const QUESTION_DIFFICULTIES = [
   {
-    value: 1,
+    value: 0,
     text: "Easy"
   },
   {
-    value: 2,
+    value: 1,
     text: "Medium"
   },
   {
-    value: 3,
+    value: 2,
     text: "Hard"
   },
   {
-    value: 4,
+    value: 3,
     text: "Very hard"
   },
 ]

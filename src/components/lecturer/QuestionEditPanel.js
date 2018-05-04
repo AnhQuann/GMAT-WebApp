@@ -1,18 +1,42 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Button, Input, Label } from 'reactstrap';
+import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
+import { editQuestion } from '../../actions';
 
 import "./QuestionEditPanel.css";
  
 class QuestionEditPanel extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {};
+      this.onCancel = this.onCancel.bind(this);
+      this.onOK = this.onOK.bind(this);
+    }
+
+    componentWillMount() {
+      this.setState(_.cloneDeep(this.props.currentQuestionReducer));
+    }
+
     render() {
       return (
         <div>
+          <h3>Edit question</h3>
           { this.renderForm() }
         </div>
       );
+    }
+
+    blurToState(propName, converter=null) {
+      const blur = (event) => {
+        const newState = _.cloneDeep(this.state);
+        const value = converter == null ? event.target.value: converter(event.target.value);
+        _.set(newState, propName, value);
+        this.setState(newState);
+      };
+      return blur.bind(this);
     }
 
     renderForm() {
@@ -25,14 +49,14 @@ class QuestionEditPanel extends Component {
       }
       
       return (
-        <Form>
+        <div>
           <FormGroup>
             <legend>Stimulus</legend>
-            <Input type="textarea" defaultValue={question.stimulus}></Input>
+            <Input type="textarea" defaultValue={question.stimulus} onBlur={this.blurToState("stimulus")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Stem</legend>
-            <Input type="text" defaultValue={ question.stem }></Input>
+            <Input type="text" defaultValue={ question.stem } onBlur={this.blurToState("stem")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Choices</legend>
@@ -44,34 +68,26 @@ class QuestionEditPanel extends Component {
           </FormGroup>
           <FormGroup>
             <legend>Explanation</legend>
-            <Input type="textarea" defaultValue={question.explanation} ></Input>
+            <Input type="textarea" defaultValue={question.explanation} onBlur={this.blurToState("explanation")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Difficulty level</legend>
             { this.renderDifficulty(question) }
           </FormGroup>
           <FormGroup className="clearfix float-right">
-            <Button>Cancel</Button>
-            <Button className="ml-1" color="primary">OK</Button>
+            <Button onClick={this.onCancel} >Cancel</Button>
+            <Button onClick={this.onOK} className="ml-1" color="primary">OK</Button>
           </FormGroup>
-        </Form>
-      );
-    }
-    
-    renderLabel(label) {
-      return (
-        <Label>
-          <h5> { label }</h5>
-        </Label>
+        </div>
       );
     }
 
     renderChoicesInForm(question) {
       return question.choices.map((choice, index) => {
         return (
-          <div className="choice-input-wrapper">
+          <div className="choice-input-wrapper" key={ index }>
             <span>{ CHOICE_LETTERS[index] }. </span>
-            <Input className="mb-1" key={index} defaultValue={choice} ></Input>
+            <Input className="mb-1" key={index} defaultValue={choice} onBlur={this.blurToState(`choices[${index}]`)} ></Input>
           </div>
         );
       });
@@ -80,7 +96,7 @@ class QuestionEditPanel extends Component {
     renderRightChoiceInForm(question) {
       const choices = ['A', 'B', 'C', 'D', 'E'];
       return (
-        <Input type="select" defaultValue={question.rightChoice}>
+        <Input type="select" defaultValue={question.rightChoice} onBlur={this.blurToState("rightChoice")}>
           {choices.map((choice, index) => {
             return (
               (<option key={index} value={index}> {choice} </option>)
@@ -92,17 +108,30 @@ class QuestionEditPanel extends Component {
     
     renderDifficulty(question) {
       return (
-        <Input type="select">
+        <Input type="select" onBlur={this.blurToState("difficulty", parseInt)}>
           {QUESTION_DIFFICULTIES.map((questionDifficulty, index) => {
             return (<option key={questionDifficulty.value} value={questionDifficulty.value}>{ questionDifficulty.text }</option>);
           })}
         </Input>
       );
     }
+
+    onCancel() {
+      this.props.history.goBack();
+    }
+
+    onOK() {
+      this.props.editQuestion(this.state);
+      this.props.history.goBack();
+    }
 }
 
 function mapReducerToProps({ currentQuestionReducer }) {
   return { currentQuestionReducer }
 }
+
+const actions = {
+  editQuestion
+};
  
-export default connect(mapReducerToProps)(QuestionEditPanel);
+export default connect(mapReducerToProps, actions)(QuestionEditPanel);
