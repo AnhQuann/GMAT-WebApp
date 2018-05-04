@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import { openPopup, closePopup, removeQuestionPack  } from '../../actions';
 import _ from 'lodash';
+
+import { ROUTER_QUESTION_PACK_EDIT }  from '../../constants';
  
 class QuestionPackListPanel extends Component {
   constructor(props) {
@@ -27,6 +29,10 @@ class QuestionPackListPanel extends Component {
     }).bind(this);
     this.props.openPopup(yesCallBack);
   }
+
+  editRequest(questionPack) {
+    this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
+  }
   
   renderQuestionPacks(questionPacks) {
     return (
@@ -47,7 +53,7 @@ class QuestionPackListPanel extends Component {
                 <td>{questionPack.name}</td>
                 <td>{questionPack.questionCount}</td>
                 <td>
-                  <i className="far fa-edit question-edit"></i>
+                  <i className="far fa-edit question-edit" onClick={() => this.editRequest(questionPack)}></i>
                   <i className="fas fa-trash question-remove" onClick={() => this.removeRequest(questionPack)}></i>
                 </td>
               </tr>
