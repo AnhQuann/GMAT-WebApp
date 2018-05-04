@@ -56,28 +56,28 @@ class QuestionListPanel extends Component {
 
   render() {
       return (
-          <div className="question-panel">
-            <Button 
-              color="primary"
-              className="mb-2 clearfix float-right"
-              onClick={this.onAddRequest}
-              >
-                Add new question
-            </Button>
-            <table className="table table-stripped">
-              <thead className="">
-                <tr className="">
-                  <th className="th-no">#</th>
-                  <th className="th-stimulus">Stimulus</th>
-                  <th className="th-difficulty">Difficulty</th>
-                  <th className="">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="container">
-                { this.renderQuestions(this.props.questionReducer) }
-              </tbody>
-            </table>
-          </div>
+          <div>
+          <Button 
+            color="primary"
+            className="mb-2 clearfix float-right"
+            onClick={this.onAddRequest}
+            >
+              Add new question
+          </Button>
+          <table className="table table-stripped">
+            <thead className="">
+              <tr className="">
+                <th className="th-no">#</th>
+                <th className="th-stimulus">Stimulus</th>
+                <th className="th-difficulty">Difficulty</th>
+                <th className="">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="container">
+              { this.renderQuestions(this.props.questionReducer) }
+            </tbody>
+          </table>
+        </div>
       );
   }
 

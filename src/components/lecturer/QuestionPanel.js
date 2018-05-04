@@ -6,13 +6,15 @@ import QuestionEditPanel from './QuestionEditPanel';
 
 import './QuestionPanel.css';
 
+import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION } from '../../constants';
+
 class QuestionPanel extends Component {
   render() {
     return (
       <div className="question-panel">
         <Switch>
-          <Route path="/lecturer/question/(edit|add)" component= { QuestionEditPanel } />
-          <Route path="/lecturer/question" component={ QuestionListPanel } />
+          <Route path={ROUTER_QUESTION_EDIT_OR_ADD} component= { QuestionEditPanel } />
+          <Route path={ROUTER_QUESTION} component={ QuestionListPanel } />
         </Switch>
       </div>
     );
