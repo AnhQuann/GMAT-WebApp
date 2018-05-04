@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { REMOVE_QUESTION, EDIT_QUESTION } from '../actions';
+import { REMOVE_QUESTION, EDIT_QUESTION, ADD_QUESTION } from '../actions';
 
 const DUMMY_QUESTION_ARRAYS = [
   {
@@ -56,6 +56,7 @@ export default function(state = DUMMY_QUESTIONS, action) {
     case REMOVE_QUESTION:
       return _.omit(state, [action.payload]);
     case EDIT_QUESTION:
+    case ADD_QUESTION:
       const question = action.payload;
       return { ...state, [question.id]: _.cloneDeep(question) };
     default:

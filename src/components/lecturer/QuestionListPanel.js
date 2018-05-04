@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Button } from 'reactstrap';
 
-import QuestionEditForm from './QuestionEditForm';
-import { openPopup, closePopup, removeQuestion, selectQuestion  } from '../../actions';
+import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion  } from '../../actions';
 import { elipsis } from '../../utils';
 
 import "./QuestionPanel.css";
@@ -15,8 +15,9 @@ class QuestionListPanel extends Component {
       modalIsOpen: false
     };
     this.modalToggle = this.modalToggle.bind(this);
-    this.onEdit = this.onEdit.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onEditRequest = this.onEditRequest.bind(this);
+    this.onAddRequest = this.onAddRequest.bind(this);
   }
 
   modalToggle() {
@@ -33,9 +34,16 @@ class QuestionListPanel extends Component {
     });
   }
 
-  onEdit(question) {
-    this.props.selectQuestion(question);
+  onEditRequest(question) {
+    const handleOK = (updatedQuestion) => this.props.editQuestion(updatedQuestion);
+    this.props.selectQuestion(question, handleOK);
     this.props.history.push("/lecturer/question/edit");
+  }
+
+  onAddRequest() {
+    const handleOK = (addedQuestion) => { addedQuestion.id = Math.floor(Math.random() * 10 + 3); this.props.addQuestion(addedQuestion); };
+    this.props.selectQuestion(null, handleOK, "Add question");
+    this.props.history.push('/lecturer/question/add')
   }
 
   onDelete(question) {
@@ -49,7 +57,13 @@ class QuestionListPanel extends Component {
   render() {
       return (
           <div className="question-panel">
-            <QuestionEditForm isOpen={this.state.modalIsOpen} toggle={this.modalToggle} />
+            <Button 
+              color="primary"
+              className="mb-2 clearfix float-right"
+              onClick={this.onAddRequest}
+              >
+                Add new question
+            </Button>
             <table className="table table-stripped">
               <thead className="">
                 <tr className="">
@@ -75,7 +89,7 @@ class QuestionListPanel extends Component {
           <td scope="col" className="td-stimulus">{ elipsis(question.stimulus) }</td>
           <td scope="col" className="td-difficulty">{ this.renderDifficulty(question.difficulty) }</td>
           <td scope="col">
-            <i className="far fa-edit question-edit" onClick={() => this.onEdit(question)}></i>
+            <i className="far fa-edit question-edit" onClick={() => this.onEditRequest(question)}></i>
             <i className="fas fa-trash question-remove" onClick={() => this.onDelete(question)}></i>
           </td>
         </tr>
@@ -102,7 +116,9 @@ const actions = {
   openPopup,
   closePopup,
   removeQuestion,
-  selectQuestion
+  selectQuestion,
+  editQuestion,
+  addQuestion
 };
 
 export default connect(mapReducerToProps, actions)(QuestionListPanel);

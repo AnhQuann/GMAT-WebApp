@@ -17,13 +17,13 @@ class QuestionEditPanel extends Component {
     }
 
     componentWillMount() {
-      this.setState(_.cloneDeep(this.props.currentQuestionReducer));
+      this.setState(_.cloneDeep(this.props.currentQuestionReducer.question));
     }
 
     render() {
       return (
         <div>
-          <h3>Edit question</h3>
+          <h3>{this.props.currentQuestionReducer.actionTitle}</h3>
           { this.renderForm() }
         </div>
       );
@@ -40,12 +40,15 @@ class QuestionEditPanel extends Component {
     }
 
     renderForm() {
-      const question = this.props.currentQuestionReducer;
-      
+      const question = this.props.currentQuestionReducer.question;
+
       if(!question) {
         return (
           <div>Select a question to edit</div>
         );
+      }
+      else {
+        console.log(question);
       }
       
       return (
@@ -121,7 +124,7 @@ class QuestionEditPanel extends Component {
     }
 
     onOK() {
-      this.props.editQuestion(this.state);
+      this.props.currentQuestionReducer.handleOK(this.state);
       this.props.history.goBack();
     }
 }

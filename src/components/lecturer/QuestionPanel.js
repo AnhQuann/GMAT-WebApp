@@ -11,7 +11,7 @@ class QuestionPanel extends Component {
     return (
       <div className="question-panel">
         <Switch>
-          <Route path="/lecturer/question/edit" component= { QuestionEditPanel } />
+          <Route path="/lecturer/question/(edit|add)" component= { QuestionEditPanel } />
           <Route path="/lecturer/question" component={ QuestionListPanel } />
         </Switch>
       </div>
