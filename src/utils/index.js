@@ -5,3 +5,12 @@ export function elipsis(text, maxLength=100) {
     return text;
   }
 }
+
+export function tryGet(obj, key, defaultValue) {
+  if(obj[key]) return obj[key];
+  return defaultValue;
+}
+
+// export function elipsis(text, n) {
+
+// }

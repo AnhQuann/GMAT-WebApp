@@ -86,9 +86,9 @@ class QuestionListPanel extends Component {
       return (
         <tr key={id}>
           <th scope="row" className="td-no">{ id } </th>
-          <td scope="col" className="td-stimulus">{ elipsis(question.stimulus) }</td>
-          <td scope="col" className="td-difficulty">{ this.renderDifficulty(question.difficulty) }</td>
-          <td scope="col">
+          <td className="td-stimulus">{ elipsis(question.stimulus) }</td>
+          <td className="td-difficulty">{ this.renderDifficulty(question.difficulty) }</td>
+          <td>
             <i className="far fa-edit question-edit" onClick={() => this.onEditRequest(question)}></i>
             <i className="fas fa-trash question-remove" onClick={() => this.onDelete(question)}></i>
           </td>

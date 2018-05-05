@@ -6,6 +6,10 @@ html, body, #root {
   height: 100%;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .panel {
   width: 100%;
   background-color: #FFFF;

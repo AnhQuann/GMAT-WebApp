@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
-import { openPopup, closePopup, removeQuestionPack  } from '../../actions';
 import _ from 'lodash';
 
+import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from '../../actions';
 import { ROUTER_QUESTION_PACK_EDIT }  from '../../constants';
  
 class QuestionPackListPanel extends Component {
   constructor(props) {
     super(props);
     this.removeRequest = this.removeRequest.bind(this);
+    this.editRequest = this.editRequest.bind(this);
   }
 
   render() {
@@ -31,6 +32,7 @@ class QuestionPackListPanel extends Component {
   }
 
   editRequest(questionPack) {
+    this.props.selectQuestionPack(questionPack);
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
   
@@ -39,19 +41,19 @@ class QuestionPackListPanel extends Component {
       <Table striped>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Number of questions</th>
-            <th>Actions</th>
+            <th scope="column">#</th>
+            <th scope="column">Name</th>
+            <th scope="column">Number of questions</th>
+            <th scope="column">Actions</th>
           </tr>
         </thead>
         <tbody>
           { _.map(questionPacks, (questionPack, id) => {
             return (
               <tr key={id}>
-                <td>{questionPack.id}</td>
+                <th scope="column">{questionPack.id}</th>
                 <td>{questionPack.name}</td>
-                <td>{questionPack.questionCount}</td>
+                <td>{questionPack.questions.length}</td>
                 <td>
                   <i className="far fa-edit question-edit" onClick={() => this.editRequest(questionPack)}></i>
                   <i className="fas fa-trash question-remove" onClick={() => this.removeRequest(questionPack)}></i>
@@ -69,6 +71,6 @@ function mapReducerToState({ questionPackReducer }) {
   return { questionPackReducer };
 }
 
-const actions = { closePopup, openPopup, removeQuestionPack  };
+const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack  };
  
 export default connect(mapReducerToState, actions)(QuestionPackListPanel);
