@@ -6,6 +6,7 @@ class EditPanel extends Component {
     super(props);
     this.blurToState = this.blurToState.bind(this);
     this.tryGet = this.tryGet.bind(this);
+    this.tryGetProp = this.tryGetProp.bind(this);
   }
 
   blurToState(propName, converter=null) {
@@ -18,8 +19,29 @@ class EditPanel extends Component {
     return blur.bind(this);
   }
 
+  blurToProp(propName, converter=null) {
+    const blur = (event) => {
+      const newValue = converter==null? event.target.value: converter(event.target.value);
+      _.set(this, propName, newValue);
+    };
+    return blur.bind(this);
+  }
+
+  assignToProp(path) {
+    const assign = (value) => {
+      _.set(this, path, value);
+    };
+    return assign.bind(this);
+  }
+
   tryGet(path, defaultValue, converter=null) {
     const value = this.state[path];
+    if (value) return converter == null ? value : converter(value);
+    return defaultValue;
+  }
+
+  tryGetProp(path, defaultValue, converter=null) {
+    const value = _.get(this, path);
     if (value) return converter == null ? value : converter(value);
     return defaultValue;
   }

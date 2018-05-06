@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import { tryGet, elipsis } from '../../utils';
 
+import './QuestionPackQuestionListPanel.css';
+
 class QuestionPackQuestionListPanel extends Component {
     constructor(props) {
       super(props);
@@ -14,6 +16,10 @@ class QuestionPackQuestionListPanel extends Component {
       this.setState({
         questions: _.cloneDeep(this.props.defaultValue)
       });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      this.props.questionsDidUpdate(this.state.questions);
     }
 
     removeQuestion(removeIndex) {
@@ -27,7 +33,10 @@ class QuestionPackQuestionListPanel extends Component {
       const questions = this.state.questions;
       return (
         <div>
-          <Button size="sm" color="secondary" className="">Add new question</Button>
+          <div className="d-flex align-items-center justify-content-between">
+            <span className="legend" >Questions</span>
+            <Button size="sm" color="secondary" className="ml-2">Add new question</Button>
+          </div>
           <FormGroup>
             {
               questions.map((question, index) => this.renderQuestion(question, index))
@@ -39,11 +48,11 @@ class QuestionPackQuestionListPanel extends Component {
 
     renderQuestion(question, index) {
       return (
-        <FormGroup key={index} className="d-flex align-items-center mt-4">
-          <span className="h6 mr-2">{parseInt(index) + 1}.</span>
-          <Input defaultValue={ elipsis(question.stimulus) } disabled></Input>
+        <FormGroup key={index} className="question-wrapper">
+          <span className="question-no">{parseInt(index) + 1}.</span>
+          <span className="question-stimulus">{elipsis(question.stimulus)}</span>
           <i 
-            className="fas fa-times ml-2 text-danger pointer"
+            className="fas fa-times ml-2 text-danger pointer question-remove"
             onClick={ () => this.removeQuestion(parseInt(index)) }
             >
           </i>

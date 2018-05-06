@@ -13,31 +13,33 @@ class QuestionPackEditPanel extends EditPanel {
     super(props);
   }
 
-    componentWillMount() {
-      this.setState(_.cloneDeep(this.props.currentQuestionPackReducer));
-    }
+  componentWillMount() {
+    this.updateValues = _.cloneDeep(this.props.currentQuestionPackReducer);
+    console.log(this.updateValues);
+    console.log("Mount");
+  }
 
-    render() {
-        return (
-          <div className="panel">
-            <h3>Edit question pack</h3>
-            <FormGroup>
-              <legend>Name</legend>
-              <Input defaultValue={this.tryGet("name", "")} />
-            </FormGroup>
-            <FormGroup>
-              <legend>Questions</legend>
-              <QuestionPackQuestionListPanel 
-                defaultValue={this.tryGet("questions", [])}
-              />
-            </FormGroup>
-            <FormGroup className="d-flex justify-content-end">
-              <Button color="secondary mr-2" >Cancel</Button>
-              <Button color="primary">OK</Button>
-            </FormGroup>
-          </div>
-        );
-    }
+  render() {
+      return (
+        <div className="panel">
+          <h3>Edit question pack</h3>
+          <FormGroup>
+            <legend>Name</legend>
+            <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>
+          </FormGroup>
+          <FormGroup>
+            <QuestionPackQuestionListPanel 
+              defaultValue={this.tryGetProp("updateValues.questions", [])}
+              questionsDidUpdate={this.assignToProp("updateValues.questions")}
+            />
+          </FormGroup>
+          <FormGroup className="d-flex justify-content-end">
+            <Button color="secondary mr-2" >Cancel</Button>
+            <Button color="primary">OK</Button>
+          </FormGroup>
+        </div>
+      );
+  }
 }
 
 function mapReducerToProps({ currentQuestionPackReducer }) {
