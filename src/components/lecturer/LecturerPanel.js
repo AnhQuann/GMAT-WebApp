@@ -11,8 +11,8 @@ class LecturerPanel extends Component {
     render() {
         return (
             <Switch>
-              <Route path="/lecturer/question" component={QuestionPanel} />
-              <Route path="/lecturer/question-pack" component={QuestionPackPanel} />
+              <Route path={ROUTER_QUESTION} component={QuestionPanel} />
+              <Route path={ROUTER_QUESTION_PACK} component={QuestionPackPanel} />
             </Switch>
         )
     }

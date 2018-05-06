@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { FormGroup, Button, Input } from 'reactstrap';
+import { FormGroup, Button } from 'reactstrap';
 import _ from 'lodash';
 
-import { tryGet, elipsis } from '../../utils';
+import { elipsis } from '../../utils';
 
 import './QuestionPackQuestionListPanel.css';
 
@@ -23,7 +23,7 @@ class QuestionPackQuestionListPanel extends Component {
     }
 
     removeQuestion(removeIndex) {
-      const newQuestions = this.state.questions.filter((question, index) => index != removeIndex);
+      const newQuestions = this.state.questions.filter((question, index) => index !== removeIndex);
       this.setState({
         questions: newQuestions
       });
@@ -49,11 +49,11 @@ class QuestionPackQuestionListPanel extends Component {
     renderQuestion(question, index) {
       return (
         <FormGroup key={index} className="question-wrapper">
-          <span className="question-no">{parseInt(index) + 1}.</span>
+          <span className="question-no">{parseInt(index, 10) + 1}.</span>
           <span className="question-stimulus">{elipsis(question.stimulus)}</span>
           <i 
             className="fas fa-times ml-2 text-danger pointer question-remove"
-            onClick={ () => this.removeQuestion(parseInt(index)) }
+            onClick={ () => this.removeQuestion(parseInt(index, 10)) }
             >
           </i>
         </FormGroup>

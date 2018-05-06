@@ -6,6 +6,7 @@ import popupReducer from './popupReducer';
 import currentQuestionReducer from './currentQuestionReducer';
 import questionPackReducer from './questionPackReducer';
 import currentQuestionPackReducer from './currentQuestionPackReducer';
+import questionSearchResultReducer from './questionSearchResultReducer';
 
 const rootReducer = combineReducers({
     dummyReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     popupReducer,
     currentQuestionReducer,
     questionPackReducer,
-    currentQuestionPackReducer
+    currentQuestionPackReducer,
+    questionSearchResultReducer
 });
 
 export default rootReducer;

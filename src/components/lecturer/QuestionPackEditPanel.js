@@ -1,28 +1,25 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
-import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import React from 'react';
+import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import QuestionPackQuestionListPanel from './QuestionPackQuestionListPanel';
+import QPackAddQuestionModal from './QPackAddQuestionModal';
 
 import EditPanel from '../common/EditPanel';
 
 import './QuestionEditPanel.css';
  
 class QuestionPackEditPanel extends EditPanel {
-  constructor(props) {
-    super(props);
-  }
 
   componentWillMount() {
     this.updateValues = _.cloneDeep(this.props.currentQuestionPackReducer);
-    console.log(this.updateValues);
-    console.log("Mount");
   }
 
   render() {
       return (
         <div className="panel">
           <h3>Edit question pack</h3>
+          <QPackAddQuestionModal />
           <FormGroup>
             <legend>Name</legend>
             <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>

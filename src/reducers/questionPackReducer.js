@@ -1,9 +1,5 @@
 import _ from "lodash";
-import { LOAD_QUESTION_PACK, REMOVE_QUESTION_PACK, SELECT_QUESTION_PACK } from '../actions';
-
-const DEFAULT_STATE = {
-  
-};
+import { REMOVE_QUESTION_PACK, SELECT_QUESTION_PACK } from '../actions';
 
 const DUMMY_STATE = _.mapKeys([
   {

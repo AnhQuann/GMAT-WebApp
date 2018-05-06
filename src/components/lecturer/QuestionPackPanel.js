@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Table, Button } from 'reactstrap';
 import { Route, Switch } from 'react-router-dom';
-import _ from 'lodash';
 
 import QuestionPackListPanel from './QuestionPackListPanel';
 import QuestionPackEditPanel from './QuestionPackEditPanel';

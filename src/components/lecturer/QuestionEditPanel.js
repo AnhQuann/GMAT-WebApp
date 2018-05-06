@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, Button, Input, Label } from 'reactstrap';
+import React from 'react';
+import { FormGroup, Button, Input } from 'reactstrap';
 import _ from 'lodash';
 
 import { connect } from 'react-redux';

@@ -27,7 +27,7 @@ class QuestionPackListPanel extends Component {
     const yesCallBack = (() => {
       this.props.removeQuestionPack(questionPack);
       this.props.closePopup();
-    }).bind(this);
+    });
     this.props.openPopup(yesCallBack);
   }
 
