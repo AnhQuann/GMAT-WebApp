@@ -36,7 +36,7 @@ class ResultPanel extends Component {
                     <h3>You answered {numberRightAnswers.length} out of {_.values(result).length} ({correctPercent}%) correctly.</h3>
                     <h3>Total time: {moment().startOf('day').seconds(this.props.resultReducer.totalTime).format('H:mm:ss')}</h3>
 
-                    <Table dark>
+                    <Table responsive bordered>
                         <thead>
                             <tr>
                                 <th className="text-center">Order</th>
