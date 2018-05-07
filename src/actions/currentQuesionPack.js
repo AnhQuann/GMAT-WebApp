@@ -1,9 +1,20 @@
 export const SELECT_QUESTION_PACK = "Select question pack";
 
-export function selectQuestionPack(questionPack) {
+const defaultQuestionPack = () => {
+  return {
+    name: "",
+    id: "",
+    questions: []
+  }
+}
+
+export function selectQuestionPack(questionPack, handleOK, handleCancel, title="Edit question") {
   return {
     type: SELECT_QUESTION_PACK,
-    payload: {...questionPack, questions: DUMMY_QUESTION_ARRAYS }
+    payload: {
+      questionPack: questionPack? questionPack: defaultQuestionPack(),
+      handleCancel, handleOK, title
+    }
   };
 }
 

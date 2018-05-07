@@ -4,20 +4,23 @@ import { Table, Button } from 'reactstrap';
 import _ from 'lodash';
 
 import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from '../../actions';
+import { addQuestionPack } from '../../actions';
+
 import { ROUTER_QUESTION_PACK_EDIT }  from '../../constants';
  
-class QuestionPackListPanel extends Component {
+class QPackListPanel extends Component {
   constructor(props) {
     super(props);
     this.removeRequest = this.removeRequest.bind(this);
     this.editRequest = this.editRequest.bind(this);
+    this.addRequest = this.addRequest.bind(this);
   }
 
   render() {
     const questionPacks = this.props.questionPackReducer;
     return (
       <div className="panel">
-        <Button className="add-button-right" color="primary" >Add new pack</Button>
+        <Button className="add-button-right" color="primary" onClick={this.addRequest} >Add new pack</Button>
         { this.renderQuestionPacks(questionPacks) }
       </div>
     );
@@ -31,8 +34,23 @@ class QuestionPackListPanel extends Component {
     this.props.openPopup(yesCallBack);
   }
 
+  addRequest() {
+    const handleOK = ((questionPack) => {
+      this.props.addQuestionPack(questionPack);
+    }).bind(this);
+    
+    const handleCancel = (
+      () => this.props.history.goBack()
+    ).bind(this);
+
+    this.props.selectQuestionPack(null, handleOK, handleCancel);
+    this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
+  }
+
   editRequest(questionPack) {
-    this.props.selectQuestionPack(questionPack);
+    this.props.selectQuestionPack(questionPack, 
+      () => console.log("OK"),
+      () => console.log("Cancel"));
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
   
@@ -59,8 +77,8 @@ class QuestionPackListPanel extends Component {
                   <i className="fas fa-trash question-remove" onClick={() => this.removeRequest(questionPack)}></i>
                 </td>
               </tr>
-            );
-          }) }
+              );
+            }) }
         </tbody>
       </Table>
     );
@@ -71,6 +89,6 @@ function mapReducerToState({ questionPackReducer }) {
   return { questionPackReducer };
 }
 
-const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack  };
+const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack, addQuestionPack  };
  
-export default connect(mapReducerToState, actions)(QuestionPackListPanel);
+export default connect(mapReducerToState, actions)(QPackListPanel);

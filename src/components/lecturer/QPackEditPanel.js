@@ -6,18 +6,26 @@ import QPackQuestionListPanel from './QPackQuestionListPanel';
 
 import EditPanel from '../common/EditPanel';
 
-import './QuestionEditPanel.css';
+import './QPackEditPanel.css';
  
-class QuestionPackEditPanel extends EditPanel {
+class QPackEditPanel extends EditPanel {
+
+  constructor(props) {
+    super(props);
+    this.handleOK = (() => {
+      this.props.currentQuestionPackReducer.handleOK(this.updateValues);
+    }).bind(this);
+    this.handleCancel = (() => this.props.currentQuestionPackReducer.handleCancel());
+  }
 
   componentWillMount() {
-    this.updateValues = _.cloneDeep(this.props.currentQuestionPackReducer);
+    this.updateValues = _.cloneDeep(this.props.currentQuestionPackReducer.questionPack);
   }
 
   render() {
     return (
       <div className="panel">
-        <h3>Edit question pack</h3>
+        <h3>{ this.props.currentQuestionPackReducer.title }</h3>
         <FormGroup>
           <legend>Name</legend>
           <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>
@@ -29,8 +37,8 @@ class QuestionPackEditPanel extends EditPanel {
           />
         </FormGroup>
         <FormGroup className="d-flex justify-content-end">
-          <Button color="secondary mr-2" >Cancel</Button>
-          <Button color="primary">OK</Button>
+          <Button color="secondary mr-2" onClick={this.handleCancel} >Cancel</Button>
+          <Button color="primary" onClick={this.handleOK} >OK</Button>
         </FormGroup>
       </div>
     );
@@ -41,4 +49,4 @@ function mapReducerToProps({ currentQuestionPackReducer }) {
   return { currentQuestionPackReducer };
 }
  
-export default connect(mapReducerToProps)(QuestionPackEditPanel);
+export default connect(mapReducerToProps)(QPackEditPanel);

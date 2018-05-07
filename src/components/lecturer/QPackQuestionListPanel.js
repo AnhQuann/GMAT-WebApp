@@ -8,7 +8,7 @@ import QPackAddQuestionModal from './QPackAddQuestionModal';
 
 import './QPackQuestionListPanel.css';
 
-class QuestionPackQuestionListPanel extends Component {
+class QPackQuestionListPanel extends Component {
     constructor(props) {
       super(props);
       this.removeQuestion = this.removeQuestion.bind(this);
@@ -50,19 +50,19 @@ class QuestionPackQuestionListPanel extends Component {
     onNewQuestionsSelectionDone(newQuestions) {
       const questions = this.state.questions;
       const difference = _.filter(newQuestions, (newQuestion, id) => {
-        console.log(!_.find(questions, {'id': newQuestion.id}));
         return !_.find(questions, {'id': newQuestion.id});
       });
       this.setState({
         questions: _.concat(questions, difference)
-      })
+      });
       this.closeModal();
     }
 
     render() {
       const questions = this.state.questions;
       return (
-        <div>
+        <di 
+        \ v>
           <QPackAddQuestionModal 
             isOpen={this.state.modalIsOpen}
             toggle={this.closeModal}
@@ -96,4 +96,4 @@ class QuestionPackQuestionListPanel extends Component {
     }
 }
  
-export default QuestionPackQuestionListPanel;
+export default QPackQuestionListPanel;
