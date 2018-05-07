@@ -4,22 +4,40 @@ import _ from 'lodash';
 
 import { elipsis } from '../../utils';
 
-import './QuestionPackQuestionListPanel.css';
+import QPackAddQuestionModal from './QPackAddQuestionModal';
+
+import './QPackQuestionListPanel.css';
 
 class QuestionPackQuestionListPanel extends Component {
     constructor(props) {
       super(props);
       this.removeQuestion = this.removeQuestion.bind(this);
+      this.openModal = this.openModal.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+      this.onNewQuestionsSelectionDone = this.onNewQuestionsSelectionDone.bind(this);
     }
 
     componentWillMount() {
       this.setState({
-        questions: _.cloneDeep(this.props.defaultValue)
+        questions: _.cloneDeep(this.props.defaultValue),
+        modalIsOpen: false
       });
     }
 
     componentDidUpdate(prevProps, prevState) {
       this.props.questionsDidUpdate(this.state.questions);
+    }
+
+    openModal() {
+      this.setState({
+        modalIsOpen: true
+      });
+    }
+
+    closeModal() {
+      this.setState({
+        modalIsOpen: false
+      });
     }
 
     removeQuestion(removeIndex) {
@@ -29,13 +47,30 @@ class QuestionPackQuestionListPanel extends Component {
       });
     }
 
+    onNewQuestionsSelectionDone(newQuestions) {
+      const questions = this.state.questions;
+      const difference = _.filter(newQuestions, (newQuestion, id) => {
+        console.log(!_.find(questions, {'id': newQuestion.id}));
+        return !_.find(questions, {'id': newQuestion.id});
+      });
+      this.setState({
+        questions: _.concat(questions, difference)
+      })
+      this.closeModal();
+    }
+
     render() {
       const questions = this.state.questions;
       return (
         <div>
-          <div className="d-flex align-items-center justify-content-between">
+          <QPackAddQuestionModal 
+            isOpen={this.state.modalIsOpen}
+            toggle={this.closeModal}
+            onSelectionDone={this.onNewQuestionsSelectionDone}
+          />
+          <div className="d-flex align-items-center justify-content-between mt-3">
             <span className="legend" >Questions</span>
-            <Button size="sm" color="secondary" className="ml-2">Add new question</Button>
+            <Button size="sm" color="secondary" className="ml-2" onClick={this.openModal}>Add new question</Button>
           </div>
           <FormGroup>
             {
@@ -60,6 +95,5 @@ class QuestionPackQuestionListPanel extends Component {
       )
     }
 }
- 
  
 export default QuestionPackQuestionListPanel;

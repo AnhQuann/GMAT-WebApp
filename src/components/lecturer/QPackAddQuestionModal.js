@@ -1,41 +1,75 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, Input, Button } from 'reactstrap';
-import { connect } from 'react-redux';
 
 import QList from './QList';
+
 import { searchQuestion } from '../../actions';
 
+import "./QPackAddQuestionModal.css";
+
 class QPackAddQuestionModal extends Component {
+
   constructor(props) {
     super(props);
-    this.close = this.close.bind(this);
+    this.toggleQuestionSelection = this.toggleQuestionSelection.bind(this);
+    this.clearQuestionSelections = this.clearQuestionSelections.bind(this);
   }
-
+  
   componentWillMount() {
+    const action = searchQuestion("");
     this.setState({
-      // isOpen: this.props.isOpen   
-      isOpen: true
+      questions: action.payload
     });
-    this.props.searchQuestion("");
   }
 
-  close() {
+  toggleQuestionSelection(question) {
     this.setState({
-      isOpen: false
+      questions: {
+        ...this.state.questions,
+        [question.id]: {
+          ...question,
+          selected: !question.selected
+        }
+      }
     });
+  }
+
+  clearQuestionSelections() {
+    this.setState({
+      questions: _.mapValues(this.state.questions, (question) => {
+        return { ...question, selected: false };
+      })
+    });
+  }
+
+  selectedQuestions() {
+    return _.filter(this.state.questions, (question => question.selected));
   }
 
   render() {
-      const questions = this.props.questionSearchResultReducer;
+      const questions = this.state.questions;
       return (
-        <Modal isOpen={this.state.isOpen} toggle={this.close} >
+        <Modal 
+            isOpen={this.props.isOpen} 
+            toggle={this.props.toggle} 
+            onOpened={this.clearQuestionSelections} >
           <ModalHeader>Add question</ModalHeader>
           <ModalBody>
             <Input placeholder="Search here"></Input>
-            <QList questions={questions} />
+            <div className="q-modal-scroll">
+              <QList 
+                questions={questions} 
+                stimulusMaxLength={20} 
+                onQuestionClicked={this.toggleQuestionSelection}
+                pointer={true} 
+              />
+            </div>
             <div className="d-flex mt-2 justify-content-end">
-              <Button color="secondary" >Cancel</Button>
-              <Button color="primary" className="ml-2" >OK</Button>
+              <Button color="secondary" onClick={this.props.toggle} >Cancel</Button>
+              <Button 
+                color="primary" className="ml-2"
+                onClick={() => this.props.onSelectionDone(this.selectedQuestions())}>OK</Button>
             </div>
           </ModalBody>
         </Modal>
@@ -43,12 +77,4 @@ class QPackAddQuestionModal extends Component {
   }
 }
 
-function mapReducerToProps({ questionSearchResultReducer }) {
-  return { questionSearchResultReducer };
-}
-
-const actions = {
-  searchQuestion
-};
-
-export default connect(mapReducerToProps, actions)(QPackAddQuestionModal);
+export default QPackAddQuestionModal;

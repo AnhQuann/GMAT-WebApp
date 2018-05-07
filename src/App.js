@@ -6,7 +6,6 @@ import LecturerContainer from './components/lecturer/LecturerContainer';
 import Popup from './components/common/Popup';
 
 class App extends Component {
-
   render() {
     return (
       <div>

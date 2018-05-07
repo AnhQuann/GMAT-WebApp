@@ -2,8 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import QuestionPackQuestionListPanel from './QuestionPackQuestionListPanel';
-import QPackAddQuestionModal from './QPackAddQuestionModal';
+import QPackQuestionListPanel from './QPackQuestionListPanel';
 
 import EditPanel from '../common/EditPanel';
 
@@ -16,26 +15,25 @@ class QuestionPackEditPanel extends EditPanel {
   }
 
   render() {
-      return (
-        <div className="panel">
-          <h3>Edit question pack</h3>
-          <QPackAddQuestionModal />
-          <FormGroup>
-            <legend>Name</legend>
-            <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>
-          </FormGroup>
-          <FormGroup>
-            <QuestionPackQuestionListPanel 
-              defaultValue={this.tryGetProp("updateValues.questions", [])}
-              questionsDidUpdate={this.assignToProp("updateValues.questions")}
-            />
-          </FormGroup>
-          <FormGroup className="d-flex justify-content-end">
-            <Button color="secondary mr-2" >Cancel</Button>
-            <Button color="primary">OK</Button>
-          </FormGroup>
-        </div>
-      );
+    return (
+      <div className="panel">
+        <h3>Edit question pack</h3>
+        <FormGroup>
+          <legend>Name</legend>
+          <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>
+        </FormGroup>
+        <FormGroup>
+          <QPackQuestionListPanel 
+            defaultValue={this.tryGetProp("updateValues.questions", [])}
+            questionsDidUpdate={this.assignToProp("updateValues.questions")}
+          />
+        </FormGroup>
+        <FormGroup className="d-flex justify-content-end">
+          <Button color="secondary mr-2" >Cancel</Button>
+          <Button color="primary">OK</Button>
+        </FormGroup>
+      </div>
+    );
   }
 }
 
