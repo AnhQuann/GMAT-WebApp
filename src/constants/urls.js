@@ -1,5 +1,9 @@
-export const ROUTER_STUDENT = "/student";
+export const ROUTER_STUDENT = "";
 
+export const ROUTER_PACK = `${ROUTER_STUDENT}/pack`;
+export const ROUTER_PACK_PARAM_ID = `${ROUTER_PACK}/:id`;
+
+export const ROUTER_RESULT = "/result";
 
 export const ROUTER_LECTURER = "/lecturer";
 

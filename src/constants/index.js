@@ -22,5 +22,7 @@ export const CHOICE_LETTERS = [
 ]
 
 export { ROUTER_LECTURER, ROUTER_STUDENT } from './urls';
+export { ROUTER_PACK, ROUTER_PACK_PARAM_ID } from './urls';
 export { ROUTER_QUESTION_PACK, ROUTER_QUESTION_PACK_EDIT_OR_ADD, ROUTER_QUESTION_PACK_EDIT } from './urls';
 export { ROUTER_QUESTION, ROUTER_QUESTION_EDIT_OR_ADD } from './urls';
+export { ROUTER_RESULT } from './urls';

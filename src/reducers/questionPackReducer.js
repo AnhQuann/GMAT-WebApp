@@ -9,19 +9,47 @@ const DUMMY_STATE = _.mapKeys([
   {
     id: 0,
     name: "CR1",
-    questionCount: 4,
+    questions: [
+      2,
+      1
+    ]
   },
   {
     id: 1,
     name: "CR2",
-    questionCount: 5,
+    questions: [
+      2,
+      3,
+      1
+    ]
   },
   {
     id: 2,
     name: "CR3",
-    questionCount: 7,
+    questions: [
+      3,
+      1,
+      2
+    ]
   },
-], "id");
+  {
+    id: 3,
+    name: "CR4",
+    questions: [
+      2,
+      3,
+      1
+    ]
+  },
+  {
+    id: 4,
+    name: "CR5",
+    questions: [
+      2,
+      1
+    ]
+  },
+], 'id');
 
 export default function(state = DUMMY_STATE, action) {
   switch(action.type) {

@@ -49,7 +49,7 @@ const DUMMY_QUESTION_ARRAYS = [
   }
 ];
 
-const DUMMY_QUESTIONS = _.mapKeys(DUMMY_QUESTION_ARRAYS, "id");
+export const DUMMY_QUESTIONS = _.mapKeys(DUMMY_QUESTION_ARRAYS, "id");
 
 export default function(state = DUMMY_QUESTIONS, action) {
   switch(action.type) {
