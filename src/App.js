@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 import Login from './components/user/login';
 import LecturerContainer from './components/lecturer/LecturerContainer';
 import Popup from './components/common/Popup';
+import { checkToken } from './actions';
 
-import { ROLE_LECTURER, ROLE_STUDENT } from  './constants';
+import { ROLE_LECTURER } from  './constants';
 
 class App extends Component {
 
@@ -19,6 +20,10 @@ class App extends Component {
     else {
       return (<Login />);
     }
+  }
+
+  componentWillMount() {
+    this.props.checkToken();
   }
 
   renderApp(role) {
@@ -36,10 +41,13 @@ class App extends Component {
 }
 
 function mapReducerToState({ authReducer }) {
-  console.log(authReducer);
   return { authReducer };
 }
 
+const actions = {
+  checkToken
+}
+
 export default withRouter (
-  connect(mapReducerToState)(App)
+  connect(mapReducerToState, actions)(App)
 );

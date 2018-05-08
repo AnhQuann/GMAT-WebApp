@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 
-import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion  } from '../../actions';
+import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from '../../actions';
 import QList from './QList';
 
 import "./QuestionPanel.css";
@@ -18,6 +18,10 @@ class QListPanel extends Component {
     this.onDeleteRequest = this.onDeleteRequest.bind(this);
     this.onEditRequest = this.onEditRequest.bind(this);
     this.onAddRequest = this.onAddRequest.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchQuestions();
   }
 
   modalToggle() {
@@ -80,7 +84,8 @@ const actions = {
   removeQuestion,
   selectQuestion,
   editQuestion,
-  addQuestion
+  addQuestion,
+  fetchQuestions
 };
 
 export default connect(mapReducerToProps, actions)(QListPanel);

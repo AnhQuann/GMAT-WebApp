@@ -26,7 +26,6 @@ class Popup extends Component {
 }
 
 function mapReducerToState(state) {
-  console.log(state);
   return { popupReducer: state.popupReducer };
 }
 

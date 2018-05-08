@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Input, Container, FormGroup, FormFeedback } from 'reactstrap';
-import { flatten } from 'flat';
+import { Col, Button, Input, Container, FormGroup } from 'reactstrap';
 
 import { login } from '../../actions';
 

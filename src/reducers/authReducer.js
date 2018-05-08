@@ -13,13 +13,24 @@ export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: 
                 role: user ? user.role: null
             };
         case CHECK_TOKEN:
-            if(!action.payload.data || (action.payload.data && action.payload.data.success === 0)) document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            const payload = action.payload;
+            if (!payload) return state;
+            
+            const token = payload.token;
+            const role = payload.role;
             return {
-                ...state,
-                doneCheckToken: true,
-                isLoggedIn: action.payload.data ? action.payload.data.success === 1 : false,
-                user: action.payload.data && action.payload.data.user ? action.payload.data.user : null
+              ...state,
+              isLoggedIn: token != null,
+              role
             };
+
+            // if(!action.payload.data || (action.payload.data && action.payload.data.success === 0)) document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            // return {
+            //     ...state,
+            //     doneCheckToken: true,
+            //     isLoggedIn: action.payload.data ? action.payload.data.success === 1 : false,
+            //     user: action.payload.data && action.payload.data.user ? action.payload.data.user : null
+            // };
         case LOGOUT:
             return { ...state, isLoggedIn: false, user: null };
         default:

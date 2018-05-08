@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import { SIGN_IN, AUTH } from './urls';
 import { AXIOS_CONFIGS } from './settings';
@@ -10,16 +11,24 @@ export const GET_USER = "GET USER";
 
 axios.defaults.config = AXIOS_CONFIGS;
 
+const tokenRequest = (request) => {
+  const credentials = loadCredentials();
+  if (credentials && credentials.token) {
+    request.headers.token = credentials.token;
+  }
+  return request;
+}
+
+axios.interceptors.request.use(tokenRequest, (error) => Promise.reject(error));
+
 export function login(username, password) {
   const body = { username, password };
   const request = axios.post(SIGN_IN, body);
   const tokenInterceptor = (response, error) => {
     return new Promise(
       (resolve, reject) => {
-        if (response.data && response.data.token) {
-          saveCredentials({
-            token: response.data.token
-          });
+        if (_.get(response, "data.token") && _.get(response, "data.user.role")) {
+          saveCredentials(response.data.token, response.data.user.role);
         }
         resolve(response);
       }
@@ -32,44 +41,58 @@ export function login(username, password) {
 }
 
 export function logout() {    
-    clearCredentials();
-    return  {
-        type: LOGOUT,
-        payload: null
-    }
+  clearCredentials();
+  return  {
+      type: LOGOUT,
+      payload: null
+  };
 }
 
 export function checkToken() {
-    let token = document.cookie.split("; ").filter(e => {
-        if (e.slice(0, e.indexOf("=")) === "token") return true;
-        else return false;
-    })[0];
+    // let token = document.cookie.split("; ").filter(e => {
+    //     if (e.slice(0, e.indexOf("=")) === "token") return true;
+    //     else return false;
+    // })[0];
 
-    if(token) {
-        const body = { token: token.slice(token.indexOf("=")+1, token.length) };
-        const request = axios.post(AUTH, body);
-
-        return  {
-            type: CHECK_TOKEN,
-            payload: request
-        }
+    const credentials = loadCredentials();
+    if (credentials && credentials.token && credentials.role) {
+      return {
+        type: CHECK_TOKEN,
+        payload: credentials
+      }
     }
-    else return { type: CHECK_TOKEN, payload: {} }
+    else {
+      return {
+        type: CHECK_TOKEN,
+        payload: null
+      };
+    }
+
+    // if(token) {
+    //     const body = { token: token.slice(token.indexOf("=")+1, token.length) };
+    //     const request = axios.post(AUTH, body);
+
+    //     return  {
+    //         type: CHECK_TOKEN,
+    //         payload: request
+    //     }
+    // }
+    // else return { type: CHECK_TOKEN, payload: {} }
 }
 
-function saveCredentials(token) {
+function saveCredentials(token, role) {
   var now = new Date();
   var expirationTime = new Date(now.setDate(now.getDate() + 7)).toGMTString();
-  sessionStorage.setItem("credentials", JSON.stringify({
-    token, expirationTime
+  localStorage.setItem("credentials", JSON.stringify({
+    token, expirationTime, role
   }));
 }
 
 function loadCredentials() {
-  const credentialsText = sessionStorage.getItem("credentials");
+  const credentialsText = localStorage.getItem("credentials");
   return credentialsText ? JSON.parse(credentialsText): null;
 }
 
 function clearCredentials() {
-  sessionStorage.removeItem("credentials");
+  localStorage.removeItem("credentials");
 }
