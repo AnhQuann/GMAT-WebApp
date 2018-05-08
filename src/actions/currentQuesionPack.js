@@ -5,17 +5,26 @@ const defaultQuestionPack = () => {
     name: "",
     id: "",
     questions: []
-  }
+  };
 }
 
 export function selectQuestionPack(questionPack, handleOK, handleCancel, title="Edit question") {
   return {
     type: SELECT_QUESTION_PACK,
     payload: {
-      questionPack: questionPack? questionPack: defaultQuestionPack(),
+      questionPack: getQP(questionPack),
       handleCancel, handleOK, title
     }
   };
+}
+
+function getQP(questionPack) {
+  const returnQP = questionPack? questionPack : defaultQuestionPack();
+  if (!returnQP.loaded) {
+    returnQP.questions = DUMMY_QUESTION_ARRAYS;
+    returnQP.loaded = true;
+  }
+  return returnQP;
 }
 
 const DUMMY_QUESTION_ARRAYS = [

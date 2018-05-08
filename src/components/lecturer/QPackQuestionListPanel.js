@@ -61,8 +61,7 @@ class QPackQuestionListPanel extends Component {
     render() {
       const questions = this.state.questions;
       return (
-        <di 
-        \ v>
+        <div>
           <QPackAddQuestionModal 
             isOpen={this.state.modalIsOpen}
             toggle={this.closeModal}
@@ -70,7 +69,7 @@ class QPackQuestionListPanel extends Component {
           />
           <div className="d-flex align-items-center justify-content-between mt-3">
             <span className="legend" >Questions</span>
-            <Button size="sm" color="secondary" className="ml-2" onClick={this.openModal}>Add new question</Button>
+            <Button size="sm" color="secondary" className="ml-2" onClick={this.openModal}>Add questions</Button>
           </div>
           <FormGroup>
             {

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { REMOVE_QUESTION_PACK, SELECT_QUESTION_PACK, ADD_QUESTION_PACK } from '../actions';
+import { REMOVE_QUESTION_PACK, SELECT_QUESTION_PACK, ADD_QUESTION_PACK, EDIT_QUESTION_PACK } from '../actions';
 
 const DUMMY_STATE = _.mapKeys([
   {
@@ -26,14 +26,24 @@ export default function(state = DUMMY_STATE, action) {
       return _.omit(state, questionPackToDelete.id);
     case SELECT_QUESTION_PACK:
       const selectedQuestionPack =  action.payload.questionPack;
+      if (selectedQuestionPack.loaded) {
+        return { ...state, 
+          [selectedQuestionPack.id] : selectedQuestionPack
+        };
+      }
+      else {
+        return state;
+      }
+    case EDIT_QUESTION_PACK:
+      const edittedQuestionPack =  action.payload;
       return { ...state, 
-        [selectedQuestionPack.id] : selectedQuestionPack
+        [edittedQuestionPack.id] : edittedQuestionPack
       };
     case ADD_QUESTION_PACK:
-      const addedQuestion = action.payload;
+      const addedQuestionPack = action.payload;
       return {
         ...state,
-        [addedQuestion.id]: addedQuestion
+        [addedQuestionPack.id]: addedQuestionPack
       };
     default: return state;
   }

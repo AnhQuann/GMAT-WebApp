@@ -14,7 +14,8 @@ class QPackEditPanel extends EditPanel {
     super(props);
     this.handleOK = (() => {
       this.props.currentQuestionPackReducer.handleOK(this.updateValues);
-    }).bind(this);
+      this.props.history.goBack();
+    });
     this.handleCancel = (() => this.props.currentQuestionPackReducer.handleCancel());
   }
 

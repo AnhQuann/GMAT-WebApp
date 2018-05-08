@@ -4,9 +4,10 @@ import { Table, Button } from 'reactstrap';
 import _ from 'lodash';
 
 import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from '../../actions';
-import { addQuestionPack } from '../../actions';
+import { addQuestionPack, editQuestionPack } from '../../actions';
 
 import { ROUTER_QUESTION_PACK_EDIT }  from '../../constants';
+
  
 class QPackListPanel extends Component {
   constructor(props) {
@@ -35,22 +36,30 @@ class QPackListPanel extends Component {
   }
 
   addRequest() {
-    const handleOK = ((questionPack) => {
+    const handleOK = (questionPack) => {
       this.props.addQuestionPack(questionPack);
-    }).bind(this);
+    };
     
     const handleCancel = (
       () => this.props.history.goBack()
-    ).bind(this);
+    );
 
     this.props.selectQuestionPack(null, handleOK, handleCancel);
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
 
   editRequest(questionPack) {
+    const handleOK = (questionPack) => {
+      this.props.editQuestionPack(questionPack);
+    };
+    
+    const handleCancel = (
+      () => this.props.history.goBack()
+    );
+
     this.props.selectQuestionPack(questionPack, 
-      () => console.log("OK"),
-      () => console.log("Cancel"));
+      handleOK,
+      handleCancel);
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
   
@@ -89,6 +98,6 @@ function mapReducerToState({ questionPackReducer }) {
   return { questionPackReducer };
 }
 
-const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack, addQuestionPack  };
+const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack, addQuestionPack, editQuestionPack  };
  
 export default connect(mapReducerToState, actions)(QPackListPanel);
