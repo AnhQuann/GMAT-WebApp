@@ -1,5 +1,29 @@
 import _ from 'lodash';
-import { REMOVE_QUESTION, EDIT_QUESTION, ADD_QUESTION } from '../actions';
+
+export const SEARCH_QUESTION = "Search question";
+export const TOGGLE_QUESTION_SELECTION = "Select question selection";
+export const CLEAR_QUESTION_SELECTIONS = "Clear questions selections";
+
+export function searchQuestion(terms) {
+  return {
+    type: SEARCH_QUESTION,
+    payload: DUMMY_QUESTIONS
+  };
+}
+
+export function toggleQuestionSelection(question) {
+  return {
+    type: TOGGLE_QUESTION_SELECTION,
+    payload: question
+  };
+}
+
+export function clearQuestionSelections() {
+  return {
+    type: CLEAR_QUESTION_SELECTIONS
+  };
+}
+
 
 const DUMMY_QUESTION_ARRAYS = [
   {
@@ -50,16 +74,3 @@ const DUMMY_QUESTION_ARRAYS = [
 ];
 
 const DUMMY_QUESTIONS = _.mapKeys(DUMMY_QUESTION_ARRAYS, "id");
-
-export default function(state = DUMMY_QUESTIONS, action) {
-  switch(action.type) {
-    case REMOVE_QUESTION:
-      return _.omit(state, [action.payload]);
-    case EDIT_QUESTION:
-    case ADD_QUESTION:
-      const question = action.payload;
-      return { ...state, [question.id]: _.cloneDeep(question) };
-    default:
-      return state;
-  }
-};

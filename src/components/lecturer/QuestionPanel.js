@@ -1,54 +1,24 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-import "./QuestionPanel.css";
+import QListPanel from './QListPanel';
+import QuestionEditPanel from './QuestionEditPanel';
+
+import './QuestionPanel.css';
+
+import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION } from '../../constants';
 
 class QuestionPanel extends Component {
-
   render() {
-      return (
-          <div className="question-panel">
-            <table>
-              <thead className="container">
-                <tr>
-                  <th className="th-no">#</th>
-                  <th className="th-stimulus">Stimulus</th>
-                  <th className="th-difficulty">Difficulty</th>
-                </tr>
-              </thead>
-              <tbody>
-                { this.renderQuestions(this.props.questionReducer) }
-              </tbody>
-            </table>
-          </div>
-      )
-  }
-
-  renderQuestions(questions) {
-    return questions.map((question, index) => {
-      return (
-        <tr key={index}>
-          <td>{ index + 1 } </td>
-          <td>{ question.stimulus }</td>
-          <td>{ this.renderDifficulty(question.difficulty) }</td>
-        </tr>
-      );
-    });
-  }
-
-  renderDifficulty(difficulty) {
-    switch(difficulty) {
-      case 0: return (<span className="q-easy">Easy</span>);
-      case 1: return (<span className="q-medium">Easy</span>);
-      case 2: return (<span className="q-hard">Hard</span>);
-      case 3: return (<span className="q-very-hard">Very hard</span>);
-      default: return (<span>Unknown</span>);
-    }
+    return (
+      <div className="question-panel">
+        <Switch>
+          <Route path={ROUTER_QUESTION_EDIT_OR_ADD} component= { QuestionEditPanel } />
+          <Route path={ROUTER_QUESTION} component={ QListPanel } />
+        </Switch>
+      </div>
+    );
   }
 }
 
-function mapReducerToProps( { questionReducer } ) {
-  return { questionReducer };
-}
-
-export default connect(mapReducerToProps)(QuestionPanel);
+export default QuestionPanel;

@@ -1,5 +1,31 @@
-import _ from 'lodash';
-import { REMOVE_QUESTION, EDIT_QUESTION, ADD_QUESTION } from '../actions';
+export const SELECT_QUESTION_PACK = "Select question pack";
+
+const defaultQuestionPack = () => {
+  return {
+    name: "",
+    id: "",
+    questions: []
+  };
+}
+
+export function selectQuestionPack(questionPack, handleOK, handleCancel, title="Edit question") {
+  return {
+    type: SELECT_QUESTION_PACK,
+    payload: {
+      questionPack: getQP(questionPack),
+      handleCancel, handleOK, title
+    }
+  };
+}
+
+function getQP(questionPack) {
+  const returnQP = questionPack? questionPack : defaultQuestionPack();
+  if (!returnQP.loaded) {
+    returnQP.questions = DUMMY_QUESTION_ARRAYS;
+    returnQP.loaded = true;
+  }
+  return returnQP;
+}
 
 const DUMMY_QUESTION_ARRAYS = [
   {
@@ -48,18 +74,3 @@ const DUMMY_QUESTION_ARRAYS = [
     difficulty: 2,
   }
 ];
-
-const DUMMY_QUESTIONS = _.mapKeys(DUMMY_QUESTION_ARRAYS, "id");
-
-export default function(state = DUMMY_QUESTIONS, action) {
-  switch(action.type) {
-    case REMOVE_QUESTION:
-      return _.omit(state, [action.payload]);
-    case EDIT_QUESTION:
-    case ADD_QUESTION:
-      const question = action.payload;
-      return { ...state, [question.id]: _.cloneDeep(question) };
-    default:
-      return state;
-  }
-};

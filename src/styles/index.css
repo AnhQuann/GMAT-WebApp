@@ -6,6 +6,26 @@ html, body, #root {
   height: 100%;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.legend {
+  font-size: 1.5rem !important;
+}
+
+.panel {
+  width: 100%;
+  background-color: #FFFF;
+  padding: 8px;
+  margin: 16px;
+}
+
+.add-button-right {
+  margin-bottom: .5rem!important;
+  float: right !important;
+}
+
 body {
   margin: 0;
   padding: 0;

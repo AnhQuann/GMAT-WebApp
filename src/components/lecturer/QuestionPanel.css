@@ -1,14 +1,22 @@
-
-.th-no {
-  width: 4%;
+.question-panel {
+  flex: 1 1 auto;
+  margin: 16px;
+  background-color: #FFFF;
+  padding: 8px;
 }
 
-.th-stimulus {
-  width: 80%;
+.question-edit {
+  cursor: pointer;
+  margin-right: 8px;
 }
 
-.th-difiiculty {
-  width: 16%;
+/* .q-difficulty {
+  background-color: black;
+  padding: 8px;
+} */
+
+.question-remove {
+  cursor: pointer;
 }
 
 .q-easy {
