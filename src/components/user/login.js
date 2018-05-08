@@ -1,62 +1,66 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Input, FormGroup, FormFeedback } from 'reactstrap';
+import { Row, Col, Button, Input, Container, FormGroup, FormFeedback } from 'reactstrap';
 import { flatten } from 'flat';
 
 import { login } from '../../actions';
 
+import EditPanel from '../common/EditPanel';
+
 import Loading from '../common/loading';
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
+class Login extends EditPanel {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      loggingIn: false
+    };
 
-        this.state = {...this.state, user: { username: '', password: '' }, onSubmitLogin: false};
-        
-        this.onClickLogin = this.onClickLogin.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
-    componentWillReceiveProps(newProps) {
-        this.handleChange('onSubmitLogin', false);
-    }
+  onSubmit() {
+    this.setState({
+      loggingIn: true
+    });
+    this.props.login(this.values.username, this.values.password);
+  }
 
-    onClickLogin() {
-        this.handleChange('onSubmitLogin', true);
-        this.props.login(this.state.user.username, this.state.user.password);
+  render() {
+    if (this.state.loggingIn) {
+      return <Loading />;
     }
+    else {
+      return this.renderLoginForm();
+    }
+  }
 
-    handleChange(field, value) {
-        let flattenState = flatten(this.state);
-        flattenState[field] = value;
-        this.setState(flatten.unflatten(flattenState));
-    }
+  renderLoginForm() {
+    return (
+      <Container className="d-flex align-items-center justify-content-center h-100">
+        <Col md="4">
+          <FormGroup>
+            <label>Username</label>
+            <Input onBlur={this.blurToProp("values.username")} />
+          </FormGroup>
+          
+          <FormGroup>
+            <label>Password</label>
+            <Input type="password" onBlur={this.blurToProp("values.password")}/>
+          </FormGroup>
 
-    render() {
-        if (!this.state.onSubmitLogin) {
-            return (
-                <Row className="login">
-                    <Col md='6'>
-                        <h1 className="text-center">Welcome!</h1>
-                        <FormGroup>
-                            <Input {...(this.props.authReducer.errMessage ? {invalid:true} : {})} value={this.state.user.username} type="email" name="username" placeholder="Username" onChange={(e) => this.handleChange('user.username', e.target.value)}></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Input {...(this.props.authReducer.errMessage ? {invalid:true} : {})} value={this.state.user.password} type="password" name="password" placeholder="Password" onChange={(e) => this.handleChange('user.password', e.target.value)}></Input>
-                            <FormFeedback>{this.props.authReducer.errMessage}</FormFeedback>
-                        </FormGroup>
-                        <Button className="float-right" color='primary' onClick={this.onClickLogin}>Login</Button>
-                    </Col>
-                </Row>
-            );
-        } else {
-            return <Loading />;
-        }
-    }
+          <FormGroup className="d-flex">
+            <Button className="ml-auto" color="primary" onClick={this.onSubmit}>Sign in</Button>
+          </FormGroup>
+        </Col>
+      </Container>
+    );
+  }
 }
 
-function mapStateToProps({ authReducer }) {
-    return { authReducer };
+const actions = {
+  login
 }
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, actions)(Login);
