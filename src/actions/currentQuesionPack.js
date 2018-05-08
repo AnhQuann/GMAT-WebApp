@@ -20,7 +20,7 @@ export function selectQuestionPack(questionPack, handleOK, handleCancel, title="
 
 function getQP(questionPack) {
   const returnQP = questionPack? questionPack : defaultQuestionPack();
-  if (!returnQP.loaded) {
+  if (questionPack && !returnQP.loaded) {
     returnQP.questions = DUMMY_QUESTION_ARRAYS;
     returnQP.loaded = true;
   }
