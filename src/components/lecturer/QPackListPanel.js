@@ -4,7 +4,7 @@ import { Table, Button } from 'reactstrap';
 import _ from 'lodash';
 
 import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from '../../actions';
-import { addQuestionPack, editQuestionPack } from '../../actions';
+import { addQuestionPack, editQuestionPack, fetchQuestionPacks } from '../../actions';
 
 import { ROUTER_QUESTION_PACK_EDIT }  from '../../constants';
 
@@ -15,6 +15,10 @@ class QPackListPanel extends Component {
     this.removeRequest = this.removeRequest.bind(this);
     this.editRequest = this.editRequest.bind(this);
     this.addRequest = this.addRequest.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchQuestionPacks();
   }
 
   render() {
@@ -98,6 +102,6 @@ function mapReducerToState({ questionPackReducer }) {
   return { questionPackReducer };
 }
 
-const actions = { closePopup, openPopup, removeQuestionPack, selectQuestionPack, addQuestionPack, editQuestionPack  };
+const actions = { closePopup, openPopup, fetchQuestionPacks, removeQuestionPack, selectQuestionPack, addQuestionPack, editQuestionPack  };
  
 export default connect(mapReducerToState, actions)(QPackListPanel);

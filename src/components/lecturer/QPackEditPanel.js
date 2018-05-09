@@ -19,21 +19,28 @@ class QPackEditPanel extends EditPanel {
     this.handleCancel = (() => this.props.currentQuestionPackReducer.handleCancel());
   }
 
-  componentWillMount() {
-    this.updateValues = _.cloneDeep(this.props.currentQuestionPackReducer.questionPack);
+  componentWillReceiveProps(nextProps) {
+    this.updateValues = _.cloneDeep(nextProps.currentQuestionPackReducer.questionPack);
   }
 
   render() {
+    const currentQuestionPackReducer = this.props.currentQuestionPackReducer;
+    const questionPack = currentQuestionPackReducer.questionPack;
+
+    if (!questionPack) {
+      return (<div>Loading...</div>);
+    }
+    
     return (
       <div className="panel">
         <h3>{ this.props.currentQuestionPackReducer.title }</h3>
         <FormGroup>
           <legend>Name</legend>
-          <Input defaultValue={this.tryGetProp("updateValues.name", "")} onBlur={this.blurToProp("updateValues.name")}/>
+          <Input defaultValue={ questionPack.name } onBlur={this.blurToProp("updateValues.name")}/>
         </FormGroup>
         <FormGroup>
           <QPackQuestionListPanel 
-            defaultValue={this.tryGetProp("updateValues.questions", [])}
+            defaultValue={questionPack.questions}
             questionsDidUpdate={this.assignToProp("updateValues.questions")}
           />
         </FormGroup>

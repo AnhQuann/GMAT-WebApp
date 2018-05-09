@@ -1,13 +1,29 @@
 import _ from 'lodash';
 
+import axios from 'axios';
+
+import { API_QUESTIONS } from './urls';
+import { checkFields } from './utils';
+
 export const SEARCH_QUESTION = "Search question";
 export const TOGGLE_QUESTION_SELECTION = "Select question selection";
 export const CLEAR_QUESTION_SELECTIONS = "Clear questions selections";
 
 export function searchQuestion(terms) {
+  const request = axios.get(API_QUESTIONS);
+  const interceptor = (response) => {
+    return new Promise((resolve, reject) => {
+      if(checkFields(response, ['data.success', 'data.questions'])) {
+        resolve(_.mapKeys(response.data.questions, "_id"));
+      } else {
+        reject();
+      }
+    });
+  };
+
   return {
     type: SEARCH_QUESTION,
-    payload: DUMMY_QUESTIONS
+    payload: request.then(interceptor)
   };
 }
 

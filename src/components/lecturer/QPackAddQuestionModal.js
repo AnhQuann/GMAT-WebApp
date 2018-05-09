@@ -14,12 +14,16 @@ class QPackAddQuestionModal extends Component {
     super(props);
     this.toggleQuestionSelection = this.toggleQuestionSelection.bind(this);
     this.clearQuestionSelections = this.clearQuestionSelections.bind(this);
+    this.state = {
+      questions: null
+    };
   }
   
   componentWillMount() {
-    const action = searchQuestion("");
-    this.setState({
-      questions: action.payload
+    searchQuestion("").payload.then((questions) => {
+      this.setState({
+        questions: questions
+      });
     });
   }
 
@@ -27,7 +31,7 @@ class QPackAddQuestionModal extends Component {
     this.setState({
       questions: {
         ...this.state.questions,
-        [question.id]: {
+        [question._id]: {
           ...question,
           selected: !question.selected
         }
@@ -47,30 +51,42 @@ class QPackAddQuestionModal extends Component {
     return _.filter(this.state.questions, (question => question.selected));
   }
 
+  renderQuestions(questions) {
+    if (!questions) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <div>
+          <Input placeholder="Search here"></Input>
+          <div className="q-modal-scroll">
+            <QList 
+              questions={questions} 
+              stimulusMaxLength={20} 
+              onQuestionClicked={this.toggleQuestionSelection}
+              pointer={true} 
+            />
+          </div>
+          <div className="d-flex mt-2 justify-content-end">
+            <Button color="secondary" onClick={this.props.toggle} >Cancel</Button>
+            <Button 
+              color="primary" className="ml-2"
+              onClick={() => this.props.onSelectionDone(this.selectedQuestions())}>OK</Button>
+          </div>
+      </div>
+    );
+  }
+
   render() {
       const questions = this.state.questions;
       return (
         <Modal 
             isOpen={this.props.isOpen} 
-            toggle={this.props.toggle} 
+            toggle={this.props.toggle}
             onOpened={this.clearQuestionSelections} >
           <ModalHeader>Add question</ModalHeader>
           <ModalBody>
-            <Input placeholder="Search here"></Input>
-            <div className="q-modal-scroll">
-              <QList 
-                questions={questions} 
-                stimulusMaxLength={20} 
-                onQuestionClicked={this.toggleQuestionSelection}
-                pointer={true} 
-              />
-            </div>
-            <div className="d-flex mt-2 justify-content-end">
-              <Button color="secondary" onClick={this.props.toggle} >Cancel</Button>
-              <Button 
-                color="primary" className="ml-2"
-                onClick={() => this.props.onSelectionDone(this.selectedQuestions())}>OK</Button>
-            </div>
+            { this.renderQuestions(questions) }
           </ModalBody>
         </Modal>
       );
