@@ -9,31 +9,53 @@ import EditPanel from '../common/EditPanel';
 import './QPackEditPanel.css';
  
 class QPackEditPanel extends EditPanel {
-
   constructor(props) {
     super(props);
+    
     this.handleOK = (() => {
-      this.props.currentQuestionPackReducer.handleOK(this.updateValues);
+      this.state.handlers.handleOK(this.updateValues);
       this.props.history.goBack();
     });
-    this.handleCancel = (() => this.props.currentQuestionPackReducer.handleCancel());
+    this.handleCancel = (() => this.state.handlers.handleCancel());
+
+    this.state = {
+      questionPack: null,
+      handlers: null,
+      title: ""
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateValues = _.cloneDeep(nextProps.currentQuestionPackReducer.questionPack);
+  componentWillMount() {
+    const reducer = this.props.currentQuestionPackReducer;
+    if(reducer) {
+      this.setState({
+        handlers: reducer.handlers,
+        title: reducer.title
+      });
+      reducer.loadQuestionPack.then((questionPack) => {
+        this.setState({
+          questionPack
+        });
+        this.updateValues = _.cloneDeep(questionPack);
+      });
+    }
   }
 
   render() {
-    const currentQuestionPackReducer = this.props.currentQuestionPackReducer;
-    const questionPack = currentQuestionPackReducer.questionPack;
-
-    if (!questionPack) {
-      return (<div>Loading...</div>);
+    const questionPack = this.state.questionPack;
+   
+    if(!questionPack) {
+      return (
+        <div className="panel">
+          <h3>{ this.state.title }</h3>
+          <div>Loading...</div>
+        </div>
+      );
     }
-    
+
     return (
       <div className="panel">
-        <h3>{ this.props.currentQuestionPackReducer.title }</h3>
+        <h3>{ this.state.title }</h3>
         <FormGroup>
           <legend>Name</legend>
           <Input defaultValue={ questionPack.name } onBlur={this.blurToProp("updateValues.name")}/>

@@ -8,19 +8,6 @@ export default function(state = {}, action) {
     case REMOVE_QUESTION_PACK:
       const questionPackToDelete = action.payload;
       return _.omit(state, questionPackToDelete._id);
-    case SELECT_QUESTION_PACK:
-      if (!action.payload || !action.payload.questionPack) {
-        return state;
-      }
-      const selectedQuestionPack =  action.payload.questionPack;
-      if (selectedQuestionPack.loaded) {
-        return { ...state, 
-          [selectedQuestionPack._id] : selectedQuestionPack
-        };
-      }
-      else {
-        return state;
-      }
     case EDIT_QUESTION_PACK:
       const edittedQuestionPack =  action.payload;
       return { ...state, 

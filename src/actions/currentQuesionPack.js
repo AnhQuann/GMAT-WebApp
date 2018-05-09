@@ -5,13 +5,25 @@ import { API_QUESTION_PACKS } from './urls';
 
 export const SELECT_QUESTION_PACK = "Select question pack";
 
-export function selectQuestionPack(questionPack={}, handleOK, handleCancel, title="Edit question") {
+const defaultQuestionPack = () => {
+  return {
+    name: "",
+    id: "",
+    questions: []
+  };
+}
+
+
+export function selectQuestionPack(questionPack, handlers, title="Edit question pack") {
   if(questionPack == null) {
+    const loadDefaultQuestionPack = new Promise((resolve, reject) => {
+      resolve(defaultQuestionPack());
+    });
     return {
       type: SELECT_QUESTION_PACK,
       payload: {
-        questionPack: null,
-        handleCancel, handleOK, title
+        loadQuestionPack: loadDefaultQuestionPack,
+        handlers, title
       }
     };
   }
@@ -20,10 +32,7 @@ export function selectQuestionPack(questionPack={}, handleOK, handleCancel, titl
     const interceptor = (response) => {
       return new Promise((resolve, reject) => {
         if(_.get(response, "data.questionPack")) {
-          resolve({
-            questionPack: response.data.questionPack,
-            handleCancel, handleOK, title
-          });
+          resolve(response.data.questionPack);
         } else {
           reject();
         }
@@ -31,7 +40,10 @@ export function selectQuestionPack(questionPack={}, handleOK, handleCancel, titl
     };
     return {
       type: SELECT_QUESTION_PACK,
-      payload: request.then(interceptor)
+      payload: {
+        loadQuestionPack: request.then(interceptor),
+        handlers, title
+      }
     };
   }
 }

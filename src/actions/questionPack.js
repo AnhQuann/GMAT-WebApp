@@ -45,9 +45,19 @@ export function removeQuestionPack(questionPack) {
 }
 
 export function editQuestionPack(questionPack) {
+  const request = axios.put(`${API_QUESTION_PACKS}/${questionPack._id}`, questionPack);
+  const interceptor = (response) => {
+    return new Promise((resolve, reject) => {
+      if(_.get(response, 'data.success')) {
+        resolve(questionPack); // TODO: replace with question pack from server
+      } else {
+        reject();
+      }
+    });
+  }
   return {
     type: EDIT_QUESTION_PACK,
-    payload: questionPack
+    payload: request.then(interceptor)
   };
 }
 

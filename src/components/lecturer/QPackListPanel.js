@@ -40,30 +40,20 @@ class QPackListPanel extends Component {
   }
 
   addRequest() {
-    const handleOK = (questionPack) => {
-      this.props.addQuestionPack(questionPack);
-    };
-    
-    const handleCancel = (
-      () => this.props.history.goBack()
-    );
+    const handleOK = (questionPack) => this.props.addQuestionPack(questionPack);
+    const handleCancel = () => this.props.history.goBack();
+    const handlers = { handleOK, handleCancel };
 
-    this.props.selectQuestionPack(null, handleOK, handleCancel);
+    this.props.selectQuestionPack(null, handlers, "Edit question pack");
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
 
   editRequest(questionPack) {
-    const handleOK = (questionPack) => {
-      this.props.editQuestionPack(questionPack);
-    };
-    
-    const handleCancel = (
-      () => this.props.history.goBack()
-    );
+    const handleOK = (questionPack) => this.props.editQuestionPack(questionPack);
+    const handleCancel = () => this.props.history.goBack();
+    const handlers = {handleOK, handleCancel};
 
-    this.props.selectQuestionPack(questionPack, 
-      handleOK,
-      handleCancel);
+    this.props.selectQuestionPack(questionPack, handlers, "Add question pack");
     this.props.history.push(ROUTER_QUESTION_PACK_EDIT);
   }
   
