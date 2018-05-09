@@ -17,4 +17,4 @@ export default function(state = { isOpen: false }, action) {
       };
     default: return state;
   }
-};
+}

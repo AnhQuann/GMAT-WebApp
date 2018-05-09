@@ -1,61 +1,24 @@
 import _ from "lodash";
-import { LOAD_QUESTION_PACK, REMOVE_QUESTION_PACK } from '../actions';
+import { FETCH_QUESTION_PACKS, REMOVE_QUESTION_PACK, SELECT_QUESTION_PACK, ADD_QUESTION_PACK, EDIT_QUESTION_PACK } from '../actions';
 
-const DEFAULT_STATE = {
-  
-};
-
-const DUMMY_STATE = _.mapKeys([
-  {
-    id: 0,
-    name: "CR1",
-    questions: [
-      2,
-      1
-    ]
-  },
-  {
-    id: 1,
-    name: "CR2",
-    questions: [
-      2,
-      3,
-      1
-    ]
-  },
-  {
-    id: 2,
-    name: "CR3",
-    questions: [
-      3,
-      1,
-      2
-    ]
-  },
-  {
-    id: 3,
-    name: "CR4",
-    questions: [
-      2,
-      3,
-      1
-    ]
-  },
-  {
-    id: 4,
-    name: "CR5",
-    questions: [
-      2,
-      1
-    ]
-  },
-], 'id');
-
-export default function(state = DUMMY_STATE, action) {
+export default function(state = {}, action) {
   switch(action.type) {
+    case FETCH_QUESTION_PACKS:
+      return _.mapKeys(action.payload, "_id");
     case REMOVE_QUESTION_PACK:
       const questionPackToDelete = action.payload;
-      return _.omit(state, questionPackToDelete.id);
+      return _.omit(state, questionPackToDelete._id);
+    case EDIT_QUESTION_PACK:
+      const edittedQuestionPack =  action.payload;
+      return { ...state, 
+        [edittedQuestionPack._id] : edittedQuestionPack
+      };
+    case ADD_QUESTION_PACK:
+      const addedQuestionPack = action.payload;
+      return {
+        ...state,
+        [addedQuestionPack._id]: addedQuestionPack
+      };
     default: return state;
   }
 };

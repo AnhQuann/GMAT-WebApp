@@ -106,13 +106,13 @@
 
 .question_pack form .form_menu > div button:first-child {
     padding-right: 10px;
-    border-right: 1px solid #17a2b8;
+    /* border-right: 1px solid #17a2b8; */
 }
 
-.question_pack form .form_menu > div button:last-child {
+/* .question_pack form .form_menu > div button:last-child {
     padding-left: 10px;
     border-left: 1px solid #17a2b8;
-}
+} */
 
 .question_pack > div:nth-child(2) label:first-letter {
     text-transform: capitalize;

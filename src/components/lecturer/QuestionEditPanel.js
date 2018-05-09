@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, Button, Input, Label } from 'reactstrap';
+import React from 'react';
+import { FormGroup, Button, Input } from 'reactstrap';
 import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 import { editQuestion } from '../../actions';
 
+import EditPanel  from '../common/EditPanel';
+
 import "./QuestionEditPanel.css";
  
-class QuestionEditPanel extends Component {
+class QuestionEditPanel extends EditPanel {
     constructor(props) {
       super(props);
       this.state = {};
@@ -27,16 +29,6 @@ class QuestionEditPanel extends Component {
           { this.renderForm() }
         </div>
       );
-    }
-
-    blurToState(propName, converter=null) {
-      const blur = (event) => {
-        const newState = _.cloneDeep(this.state);
-        const value = converter == null ? event.target.value: converter(event.target.value);
-        _.set(newState, propName, value);
-        this.setState(newState);
-      };
-      return blur.bind(this);
     }
 
     renderForm() {

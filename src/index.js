@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-import { BrowserRouter, Switch, Route, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
