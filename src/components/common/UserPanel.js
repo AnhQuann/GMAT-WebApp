@@ -4,18 +4,34 @@ import { connect } from 'react-redux';
 import { logout, fetchUserInfo } from '../../actions';
 
 class UserPanel extends Component {
+    constructor(props) {
+        super(props);
+
+        this.logout = this.logout.bind(this);
+    }
+
     componentWillMount() {
         this.props.fetchUserInfo();
     }
 
+    componentWillReceiveProps(newProps) {
+        if(!newProps.authReducer.isLoggedIn) {
+            this.props.history.push("");
+        }
+    }
+
+    logout() {
+        this.props.logout();
+    }
+
     render() {
         return (
-            <Row className="user_panel">
+            <div className="user_panel">
                 <Col sm="12" className="text-right">
                     <h3>Hi, {this.props.authReducer.user ? this.props.authReducer.user.username : ''}.</h3>
-                    <Button color="danger">Logout</Button>
+                    <Button color="danger" onClick={this.logout}>Logout</Button>
                 </Col>
-            </Row>
+            </div>
         );
     }
 }

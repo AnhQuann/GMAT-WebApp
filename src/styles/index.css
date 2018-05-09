@@ -97,8 +97,8 @@ body {
 /* User Panel */
 
 .user_panel > div {
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-top: 25px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
