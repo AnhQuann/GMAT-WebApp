@@ -14,5 +14,11 @@ export const ROUTER_QUESTION_PACK_EDIT = `${ROUTER_QUESTION_PACK}/edit`;
 export const ROUTER_QUESTION = `${ROUTER_LECTURER}/question`;
 export const ROUTER_QUESTION_EDIT_OR_ADD = `${ROUTER_QUESTION}/(edit|add)`;
 
-export const API_URL = `https://gmat-api.herokuapp.com/api`;
-export const SIGN_IN_URL = `${API_URL}/signin`;
+export const ROOT_URL = 'https://gmat-api.herokuapp.com';
+export const API_URL = `${ROOT_URL}/api`;
+
+export const AUTH = `${API_URL}/auth`;
+export const SIGN_IN = `${API_URL}/signin`;
+
+export const API_QUESTIONS = `${API_URL}/questions`;
+export const API_QUESTION_PACKS = `${API_URL}/questionpacks`;

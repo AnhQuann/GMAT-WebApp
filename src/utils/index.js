@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function elipsis(text, maxLength=100) {
   if(text.length > maxLength) {
     return text.substring(0, maxLength) + "...";
@@ -9,6 +11,18 @@ export function elipsis(text, maxLength=100) {
 export function tryGet(obj, key, defaultValue) {
   if(obj[key]) return obj[key];
   return defaultValue;
+}
+
+
+export function checkFields(obj, paths) {
+  if (typeof(paths) === 'string') {
+    return _.get(obj, paths) && true;
+  }
+  else {
+    return paths.reduce((currentCheck, path) => {
+      return _.get(obj, path) && currentCheck;
+    }, true);
+  }
 }
 
 // export function elipsis(text, n) {

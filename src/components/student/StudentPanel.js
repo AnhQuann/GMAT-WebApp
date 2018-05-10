@@ -13,9 +13,9 @@ class StudentPanel extends Component {
     render() {
         return (
             <Switch>
-                <Route path={ROUTER_PACK_PARAM_ID} component={QuestionPackByIdPanel} />
-                <Route path={ROUTER_RESULT} component={ResultPanel} />
-                <Route path={ROUTER_STUDENT} component={QuestionPackListPanel} />
+              <Route path={ROUTER_PACK_PARAM_ID} component={QuestionPackByIdPanel} />
+              <Route path={ROUTER_RESULT} component={ResultPanel} />
+              <Route path={ROUTER_STUDENT} component={QuestionPackListPanel} />
             </Switch>
         );
     }

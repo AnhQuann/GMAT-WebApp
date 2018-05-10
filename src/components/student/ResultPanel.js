@@ -25,16 +25,23 @@ class ResultPanel extends Component {
     }
 
     renderResultTable() {
-        if(this.props.resultReducer.result) {
-            let result = this.props.resultReducer.result;
-            let numberRightAnswers = _.filter(result, e => e.response);
-            let correctPercent = _.values(result).length > 0 ? parseFloat(((parseInt(numberRightAnswers.length)/parseInt(_.values(result).length))*100).toFixed(2)) : 0;
+      const reducer = this.props.resultReducer;
+      
 
+        if(reducer) {
+            // let numberRightAnswers = _.filter(result, e => e.response);
+            // let correctPercent = _.values(result).length > 0 ? parseFloat(((parseInt(numberRightAnswers.length)/parseInt(_.values(result).length))*100).toFixed(2)) : 0;
+            // let correctAnswersCount = answers.filter((answer) => answer.isCorrect).length;
+            const questionPack = reducer.questionPack;
+            const answers = reducer.answers;
+            const totalTime = reducer.totalTime; 
+            const correctAnswerCount = reducer.correctAnswerCount;
+            const correctPercentage = reducer.correctPercentage;
             return (
                 <Col sm="12">
                     <br />
-                    <h3>You answered {numberRightAnswers.length} out of {_.values(result).length} ({correctPercent}%) correctly.</h3>
-                    <h3>Total time: {moment().startOf('day').seconds(this.props.resultReducer.totalTime).format('H:mm:ss')}</h3>
+                    <h3>You answered { correctAnswerCount } out of {answers.length} ({correctPercentage}%) correctly.</h3>
+                    <h3>Total time: {moment().startOf('day').seconds(totalTime).format('H:mm:ss')}</h3>
 
                     <Table responsive bordered>
                         <thead>
@@ -46,12 +53,12 @@ class ResultPanel extends Component {
                         </thead>
                         <tbody>
                             {
-                                _.values(result).map((result, index) => {
+                                answers.map((answer, index) => {
                                     return (
                                         <tr key={index}>
-                                            <th scope="row" className="text-center">{index+1}</th>
-                                            <td className="text-center">{this.renderDifficulty(result.difficulty)}</td>
-                                            <td className="text-center">{result.response != null ? (result.response ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i>) : ''}</td>
+                                            <th scope="row" className="text-center">{ index + 1 }</th>
+                                            <td className="text-center">{ this.renderDifficulty(answer.question.difficulty) }</td>
+                                            <td className="text-center">{ answer.isCorrect ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i> }</td>
                                         </tr>
                                     );
                                 })
@@ -66,21 +73,23 @@ class ResultPanel extends Component {
     }
     
     render() {
-        return (
-            <Container className="result">
-                <Row>
-                    <Col sm="6">
-                        <h2>Review your responses</h2>
-                    </Col>
-                    <Col sm="6" className="text-right">
-                        <Button color="info" onClick={() => { this.props.history.push(ROUTER_STUDENT); }}>Back to Homepage</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    {this.renderResultTable()}
-                </Row>
-            </Container>
-        );
+      const reducer = this.props.resultReducer;
+      if(!reducer) return (<div>Loading ...</div>);
+      return (
+          <Container className="result">
+              <Row>
+                  <Col sm="6">
+                      <h2>Review your responses</h2>
+                  </Col>
+                  <Col sm="6" className="text-right">
+                      <Button color="info" onClick={() => { this.props.history.push(ROUTER_STUDENT); }}>Back to Homepage</Button>
+                  </Col>
+              </Row>
+              <Row>
+                  {this.renderResultTable()}
+              </Row>
+          </Container>
+      );
     }
 }
 

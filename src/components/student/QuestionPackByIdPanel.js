@@ -4,51 +4,61 @@ import { Container, Row, Col, Button, Form, FormGroup, Input, Label, TabContent,
 import _ from 'lodash';
 import moment from 'moment';
 
+import { fetchQuestionPackById } from '../../networks';
+
 import { checkAnswers } from '../../actions';
 
 import { ROUTER_RESULT } from '../../constants';
 
 class QuestionPackByIdPanel extends Component {
     constructor(props) {
-        super(props);
+      super(props);
 
-        this.state = {
-            ...this.state,
-            isPause: false,
-            totalTime: 0,
-            answers: _.mapKeys([], "questionId"),
-            currentQuestionIndex: 0,
-            questionPackId: !_.isNil(this.props.match.params.id) && !_.isNaN(Number(this.props.match.params.id)) ? this.props.match.params.id : null,
-            questionPack: !_.isNil(this.props.match.params.id) && !_.isNaN(Number(this.props.match.params.id)) ? this.props.questionPackReducer[this.props.match.params.id] : null
-        }
+      this.state = {
+          ...this.state,
+          isPause: false,
+          totalTime: 0,
+          timeSpentOnCurrentQuestion: 0,
+          currentQuestionIndex: 0,
+          userChoice: -1,
+          finished: false
+      };
 
-        this.renderTabsQuestion = this.renderTabsQuestion.bind(this);
-        this.renderChoices = this.renderChoices.bind(this);
-        this.handleSelectChoice = this.handleSelectChoice.bind(this);
-        this.backToPpreviousQuestion = this.backToPpreviousQuestion.bind(this);
-        this.goToNextQuestion = this.goToNextQuestion.bind(this);
-        this.submitChoice = this.submitChoice.bind(this);
-        this.clearChoice = this.clearChoice.bind(this);
-        this.submitTest = this.submitTest.bind(this);
-        this.handlePause = this.handlePause.bind(this);
+      this.answers = [];
+
+      this.renderTabsQuestion = this.renderTabsQuestion.bind(this);
+      this.renderChoices = this.renderChoices.bind(this);
+      this.handleSelectChoice = this.handleSelectChoice.bind(this);
+      this.backToPpreviousQuestion = this.backToPpreviousQuestion.bind(this);
+      this.goToNextQuestion = this.goToNextQuestion.bind(this);
+      this.submitChoice = this.submitChoice.bind(this);
+      this.clearChoice = this.clearChoice.bind(this);
+      this.submitTest = this.submitTest.bind(this);
+      this.handlePause = this.handlePause.bind(this);
     }
 
-    componentDidMount() {
-        if(this.state.questionPack && _.values(this.state.answers).length === 0) {
+    componentWillMount() {
+      const id = this.props.match.params.id;
+      if(id) {
+        fetchQuestionPackById(id).then((questionPack) => {
+          this.setState({
+            questionPack
+          });
+          this.startTimer();
+        });
+      }
+    }
+
+    startTimer() {
+      this.timer = setInterval(()=>{
+        if(!this.state.isPause) {
             this.setState({
                 ...this.state,
-                answers: _.mapKeys([{ questionId: this.state.questionPack.questions[0], choice: null }], "questionId")
+                totalTime: this.state.totalTime + 1,
+                timeSpentOnCurrentQuestion: this.state.timeSpentOnCurrentQuestion + 1
             });
         }
-
-        this.timer = setInterval(()=>{
-            if(!this.state.isPause) {
-                this.setState({
-                    ...this.state,
-                    totalTime: this.state.totalTime + 1
-                });
-            }
-        }, 1000);
+      }, 1000);
     }
 
     componentWillReceiveProps(newProps) {
@@ -58,122 +68,128 @@ class QuestionPackByIdPanel extends Component {
     }
 
     submitTest() {
-        clearInterval(this.timer);
-        this.props.checkAnswers(this.state.answers, this.state.totalTime);
+      clearInterval(this.timer);
+      this.props.checkAnswers(
+        this.state.questionPack,
+        this.answers,
+        this.state.totalTime);
+      this.props.history.push(ROUTER_RESULT);
     }
 
-    submitChoice(e) {
-        e.preventDefault();
-        if(this.state.questionPack && this.state.currentQuestionIndex + 1 >= this.state.questionPack.questions.length) {
-            this.submitTest();
-        } else {
-            this.goToNextQuestion();
-        }
+    submitChoice() {
+      this.saveUserChoice();
+      if(this.currentQuestionIsLast()) {
+          this.submitTest();
+      } else {
+          this.goToNextQuestion();
+      }
     }
 
-    clearChoice(questionId) {
-        let answers = this.state.answers;
-
-        if(answers[questionId]) {
-            answers[questionId].choice = null;
-
-            this.setState({
-                ...this.state,
-                answers: answers
-            });
-        }
+    currentQuestionIsLast() {
+      return this.state.currentQuestionIndex === this.state.questionPack.questions.length - 1;
     }
 
-    handleSelectChoice(questionId, choice) {
-        let answers = this.state.answers;
+    clearChoice() {
+      this.setState({
+        userChoice: -1
+      });
+    }
 
-        if(answers[questionId]) {
-            answers[questionId].choice = choice;
-
-            this.setState({
-                ...this.state,
-                answers: answers
-            });
-        }
+    handleSelectChoice(index) {
+      this.setState({
+        userChoice: index
+      });
     }
 
     renderChoices(questionId, choices) {
-        return choices.map((choice, index) => {
-            return (
-                <FormGroup key={index} check>
-                    <Label check>
-                    <Input checked={ Object.keys(this.state.answers).indexOf(`${this.state.questionPack.questions[this.state.currentQuestionIndex]}`) > -1 && this.state.answers[this.state.questionPack.questions[this.state.currentQuestionIndex]].choice == index ? true : false } type="radio" name={questionId} value={index} onChange={(e) => { return this.handleSelectChoice(e.target.name, e.target.value) }}/>{' '}
-                        {choice}
-                    </Label>
-                </FormGroup>
-            );
-        });
+      return choices.map((choice, index) => {
+        return (
+          <FormGroup key={index} check>
+            <Label check>
+            <Input checked={index == this.state.userChoice} type="radio" name={questionId} value={index} 
+              onChange={(e) => { this.handleSelectChoice(index) }} />{' '}
+              {choice}
+            </Label>
+          </FormGroup>
+        );
+      });
     }
 
     renderTabsQuestion() {
-        let questionPack = this.props.questionPackReducer[this.state.questionPackId];
-        if(questionPack.questions.length > 0) {
-            return questionPack.questions.map((questionId, index) => {
-                let question = this.props.questionReducer[questionId];
-                return (
-                    <TabPane tabId={`${index}`} key={index}>
-                        <Row>
-                            <Col sm="12">
-                                <Form onSubmit={this.submitChoice}>
-                                    <p>{question.stimulus}</p>
-                                    <p>{question.stem}</p>
-                                    <FormGroup check row>
-                                        {this.renderChoices(question.id, question.choices)}
-                                    </FormGroup>
-                                    <FormGroup check row className="form_menu">
-                                        <Button disabled={this.state.answers[this.state.questionPack.questions[this.state.currentQuestionIndex]] && this.state.answers[this.state.questionPack.questions[this.state.currentQuestionIndex]].choice ? false : true} className="btn-success">Submit</Button>
-                                        <div>
-                                            <Button onClick={() => { this.clearChoice(this.state.questionPack.questions[this.state.currentQuestionIndex]) }}>Clear answer</Button>
-                                            <Button disabled={this.state.answers[this.state.questionPack.questions[this.state.currentQuestionIndex]] && this.state.answers[this.state.questionPack.questions[this.state.currentQuestionIndex]].choice ? false : true}>Show answer</Button>
-                                        </div>
-                                    </FormGroup>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </TabPane>
-                );
-            });
-        } else return <div>Question is empty!</div>;
+        const questionPack = this.state.questionPack;
+        const userChoice = this.state.userChoice;
+        if (!questionPack) return (<div>Loading ...</div>);
+        if(!questionPack.questions || questionPack.questions.length == 0) return (<div>0 Questions</div>);
+        return (
+          questionPack.questions.map((question, index) => {
+            return (
+              <TabPane tabId={`${index}`} key={index}>
+              <Row>
+                <Col sm="12">
+                  <Form onSubmit={this.submitChoice}>
+                    <p>{question.stimulus}</p>
+                    <p>{question.stem}</p>
+                    <FormGroup check row>
+                      { this.renderChoices(question.id, question.choices) }
+                    </FormGroup>
+                    <FormGroup check row className="form_menu">
+                      <Button onClick={this.submitChoice} className="btn-success" disabled={ userChoice === -1 }>Submit</Button>
+                      <div>
+                          <Button onClick={() => { this.clearChoice() }}>Clear answer</Button>
+                          <Button>Show answer</Button>
+                      </div>
+                    </FormGroup>
+                  </Form>
+                </Col>
+              </Row>
+            </TabPane>
+            );
+          })
+        );
     }
 
     backToPpreviousQuestion() {
-        if(this.state.questionPack && this.state.currentQuestionIndex > 0) {
-            this.setState({
-                ...this.state,
-                currentQuestionIndex: this.state.currentQuestionIndex - 1
-            });
-        }
+      if(this.state.questionPack && this.state.currentQuestionIndex > 0) {
+        this.setState({
+          ...this.state,
+          currentQuestionIndex: this.state.currentQuestionIndex - 1
+        });
+      }
     }
 
     goToNextQuestion() {
-        if(this.state.questionPack && this.state.currentQuestionIndex + 1 < this.state.questionPack.questions.length) {
-            let answers = _.values(this.state.answers);
+      this.setState({
+        currentQuestionIndex: this.state.currentQuestionIndex + 1,
+        userChoice: -1,
+        timeSpentOnCurrentQuestion: 0
+      });
+    }
 
-            if(Object.keys(this.state.answers).indexOf(this.state.questionPack.questions[this.state.currentQuestionIndex+1]) === -1) {
-                answers.push({ questionId: this.state.questionPack.questions[this.state.currentQuestionIndex+1], choice: null });
-            }
-
-            this.setState({
-                ...this.state,
-                currentQuestionIndex: this.state.currentQuestionIndex + 1,
-                answers: _.mapKeys(answers, "questionId")
-            });
+    saveUserChoice() {
+      this.answers = [
+        ...this.answers, 
+        {
+          userChoice: this.state.userChoice,
+          questionId: this.currentQuestion()._id,
+          time: this.state.timeSpentOnCurrentQuestion
         }
+      ];
+    }
+
+    currentQuestion() {
+      return this.state.questionPack.questions[this.state.currentQuestionIndex];
     }
 
     handlePause() {
-        this.setState({
-            ...this.state,
-            isPause: !this.state.isPause
-        });
+      this.setState({
+        ...this.state,
+        isPause: !this.state.isPause
+      });
     }
 
     render() {
+        const questionPack = this.state.questionPack;
+        if(!questionPack) return (<div>Loading ...</div>);
         return (
             <Container fluid className={`question_pack ${this.state.isPause ? "pause" : ""}`}>
                 <Row>
@@ -206,8 +222,4 @@ class QuestionPackByIdPanel extends Component {
     }
 }
 
-function mapReducerToProps({ questionPackReducer, questionReducer, resultReducer }) {
-    return { questionPackReducer, questionReducer, resultReducer };
-}
-
-export default connect(mapReducerToProps, { checkAnswers })(QuestionPackByIdPanel);
+export default connect(null, { checkAnswers })(QuestionPackByIdPanel);
