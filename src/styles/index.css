@@ -22,9 +22,12 @@ html, body, #root {
   min-height: 100vh;
 }
 
+.full-height {
+  min-height: 100vh;
+}
 
 .add-button-right {
-  margin: 1.8rem !important;
+  margin: 0.5rem !important;
   float: right !important;
 }
 

@@ -11,7 +11,7 @@ import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION } from '../../constants';
 class QuestionPanel extends Component {
   render() {
     return (
-      <div className="question-panel">
+      <div className="question-panel full-height">
         <Switch>
           <Route path={ROUTER_QUESTION_EDIT_OR_ADD} component= { QEditPanel } />
           <Route path={ROUTER_QUESTION} component={ QListPanel } />

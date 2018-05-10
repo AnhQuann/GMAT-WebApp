@@ -11,7 +11,7 @@ import { ROUTER_QUESTION_PACK, ROUTER_QUESTION } from '../../constants';
 class LecturerPanel extends Component {
     render() {
         return (
-          <div className="w-100">
+          <div className="w-100 full-height">
             <NavBar/>
             <Switch>
               <Route path={ROUTER_QUESTION} component={QuestionPanel} />
