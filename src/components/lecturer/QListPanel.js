@@ -67,7 +67,7 @@ class QListPanel extends Component {
       <div>
         <Button 
           color="primary"
-          className="mb-2 clearfix float-right"
+          className="add-button-right"
           onClick={this.onAddRequest}
           >
             Add new question

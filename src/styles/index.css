@@ -19,10 +19,11 @@ html, body, #root {
   background-color: #FFFF;
   padding: 8px;
   margin: 16px;
+  min-height: 100vh;
 }
 
 .add-button-right {
-  margin-bottom: .5rem!important;
+  margin: 1.8rem !important;
   float: right !important;
 }
 
