@@ -46,7 +46,7 @@ export function editQuestion(question) {
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
       if(checkFields(response, ['data.success', 'data.question'])) {
-        resolve(question); // Temporary use param as updater
+        resolve(response.data.question); // Temporary use param as updater
       } else {
         reject();
       }

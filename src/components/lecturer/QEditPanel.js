@@ -117,7 +117,7 @@ class QuestionEditPanel extends EditPanel {
     
     renderDifficulty(question) {
       return (
-        <Input type="select" onBlur={this.blurToProp("updateValues.difficulty", parseInt)}>
+        <Input type="select" defaultValue={question.difficulty} onBlur={this.blurToProp("updateValues.difficulty", parseInt)}>
           {QUESTION_DIFFICULTIES.map((questionDifficulty, index) => {
             return (<option key={questionDifficulty.value} value={questionDifficulty.value}>{ questionDifficulty.text }</option>);
           })}
