@@ -59,7 +59,7 @@ class QPackListPanel extends Component {
   
   renderQuestionPacks(questionPacks) {
     return (
-      <Table striped>
+      <Table>
         <thead>
           <tr>
             <th scope="column">#</th>
