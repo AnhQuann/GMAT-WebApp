@@ -8,50 +8,64 @@ import { editQuestion } from '../../actions';
 
 import EditPanel  from '../common/EditPanel';
 
-import "./QuestionEditPanel.css";
+import "./QEditPanel.css";
  
 class QuestionEditPanel extends EditPanel {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        title: "",
+        handlers: null,
+        question: null
+      };
       this.onCancel = this.onCancel.bind(this);
       this.onOK = this.onOK.bind(this);
     }
 
     componentWillMount() {
-      this.setState(_.cloneDeep(this.props.currentQuestionReducer.question));
+      const reducer = this.props.currentQuestionReducer;
+      if(reducer && reducer.loadQuestion) {
+        this.setState({
+          title: reducer.title,
+          handlers: reducer.handlers
+        });
+
+        reducer.loadQuestion.then((question) => {
+          this.updateValues = _.cloneDeep(question);
+          this.setState({
+            question
+          });
+        })
+      }
     }
 
     render() {
       return (
         <div>
-          <h3>{this.props.currentQuestionReducer.actionTitle}</h3>
+          <h3>{this.state.title}</h3>
           { this.renderForm() }
         </div>
       );
     }
 
     renderForm() {
-      const question = this.props.currentQuestionReducer.question;
+      const question = this.state.question;
 
       if(!question) {
         return (
-          <div>Select a question to edit</div>
+          <div>Loading ...</div>
         );
-      }
-      else {
-        console.log(question);
       }
       
       return (
         <div>
           <FormGroup>
             <legend>Stimulus</legend>
-            <Input type="textarea" defaultValue={question.stimulus} onBlur={this.blurToState("stimulus")}></Input>
+            <Input type="textarea" defaultValue={question.stimulus} onBlur={this.blurToProp("updateValues.stimulus")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Stem</legend>
-            <Input type="text" defaultValue={ question.stem } onBlur={this.blurToState("stem")}></Input>
+            <Input type="text" defaultValue={ question.stem } onBlur={this.blurToProp("updateValues.stem")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Choices</legend>
@@ -63,7 +77,7 @@ class QuestionEditPanel extends EditPanel {
           </FormGroup>
           <FormGroup>
             <legend>Explanation</legend>
-            <Input type="textarea" defaultValue={question.explanation} onBlur={this.blurToState("explanation")}></Input>
+            <Input type="textarea" defaultValue={question.explanation} onBlur={this.blurToProp("updateValues.explanation")}></Input>
           </FormGroup>
           <FormGroup>
             <legend>Difficulty level</legend>
@@ -82,7 +96,7 @@ class QuestionEditPanel extends EditPanel {
         return (
           <div className="choice-input-wrapper" key={ index }>
             <span>{ CHOICE_LETTERS[index] }. </span>
-            <Input className="mb-1" key={index} defaultValue={choice} onBlur={this.blurToState(`choices[${index}]`)} ></Input>
+            <Input className="mb-1" key={index} defaultValue={choice} onBlur={this.blurToProp(`updateValues.choices[${index}]`)} ></Input>
           </div>
         );
       });
@@ -91,7 +105,7 @@ class QuestionEditPanel extends EditPanel {
     renderRightChoiceInForm(question) {
       const choices = ['A', 'B', 'C', 'D', 'E'];
       return (
-        <Input type="select" defaultValue={question.rightChoice} onBlur={this.blurToState("rightChoice")}>
+        <Input type="select" defaultValue={question.rightChoice} onBlur={this.blurToProp("updateValues.rightChoice")}>
           {choices.map((choice, index) => {
             return (
               (<option key={index} value={index}> {choice} </option>)
@@ -103,7 +117,7 @@ class QuestionEditPanel extends EditPanel {
     
     renderDifficulty(question) {
       return (
-        <Input type="select" onBlur={this.blurToState("difficulty", parseInt)}>
+        <Input type="select" onBlur={this.blurToProp("updateValues.difficulty", parseInt)}>
           {QUESTION_DIFFICULTIES.map((questionDifficulty, index) => {
             return (<option key={questionDifficulty.value} value={questionDifficulty.value}>{ questionDifficulty.text }</option>);
           })}
@@ -112,11 +126,12 @@ class QuestionEditPanel extends EditPanel {
     }
 
     onCancel() {
+      this.state.handlers.handleCancel();
       this.props.history.goBack();
     }
 
     onOK() {
-      this.props.currentQuestionReducer.handleOK(this.state);
+      this.state.handlers.handleOK(this.updateValues);
       this.props.history.goBack();
     }
 }

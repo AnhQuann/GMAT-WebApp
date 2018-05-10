@@ -6,11 +6,11 @@ export default function(state = {}, action) {
     case FETCH_QUESTIONS:
       return _.mapKeys(action.payload, "_id");
     case REMOVE_QUESTION:
-      console.log("Remove questions");
       return _.omit(state, [action.payload]);
     case EDIT_QUESTION:
     case ADD_QUESTION:
       const question = action.payload;
+      console.log(question);
       return { ...state, [question._id]: _.cloneDeep(question) };
     default:
       return state;
