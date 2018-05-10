@@ -119,7 +119,7 @@ class QuestionPackByIdPanel extends Component {
         const questionPack = this.state.questionPack;
         const userChoice = this.state.userChoice;
         if (!questionPack) return (<div>Loading ...</div>);
-        if(!questionPack.questions || questionPack.questions.length == 0) return (<div>0 Questions</div>);
+        if(!questionPack.questions || questionPack.questions.length == 0) return (<div>This pack does not have any questions</div>);
         return (
           questionPack.questions.map((question, index) => {
             return (
