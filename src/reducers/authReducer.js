@@ -23,16 +23,8 @@ export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: 
               isLoggedIn: token != null,
               role
             };
-
-            // if(!action.payload.data || (action.payload.data && action.payload.data.success === 0)) document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            // return {
-            //     ...state,
-            //     doneCheckToken: true,
-            //     isLoggedIn: action.payload.data ? action.payload.data.success === 1 : false,
-            //     user: action.payload.data && action.payload.data.user ? action.payload.data.user : null
-            // };
         case LOGOUT:
-            return { ...state, isLoggedIn: false, user: null };
+            return { ...state, isLoggedIn: false, user: null, role: "" };
         default:
             return state;
     }

@@ -49,11 +49,6 @@ export function logout() {
 }
 
 export function checkToken() {
-    // let token = document.cookie.split("; ").filter(e => {
-    //     if (e.slice(0, e.indexOf("=")) === "token") return true;
-    //     else return false;
-    // })[0];
-
     const credentials = loadCredentials();
     if (credentials && credentials.token && credentials.role) {
       return {
@@ -67,17 +62,6 @@ export function checkToken() {
         payload: null
       };
     }
-
-    // if(token) {
-    //     const body = { token: token.slice(token.indexOf("=")+1, token.length) };
-    //     const request = axios.post(AUTH, body);
-
-    //     return  {
-    //         type: CHECK_TOKEN,
-    //         payload: request
-    //     }
-    // }
-    // else return { type: CHECK_TOKEN, payload: {} }
 }
 
 function saveCredentials(token, role) {

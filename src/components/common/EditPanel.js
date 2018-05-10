@@ -27,6 +27,14 @@ class EditPanel extends Component {
     return blur.bind(this);
   }
 
+  inputToProp(propName, converter=null) {
+    const blur = (event) => {
+      const newValue = converter==null? event.target.value: converter(event.target.value);
+      _.set(this, propName, newValue);
+    };
+    return blur.bind(this);
+  }
+
   assignToProp(path) {
     const assign = (value) => {
       _.set(this, path, value);

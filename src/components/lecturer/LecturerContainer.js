@@ -20,7 +20,7 @@ class LecturerComtainer extends Component {
           },
         ]
         return (
-          <div className="h-100 d-flex">    
+          <div className="h-100 d-flex">
             <SideBar items={sideBaritems} title="GMAT" />
             <LecturerPanel />
           </div>

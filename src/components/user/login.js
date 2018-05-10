@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Col, Button, Input, Container, FormGroup } from 'reactstrap';
+import { Col, Button, Form, Input, Container, FormGroup } from 'reactstrap';
 
 import { login } from '../../actions';
 
@@ -14,6 +14,11 @@ class Login extends EditPanel {
     
     this.state = {
       loggingIn: false
+    };
+
+    this.values = {
+      username: "",
+      password: ""
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,19 +44,21 @@ class Login extends EditPanel {
     return (
       <Container className="d-flex align-items-center justify-content-center h-100">
         <Col md="4">
-          <FormGroup>
-            <label>Username</label>
-            <Input onBlur={this.blurToProp("values.username")} />
-          </FormGroup>
-          
-          <FormGroup>
-            <label>Password</label>
-            <Input type="password" onBlur={this.blurToProp("values.password")}/>
-          </FormGroup>
+          <Form onSubmit={this.onSubmit}>
+            <FormGroup>
+              <label>Username</label>
+              <Input onChange={this.inputToProp("values.username")} />
+            </FormGroup>
+            
+            <FormGroup>
+              <label>Password</label>
+              <Input type="password" onChange={this.inputToProp("values.password")}/>
+            </FormGroup>
 
-          <FormGroup className="d-flex">
-            <Button className="ml-auto" color="primary" onClick={this.onSubmit}>Sign in</Button>
-          </FormGroup>
+            <FormGroup className="d-flex">
+              <Button className="ml-auto" color="primary">Sign in</Button>
+            </FormGroup>
+          </Form>
         </Col>
       </Container>
     );
