@@ -127,7 +127,7 @@ class QForm extends Component {
         </FormGroup>
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
-          <Button className="mb-2" color="primary">Submit</Button>
+          <Button className="mb-2 ml-2" color="primary">Submit</Button>
         </div>
         
       </Form>
