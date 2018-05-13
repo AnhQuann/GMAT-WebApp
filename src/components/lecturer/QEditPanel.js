@@ -8,6 +8,7 @@ import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 import QForm from './QForm';
 
 import { editQuestion } from '../../actions';
+import { fetchQuestion } from '../../networks';
 
 import "./QEditPanel.css";
  
@@ -16,22 +17,28 @@ class QuestionEditPanel extends Component {
     super(props);
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      question: null
+    };
   }
 
   componentWillMount() {
     const questionId = this.props.match.params.id;
-    const questions = this.props.questionReducer;
-    this.question = questions[questionId];
+    fetchQuestion(questionId).then((question) => {
+      this.setState({
+        question
+      });
+    });
   }
 
   render() {
-    if(!this.question) return (<div>Loading...</div>);
+    if(!this.state.question) return (<div>Loading...</div>);
     
     return (
       <div>
         <h3>Edit question</h3>
         <QForm
-          question={this.question}
+          question={this.state.question}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel} />
       </div>
