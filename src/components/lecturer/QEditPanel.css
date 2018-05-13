@@ -4,5 +4,9 @@
 }
 
 .choice-input-wrapper span {
+  min-width: 20px;
+}
+
+.choice-input-wrapper span {
   margin-right: 8px;
 }

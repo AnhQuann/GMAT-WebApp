@@ -12,6 +12,8 @@ export const ROUTER_QUESTION_PACK_EDIT_OR_ADD = `${ROUTER_QUESTION_PACK}/(edit|a
 export const ROUTER_QUESTION_PACK_EDIT = `${ROUTER_QUESTION_PACK}/edit`;
 
 export const ROUTER_QUESTION = `${ROUTER_LECTURER}/question`;
+export const ROUTER_QUESTION_ADD = `${ROUTER_LECTURER}/question/add`;
+export const ROUTER_QUESTION_EDIT = `${ROUTER_LECTURER}/question/edit/:id`;
 export const ROUTER_QUESTION_EDIT_OR_ADD = `${ROUTER_QUESTION}/(edit|add)`;
 
 export const ROOT_URL = 'https://gmat-api.herokuapp.com';

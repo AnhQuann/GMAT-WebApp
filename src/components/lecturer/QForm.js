@@ -1,0 +1,152 @@
+import React, { Component } from 'react';
+import { withFormik, Formik } from 'formik';
+import { deEmpty } from '../../utils';
+import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
+import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
+
+class QForm extends Component {
+  constructor(props) {
+    super(props);
+    this.validate = this.validate.bind(this);
+    this.renderForm = this.renderForm.bind(this);
+    this.question = this.props.question ? this.props.question : 
+      {
+        stimulus: "",
+        stem: "",
+        choices: ["", "", "", "", ""],
+        rightChoice: 0,
+        difficulty: 0,
+        explanation: "",
+      };
+  }
+
+  validate(values) {
+    const errors = {};
+    if(!values.stimulus) {
+      errors.stimulus = "Stimulus required";
+    }
+    if(!values.stem) {
+      errors.stem = "Stem required";
+    }
+    return errors;
+  }
+
+  renderForm(formProps) {
+    const {
+      values,
+      errors,
+      touched,
+      handleChange,
+      handleBlur,
+      handleSubmit,
+      isSubmitting,
+    } = formProps;
+
+    const stimulus = deEmpty(values.stimulus);
+    const stem = deEmpty(values.stem);
+    const choices = deEmpty(values.choices, []);
+    const rightChoice = deEmpty(values.rightChoice);
+    const explanation = deEmpty(values.explanation);
+    const difficulty = deEmpty(values.difficulty, 0); 
+
+    return (
+      <Form onSubmit={handleSubmit} >
+        <FormGroup>
+          <legend>Stimulus</legend>
+          <Input
+            type="textarea"
+            name="stimulus"
+            invalid={errors.stimulus != null && (touched.stimulus || isSubmitting)}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={stimulus}
+          />
+          <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
+        </FormGroup>
+
+        <FormGroup>
+          <legend>Stem</legend>
+          <Input
+            name="stem"
+            invalid={touched.stem && errors.stem != null}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={stem}
+          />
+          <div className="text-danger" >{ touched.stem ? errors.stem : "" }</div>
+        </FormGroup>
+
+        <FormGroup>
+          <legend>Choices</legend>
+          {CHOICE_LETTERS.map((choiceLetter, index) => {
+            return (
+              <div className="choice-input-wrapper mt-2" key={index}>
+                <span>{ CHOICE_LETTERS[index] }.</span>
+                <Input
+                  type="text"
+                  name={`choices[${index}]`}
+                  value={deEmpty(choices[index])}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                />
+              </div>
+            );
+          })}
+        </FormGroup>
+          
+        <FormGroup>
+          <legend>Right choice</legend>
+          <Input
+            type="select"
+            name="rightChoice"
+            value={rightChoice}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          >
+            {CHOICE_LETTERS.map((choiceLetter, index) => {
+              return (
+                (<option key={index} value={index}> {choiceLetter} </option>)
+              );
+            })}
+          </Input>
+        </FormGroup>
+        
+        <FormGroup>
+          <legend>Difficulty</legend>
+          <Input
+            type="select"
+            name="difficulty"
+            value={difficulty}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          >
+            {QUESTION_DIFFICULTIES.map((questionDifficulty, index) => {
+              return (<option key={questionDifficulty.value} value={questionDifficulty.value}>{ questionDifficulty.text }</option>);
+            })}
+          </Input>
+        </FormGroup>
+        <div className="d-flex justify-content-end">
+          <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
+          <Button className="mb-2" color="primary">Submit</Button>
+        </div>
+        
+      </Form>
+    );
+  }
+
+  // onSubmit(values, {setSubmitting, setErrors}) {
+  // }
+
+  render() {
+    return (
+      <Formik
+        initialValues={this.question}
+        validate={this.validate}
+        onSubmit={this.props.onSubmit}
+        render={this.renderForm}
+      /> 
+    );
+  }
+}
+
+export default QForm;
