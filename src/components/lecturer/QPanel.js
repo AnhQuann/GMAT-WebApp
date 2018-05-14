@@ -9,7 +9,7 @@ import './QPanel.css';
 
 import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION_ADD, ROUTER_QUESTION_EDIT, ROUTER_QUESTION } from '../../constants';
 
-class QuestionPanel extends Component {
+class QPanel extends Component {
   render() {
     return (
       <div className="question-panel full-height">
@@ -23,4 +23,4 @@ class QuestionPanel extends Component {
   }
 }
 
-export default QuestionPanel;
+export default QPanel;
