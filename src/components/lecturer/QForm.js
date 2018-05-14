@@ -4,6 +4,8 @@ import { deEmpty } from '../../utils';
 import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 
+import './QForm.css';
+
 class QForm extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +58,7 @@ class QForm extends Component {
           <Input
             type="textarea"
             name="stimulus"
+            className="stimulus-input"
             invalid={errors.stimulus != null && (touched.stimulus || isSubmitting)}
             onChange={handleChange}
             onBlur={handleBlur}
