@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import ReactQuill from 'react-quill';
 import { withFormik, Formik } from 'formik';
-import { deEmpty } from '../../utils';
+import { deEmpty, stripHTML } from '../../utils';
 import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 
+import 'react-quill/dist/quill.snow.css';
 import './QForm.css';
 
 class QForm extends Component {
@@ -24,10 +26,10 @@ class QForm extends Component {
 
   validate(values) {
     const errors = {};
-    if(!values.stimulus) {
+    if(!stripHTML(values.stimulus)) {
       errors.stimulus = "Stimulus required";
     }
-    if(!values.stem) {
+    if(!stripHTML(values.stem)) {
       errors.stem = "Stem required";
     }
     return errors;
@@ -42,6 +44,9 @@ class QForm extends Component {
       handleBlur,
       handleSubmit,
       isSubmitting,
+      setFieldValue,
+      setFieldTouched,
+      validateForm
     } = formProps;
 
     const stimulus = deEmpty(values.stimulus);
@@ -55,27 +60,33 @@ class QForm extends Component {
       <Form onSubmit={handleSubmit} >
         <FormGroup>
           <legend>Stimulus</legend>
-          <Input
-            type="textarea"
+          <ReactQuill
+            className="quill"
+            theme="snow"
             name="stimulus"
-            className="stimulus-input"
-            invalid={errors.stimulus != null && (touched.stimulus || isSubmitting)}
-            onChange={handleChange}
-            onBlur={handleBlur}
             value={stimulus}
-          />
+            onChange={(html) => {
+              setFieldValue("stimulus", html);
+              setFieldTouched("stimulus", true);
+            }}
+            onBlur={() => validateForm(values)}
+           />
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
 
         <FormGroup>
           <legend>Stem</legend>
-          <Input
+          <ReactQuill
+            className="quill"
+            theme="snow"
             name="stem"
-            invalid={touched.stem && errors.stem != null}
-            onChange={handleChange}
-            onBlur={handleBlur}
             value={stem}
-          />
+            onChange={(html) => {
+              setFieldValue("stem", html);
+              setFieldTouched("stem", true);
+            }}
+            onBlur={() => validateForm(values)}
+           />
           <div className="text-danger" >{ touched.stem ? errors.stem : "" }</div>
         </FormGroup>
 
@@ -104,11 +115,11 @@ class QForm extends Component {
             name="rightChoice"
             value={rightChoice}
             onBlur={handleBlur}
-            onChange={handleChange}
+            onChange={(event) => console.log(event.constructor.name)}
           >
             {CHOICE_LETTERS.map((choiceLetter, index) => {
               return (
-                (<option key={index} value={index}> {choiceLetter} </option>)
+                <option key={index} value={index}> {choiceLetter} </option>
               );
             })}
           </Input>

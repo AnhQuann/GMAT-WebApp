@@ -20,8 +20,7 @@ class QAddPanel extends Component {
   }
 
   onSubmit(question) {
-    this.props.addQuestion(question);
-    this.props.history.goBack();
+    this.props.addQuestion(question, this.props.history.goBack);
   }
 
   onCancel() {

@@ -46,8 +46,7 @@ class QuestionEditPanel extends Component {
   }
 
   onSubmit(question) {
-    this.props.editQuestion(question);
-    this.props.history.goBack();
+    this.props.editQuestion(question, this.props.history.goBack);
   }
 
   onCancel() {
