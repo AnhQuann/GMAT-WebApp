@@ -12,7 +12,7 @@ class SideBarItem extends Component {
                 {image}
                 <span>{title}</span>
             </Link>
-        )
+        );
     }
 }
  

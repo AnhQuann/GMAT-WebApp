@@ -6,15 +6,28 @@ html, body, #root {
   height: 100%;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.legend {
+  font-size: 1.5rem !important;
+}
+
 .panel {
   width: 100%;
   background-color: #FFFF;
   padding: 8px;
   margin: 16px;
+  min-height: 100vh;
+}
+
+.full-height {
+  min-height: 100vh;
 }
 
 .add-button-right {
-  margin-bottom: .5rem!important;
+  margin: 0.5rem !important;
   float: right !important;
 }
 
@@ -92,20 +105,4 @@ body {
 
 .login .invalid-feedback {
   font-size: 14px;
-}
-
-/* User Panel */
-
-.user_panel > div {
-  padding-bottom: 25px;
-  padding-top: 25px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.user_panel h3 {
-  margin: 0;
-  margin-right: 15px;
 }

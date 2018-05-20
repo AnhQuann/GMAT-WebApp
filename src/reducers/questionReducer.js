@@ -10,7 +10,7 @@ export default function(state = {}, action) {
     case EDIT_QUESTION:
     case ADD_QUESTION:
       const question = action.payload;
-      console.log(action)
+      console.log(question);
       return { ...state, [question._id]: _.cloneDeep(question) };
     default:
       return state;

@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from '../../actions';
 import QList from './QList';
 
-import "./QuestionPanel.css";
+import "./QPanel.css";
 
 class QListPanel extends Component {
   constructor(props) {
@@ -40,13 +40,17 @@ class QListPanel extends Component {
 
   onEditRequest(question) {
     const handleOK = (updatedQuestion) => this.props.editQuestion(updatedQuestion);
-    this.props.selectQuestion(question, handleOK);
-    this.props.history.push("/lecturer/question/edit");
+    const handleCancel = () => {};
+    const handlers = { handleOK, handleCancel };
+    this.props.selectQuestion(question, handlers, "Edit question");
+    this.props.history.push(`/lecturer/question/edit/${question._id}`);
   }
 
   onAddRequest() {
-    const handleOK = (addedQuestion) => { addedQuestion.id = Math.floor(Math.random() * 10 + 3); this.props.addQuestion(addedQuestion); };
-    this.props.selectQuestion(null, handleOK, "Add question");
+    const handleOK = (addedQuestion) => { this.props.addQuestion(addedQuestion); };
+    const handleCancel = () => {};
+    const handlers = { handleOK, handleCancel };
+    this.props.selectQuestion(null, handlers, "Add question");
     this.props.history.push('/lecturer/question/add')
   }
 
@@ -63,7 +67,7 @@ class QListPanel extends Component {
       <div>
         <Button 
           color="primary"
-          className="mb-2 clearfix float-right"
+          className="add-button-right"
           onClick={this.onAddRequest}
           >
             Add new question

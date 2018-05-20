@@ -5,7 +5,12 @@ import StudentPanel from './StudentPanel';
 
 class StudentContainer extends Component {
     render() {
-        return <StudentPanel />;
+      return (
+        <div>
+          <StudentPanel />
+        </div>
+        
+      );
     }
 }
 

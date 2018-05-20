@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, CHECK_TOKEN, FETCH_USER_INFO } from '../actions';
+import { LOGIN, LOGOUT, CHECK_TOKEN } from '../actions';
 
 export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: null, user: null }, action) => {
     switch (action.type) {
@@ -19,16 +19,12 @@ export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: 
             const token = payload.token;
             const role = payload.role;
             return {
-                ...state,
-                doneCheckToken: true,
-                isLoggedIn: token != null,
-                role
+              ...state,
+              isLoggedIn: token != null,
+              role
             };
         case LOGOUT:
-            return { ...state, isLoggedIn: false, user: null };
-        case FETCH_USER_INFO:
-            const userInfo = action.payload;
-            return { ...state, user: userInfo };
+            return { ...state, isLoggedIn: false, user: null, role: "" };
         default:
             return state;
     }

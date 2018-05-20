@@ -7,10 +7,9 @@ import Login from './components/user/login';
 import LecturerContainer from './components/lecturer/LecturerContainer';
 import StudentContainer from './components/student/StudentContainer';
 import Popup from './components/common/Popup';
-import Loading from './components/common/Loading';
 import { checkToken } from './actions';
 
-import { ROLE_LECTURER } from  './constants';
+import { ROLE_LECTURER }  from './constants';
 
 class App extends Component {
 
@@ -18,7 +17,8 @@ class App extends Component {
     const authReducer = this.props.authReducer;
     if (authReducer.isLoggedIn) {
       return this.renderApp(authReducer.role);
-    } else {
+    }
+    else {
       return (<Login />);
     }
   }

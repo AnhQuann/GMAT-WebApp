@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import UserPanel from '../common/UserPanel';
 import SideBar from '../sidebar/SideBar';
 import LecturerPanel from './LecturerPanel';
 
@@ -23,10 +22,7 @@ class LecturerComtainer extends Component {
         return (
           <div className="h-100 d-flex">
             <SideBar items={sideBaritems} title="GMAT" />
-            <div className="col-md-10">
-              <UserPanel />
-              <LecturerPanel />
-            </div>
+            <LecturerPanel />
           </div>
         )
     }
