@@ -92,6 +92,7 @@ class QPackForm extends Component {
                     <div key={index} className="my-2 d-flex align-items-center">
                       <span className="mr-2">{index + 1}.</span>
                       <Input disabled={true} value={elipsis(question.stimulus)} className="col"/>
+                      {/* <span dangerouslySetInnerHTML={{__html: question.stimulus}} className="col" /> */}
                       <i 
                         className="fas fa-times ml-2 text-danger pointer question-remove"
                         onClick={() => {arrayHelpers.remove(index)}}

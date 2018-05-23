@@ -25,6 +25,7 @@ class QuestionEditPanel extends Component {
   componentWillMount() {
     const questionId = this.props.match.params.id;
     fetchQuestion(questionId).then((question) => {
+      console.log(question);
       this.setState({
         question
       });
@@ -38,7 +39,7 @@ class QuestionEditPanel extends Component {
       <div>
         <h3>Edit question</h3>
         <QCRForm
-          question={this.state.question}
+          initialValues={this.state.question}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel} />
       </div>
