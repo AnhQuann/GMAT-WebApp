@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button } from 'reactstrap';
-import { Formik, FieldArray, Field } from 'formik';
+import { Formik, FieldArray } from 'formik';
 import { elipsis } from '../../utils';
 import QPackAddQuestionModal from './QPackAddQuestionModal';
 
@@ -39,7 +39,6 @@ class QPackForm extends Component {
       handleChange,
       handleBlur,
       handleSubmit,
-      isSubmitting,
       setFieldValue
     } = formProps;
 

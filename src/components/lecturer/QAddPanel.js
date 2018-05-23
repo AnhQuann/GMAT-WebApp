@@ -7,16 +7,6 @@ import { addQuestion } from '../../actions';
 class QAddPanel extends Component {
   constructor(props) {
     super(props);
-    this.defaultQuestion = {
-      stimulus: "",
-      details: [{
-        stem: "",
-        choices: ["", "", "", "", ""],
-        rightChoice: 0,
-        explanation: "",
-        difficulty: 0,
-      }],
-    };
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
@@ -37,7 +27,17 @@ class QAddPanel extends Component {
         <QCRForm
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          question={this.defaultQuestion} />
+          initialValues={{
+            stimulus: "",
+            details: [{
+              stem: "",
+              choices: ["", "", "", "", ""],
+              rightChoice: 0,
+              explanation: "",
+              difficulty: 0,
+            }],
+          }} 
+        />
       </div>
     );
   }

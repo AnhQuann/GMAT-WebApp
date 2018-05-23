@@ -1,13 +1,12 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
-import { withFormik, Formik } from 'formik';
+import { Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
-import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
-import QuestionDetail from './qDetail.form';
-import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
+import { Form, Button, FormGroup } from 'reactstrap';
+import QuestionDetail, { validate as questionDetailValidate } from './qDetail.form';
 
-import { nestedFormikProps } from '../nestedFormik';
-import ChoiceForm from './choice.form';
+import { nestedFormikProps, nestedFormikValidate } from '../nestedFormik';
 
 import 'react-quill/dist/quill.snow.css';
 import './QForm.css';
@@ -17,22 +16,22 @@ class QCRForm extends Component {
     super(props);
     this.validate = this.validate.bind(this);
     this.renderForm = this.renderForm.bind(this);
-    this.question = this.props.question ? this.props.question : 
-      {
-        stimulus: "",
-        stem: "",
-        choices: ["", "", "", "", ""],
-        rightChoice: 0,
-        difficulty: 0,
-        explanation: "",
-      };
   }
 
   validate(values) {
-    const errors = {};
+    let errors = {};
+
     if(!stripHTML(values.stimulus)) {
       errors.stimulus = "Stimulus required";
     }
+    
+    values.details.forEach((detail, index) => {
+      errors = {
+        ...errors,
+        ...nestedFormikValidate(questionDetailValidate, `details.${index}`)(values)
+      }
+    })
+    
     return errors;
   }
 
@@ -41,10 +40,7 @@ class QCRForm extends Component {
       values,
       errors,
       touched,
-      handleChange,
-      handleBlur,
       handleSubmit,
-      isSubmitting,
       setFieldValue,
       setFieldTouched,
       validateForm
@@ -65,7 +61,10 @@ class QCRForm extends Component {
               setFieldValue("stimulus", html);
               setFieldTouched("stimulus", true);
             }}
-            onBlur={() => validateForm(values)}
+            onBlur={() => {
+              validateForm(values);
+              setFieldTouched("stimulus", true);
+            }}
            />
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
@@ -74,11 +73,13 @@ class QCRForm extends Component {
           values.details.map((_, index) => {
             return <QuestionDetail
                       key={index}
-                      {...nestedFormikProps(formProps, `details[${index}]`)}
+                      custom={{
+                        allowStimulus: false
+                      }}
+                      {...nestedFormikProps(formProps, `details.${index}`)}
                     />
           })
-        }
-        
+        } 
         
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
@@ -95,7 +96,7 @@ class QCRForm extends Component {
   render() {
     return (
       <Formik
-        initialValues={this.question}
+        initialValues={this.props.initialValues}
         validate={this.validate}
         onSubmit={this.props.onSubmit}
         render={this.renderForm}

@@ -56,8 +56,9 @@ export function nestedFormikProps (formProps, nestedFieldName) {
 
 export function nestedFormikValidate(validate, nestedFieldName) {
   return (values) => {
-    return {
-      [nestedFieldName] : validate(values[nestedFieldName])
-    };
+    let errors = {};
+    let subErrors = validate(_.get(values, nestedFieldName));
+    _.set(errors, nestedFieldName, subErrors);
+    return errors;
   }
 }

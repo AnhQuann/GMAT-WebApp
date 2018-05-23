@@ -13,7 +13,7 @@ import reducers from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import TestQDetail from './components/test/TestQDetail';
+// import TestQDetail from './components/test/TestQDetail';
 
 // const logMiddleware = store => next => action => {
 //   next(action);

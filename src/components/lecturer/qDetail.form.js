@@ -6,6 +6,7 @@ import { nestedFormikProps } from '../nestedFormik';
 import ChoiceForm from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';
+import { stripHTML } from '../../utils';
 
 import 'react-quill/dist/quill.snow.css';
 import './quill.custom.css'
@@ -17,18 +18,16 @@ export default function(formProps) {
     touched,
     handleChange,
     handleBlur,
-    handleSubmit,
-    isSubmitting,
     setFieldValue,
     setFieldTouched,
     validateForm,
     custom
   } = formProps;
 
-  const { highlightStimulus, stem, rightChoice, choices, renderHighlightStimulus } = values;
+  const { highlightStimulus, stem, rightChoice, renderHighlightStimulus } = values;
   const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: false, originalStimulus: ""};
   const showHighlightStimulus = !!highlightStimulus || !!renderHighlightStimulus;
-
+  
   return (
     <div className="bg-white">
       { showHighlightStimulus ?
@@ -74,7 +73,10 @@ export default function(formProps) {
             setFieldValue("stem", html);
             setFieldTouched("stem", true);
           }}
-          onBlur={() => validateForm(values)}
+          onBlur={() => {
+            validateForm(values);
+            setFieldTouched("stem", true);
+          }}
           />
         <div className="text-danger" >{ touched.stem ? errors.stem : "" }</div>
       </FormGroup>
@@ -106,7 +108,7 @@ export default function(formProps) {
 
 export function validate(values) {
   const errors = {};
-  if(!values.stem) {
+  if(!stripHTML(values.stem)) {
     errors.stem = "Stem is required";
   }
   return errors;
