@@ -23,11 +23,10 @@ export default function(props) {
         </thead>
         <tbody className="container">
           { 
-            _.values(questions).map((question, index) => 
-            {
+            _.values(questions).map((question, index) => {
               const trClassName = question.selected ? `q-selected ${pointer}` : pointer;
               return (<tr key={index} className={trClassName} onClick={() => onQuestionClicked(question)}> 
-                { renderId(index) }
+                { renderId(index + 1) }
                 { renderStimulus(elipsis(question.stimulus, stimulusMaxLength)) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
               </tr>);

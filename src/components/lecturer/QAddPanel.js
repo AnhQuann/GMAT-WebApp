@@ -9,17 +9,20 @@ class QAddPanel extends Component {
     super(props);
     this.defaultQuestion = {
       stimulus: "",
-      stem: "",
-      choices: ["", "", "", "", ""],
-      rightChoice: 0,
-      difficulty: 0,
-      explanation: "",
+      details: [{
+        stem: "",
+        choices: ["", "", "", "", ""],
+        rightChoice: 0,
+        explanation: "",
+        difficulty: 0,
+      }],
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
 
   onSubmit(question) {
+    // console.log(question);
     this.props.addQuestion(question, this.props.history.goBack);
   }
 
