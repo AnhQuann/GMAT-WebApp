@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button, Form, FormGroup, Input, Label, TabContent, TabPane } from 'reactstrap';
 import _ from 'lodash';
 import moment from 'moment';
-import progressBar, { Circle } from 'react-progressbar.js';
+import progressBar, { Circle } from 'react-progressbar';
 
 import { fetchQuestionPack, addResult } from '../../networks';
 
