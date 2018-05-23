@@ -6,15 +6,8 @@ import { CHOICE_LETTERS } from '../../constants';
 export default function(formProps) {
   const {
     values,
-    errors,
-    touched,
     handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting,
-    setFieldValue,
-    setFieldTouched,
-    validateForm
+    handleBlur
   } = formProps;
 
   return (
