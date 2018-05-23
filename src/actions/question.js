@@ -14,7 +14,7 @@ export function fetchQuestions() {
       if(_.get(response,'data.success') && _.get(response,'data.questions')) {
         resolve(response.data.questions);
       } else {
-        reject(response);
+        reject();
       }
     });
   };

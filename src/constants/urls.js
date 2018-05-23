@@ -4,6 +4,7 @@ export const ROUTER_PACK = `${ROUTER_STUDENT}/pack`;
 export const ROUTER_PACK_PARAM_ID = `${ROUTER_PACK}/:id`;
 
 export const ROUTER_RESULT = "/result";
+export const ROUTER_RESULT_PARAM_ID = `${ROUTER_RESULT}/:id`;
 
 export const ROUTER_LECTURER = "/lecturer";
 
@@ -27,3 +28,4 @@ export const SIGN_IN = `${API_URL}/signin`;
 
 export const API_QUESTIONS = `${API_URL}/questions`;
 export const API_QUESTION_PACKS = `${API_URL}/questionpacks`;
+export const API_RESULT = `${API_URL}/results`;

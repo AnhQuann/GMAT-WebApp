@@ -12,7 +12,6 @@ class QAddPanel extends Component {
   }
 
   onSubmit(question) {
-    // console.log(question);
     this.props.addQuestion(question, this.props.history.goBack);
   }
 

@@ -43,7 +43,3 @@ export function fieldsNotEmpty(obj, ...paths) {
     }, true);
   }
 }
-
-// export function elipsis(text, n) {
-
-// }

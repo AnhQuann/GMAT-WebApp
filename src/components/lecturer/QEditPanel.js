@@ -25,7 +25,6 @@ class QuestionEditPanel extends Component {
   componentWillMount() {
     const questionId = this.props.match.params.id;
     fetchQuestion(questionId).then((question) => {
-      console.log(question);
       this.setState({
         question
       });
