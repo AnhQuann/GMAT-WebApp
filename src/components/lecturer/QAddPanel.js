@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import QForm from './QForm';
+import QCRForm from './QCRForm';
 import { addQuestion } from '../../actions';
  
 class QAddPanel extends Component {
@@ -31,7 +31,7 @@ class QAddPanel extends Component {
     return (
       <div>
         <h3>Add question</h3>
-        <QForm
+        <QCRForm
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
           question={this.defaultQuestion} />

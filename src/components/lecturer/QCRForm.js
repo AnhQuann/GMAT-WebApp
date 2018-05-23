@@ -3,12 +3,16 @@ import ReactQuill from 'react-quill';
 import { withFormik, Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
 import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
+import QuestionDetail from './qDetail.form';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
+
+import { nestedFormikProps } from '../nestedFormik';
+import ChoiceForm from './choice.form';
 
 import 'react-quill/dist/quill.snow.css';
 import './QForm.css';
 
-class QForm extends Component {
+class QCRForm extends Component {
   constructor(props) {
     super(props);
     this.validate = this.validate.bind(this);
@@ -47,11 +51,7 @@ class QForm extends Component {
     } = formProps;
 
     const stimulus = deEmpty(values.stimulus);
-    const stem = deEmpty(values.stem);
-    const choices = deEmpty(values.choices, []);
-    const rightChoice = deEmpty(values.rightChoice);
-    const explanation = deEmpty(values.explanation);
-    const difficulty = deEmpty(values.difficulty, 0); 
+    const details = values.details; 
 
     return (
       <Form onSubmit={handleSubmit} >
@@ -70,58 +70,17 @@ class QForm extends Component {
            />
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
-
-        <FormGroup>
-          <legend>Stem</legend>
-          <ReactQuill
-            className="quill"
-            theme="snow"
-            name="stem"
-            value={stem}
-            onChange={(html) => {
-              setFieldValue("stem", html);
-              setFieldTouched("stem", true);
-            }}
-            onBlur={() => validateForm(values)}
-           />
-          <div className="text-danger" >{ touched.stem ? errors.stem : "" }</div>
-        </FormGroup>
-
-        <FormGroup>
-          <legend>Choices</legend>
-          {CHOICE_LETTERS.map((choiceLetter, index) => {
-            return (
-              <div className="choice-input-wrapper mt-2" key={index}>
-                <span>{ CHOICE_LETTERS[index] }.</span>
-                <Input
-                  type="text"
-                  name={`choices[${index}]`}
-                  value={deEmpty(choices[index])}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
-              </div>
-            );
-          })}
-        </FormGroup>
-          
-        <FormGroup>
-          <legend>Right choice</legend>
-          <Input
-            type="select"
-            name="rightChoice"
-            value={rightChoice}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          >
-            {CHOICE_LETTERS.map((choiceLetter, index) => {
-              return (
-                <option key={index} value={index}> {choiceLetter} </option>
-              );
-            })}
-          </Input>
-        </FormGroup>
-
+        
+        {
+          details.map((_, index) => {
+            return <QuestionDetail
+                      key={index}
+                      {...nestedFormikProps(formProps, `details[${index}]`)}
+                    />
+          })
+        }
+        
+        
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
           <Button className="mb-2 ml-2" color="primary">Submit</Button>
@@ -146,4 +105,4 @@ class QForm extends Component {
   }
 }
 
-export default QForm;
+export default QCRForm;

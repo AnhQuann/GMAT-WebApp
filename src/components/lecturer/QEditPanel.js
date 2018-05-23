@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 
-import QForm from './QForm';
+import QCRForm from './QCRForm';
 
 import { editQuestion } from '../../actions';
 import { fetchQuestion } from '../../networks';
@@ -37,7 +37,7 @@ class QuestionEditPanel extends Component {
     return (
       <div>
         <h3>Edit question</h3>
-        <QForm
+        <QCRForm
           question={this.state.question}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel} />
