@@ -5,10 +5,13 @@ import { deEmpty, stripHTML } from '../../utils';
 import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 
+import { nestedFormikProps } from '../nestedFormik';
+import ChoiceForm from './choice.form';
+
 import 'react-quill/dist/quill.snow.css';
 import './QForm.css';
 
-class QForm extends Component {
+class QCRForm extends Component {
   constructor(props) {
     super(props);
     this.validate = this.validate.bind(this);
@@ -92,20 +95,7 @@ class QForm extends Component {
 
         <FormGroup>
           <legend>Choices</legend>
-          {CHOICE_LETTERS.map((choiceLetter, index) => {
-            return (
-              <div className="choice-input-wrapper mt-2" key={index}>
-                <span>{ CHOICE_LETTERS[index] }.</span>
-                <Input
-                  type="text"
-                  name={`choices[${index}]`}
-                  value={deEmpty(choices[index])}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
-              </div>
-            );
-          })}
+          <ChoiceForm {...nestedFormikProps(formProps, "choices")} />
         </FormGroup>
           
         <FormGroup>
@@ -115,7 +105,7 @@ class QForm extends Component {
             name="rightChoice"
             value={rightChoice}
             onBlur={handleBlur}
-            onChange={(event) => console.log(event.constructor.name)}
+            onChange={handleChange}
           >
             {CHOICE_LETTERS.map((choiceLetter, index) => {
               return (
@@ -125,20 +115,6 @@ class QForm extends Component {
           </Input>
         </FormGroup>
         
-        <FormGroup>
-          <legend>Difficulty</legend>
-          <Input
-            type="select"
-            name="difficulty"
-            value={difficulty}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          >
-            {QUESTION_DIFFICULTIES.map((questionDifficulty, index) => {
-              return (<option key={questionDifficulty.value} value={questionDifficulty.value}>{ questionDifficulty.text }</option>);
-            })}
-          </Input>
-        </FormGroup>
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
           <Button className="mb-2 ml-2" color="primary">Submit</Button>
@@ -163,4 +139,4 @@ class QForm extends Component {
   }
 }
 
-export default QForm;
+export default QCRForm;

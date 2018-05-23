@@ -11,7 +11,6 @@ class StudentContainer extends Component {
           <NavBar />
           <StudentPanel />
         </div>
-        
       );
     }
 }

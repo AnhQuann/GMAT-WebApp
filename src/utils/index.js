@@ -33,6 +33,17 @@ export function checkFields(obj, paths) {
   }
 }
 
+export function fieldsNotEmpty(obj, ...paths) {
+  if (typeof(paths) === 'string') {
+    return _.get(obj, paths) && true;
+  }
+  else {
+    return paths.reduce((currentCheck, path) => {
+      return _.get(obj, path) && currentCheck;
+    }, true);
+  }
+}
+
 // export function elipsis(text, n) {
 
 // }
