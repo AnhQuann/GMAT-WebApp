@@ -51,7 +51,6 @@ class QCRForm extends Component {
     } = formProps;
 
     const stimulus = deEmpty(values.stimulus);
-    const details = values.details; 
 
     return (
       <Form onSubmit={handleSubmit} >
@@ -71,8 +70,8 @@ class QCRForm extends Component {
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
         
-        {
-          details.map((_, index) => {
+        { 
+          values.details.map((_, index) => {
             return <QuestionDetail
                       key={index}
                       {...nestedFormikProps(formProps, `details[${index}]`)}
