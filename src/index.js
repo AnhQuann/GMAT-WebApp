@@ -24,7 +24,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <TestQDetail />
+      <App />
     </BrowserRouter>
   </Provider>
   , document.getElementById('root'));

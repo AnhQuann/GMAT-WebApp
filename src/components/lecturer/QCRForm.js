@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import { withFormik, Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
 import { Form, Input, Label, Button, FormGroup } from 'reactstrap';
+import QuestionDetail from './qDetail.form';
 import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
 
 import { nestedFormikProps } from '../nestedFormik';
@@ -32,9 +33,6 @@ class QCRForm extends Component {
     if(!stripHTML(values.stimulus)) {
       errors.stimulus = "Stimulus required";
     }
-    if(!stripHTML(values.stem)) {
-      errors.stem = "Stem required";
-    }
     return errors;
   }
 
@@ -53,11 +51,7 @@ class QCRForm extends Component {
     } = formProps;
 
     const stimulus = deEmpty(values.stimulus);
-    const stem = deEmpty(values.stem);
-    const choices = deEmpty(values.choices, []);
-    const rightChoice = deEmpty(values.rightChoice);
-    const explanation = deEmpty(values.explanation);
-    const difficulty = deEmpty(values.difficulty, 0); 
+    const details = values.details; 
 
     return (
       <Form onSubmit={handleSubmit} >
@@ -76,44 +70,16 @@ class QCRForm extends Component {
            />
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
-
-        <FormGroup>
-          <legend>Stem</legend>
-          <ReactQuill
-            className="quill"
-            theme="snow"
-            name="stem"
-            value={stem}
-            onChange={(html) => {
-              setFieldValue("stem", html);
-              setFieldTouched("stem", true);
-            }}
-            onBlur={() => validateForm(values)}
-           />
-          <div className="text-danger" >{ touched.stem ? errors.stem : "" }</div>
-        </FormGroup>
-
-        <FormGroup>
-          <legend>Choices</legend>
-          <ChoiceForm {...nestedFormikProps(formProps, "choices")} />
-        </FormGroup>
-          
-        <FormGroup>
-          <legend>Right choice</legend>
-          <Input
-            type="select"
-            name="rightChoice"
-            value={rightChoice}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          >
-            {CHOICE_LETTERS.map((choiceLetter, index) => {
-              return (
-                <option key={index} value={index}> {choiceLetter} </option>
-              );
-            })}
-          </Input>
-        </FormGroup>
+        
+        {
+          details.map((_, index) => {
+            return <QuestionDetail
+                      key={index}
+                      {...nestedFormikProps(formProps, `details[${index}]`)}
+                    />
+          })
+        }
+        
         
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
