@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import SideBar from '../sidebar/SideBar';
 import LecturerPanel from './LecturerPanel';
 
-import { ROUTER_QUESTION, ROUTER_QUESTION_PACK, ROUTER_STUDENT_MANAGEMENT  } from '../../constants/urls';
+import { ROUTER_QUESTION, ROUTER_QUESTION_PACK, ROUTER_STUDENT_MANAGEMENT, ROUTER_CLASS_ROOM  } from '../../constants/urls';
  
 class LecturerComtainer extends Component {
     render() {
@@ -22,6 +22,11 @@ class LecturerComtainer extends Component {
             title: "Students",
             image: <i className="fas fa-user"></i>,
             href: ROUTER_STUDENT_MANAGEMENT
+          },
+          {
+            title: "Classrooms",
+            image: <i className="fas fa-comment-alt"></i>,
+            href: ROUTER_CLASS_ROOM
           }
         ]
         return (

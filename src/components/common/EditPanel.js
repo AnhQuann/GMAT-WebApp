@@ -42,15 +42,9 @@ class EditPanel extends Component {
     return assign.bind(this);
   }
 
-<<<<<<< HEAD
   tryGetState(path, defaultValue, converter=null) {
     const value = _.get(this.state, path);
     if (value !== undefined) return converter == null ? value : converter(value);
-=======
-  tryGet(path, defaultValue, converter=null) {
-    const value = this.state[path];
-    if (value) return converter == null ? value : converter(value);
->>>>>>> student-features
     return defaultValue;
   }
 

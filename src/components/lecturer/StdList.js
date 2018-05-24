@@ -1,9 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
-import { CheckBox, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
  
 export default function(props) {
   const students = props.students;
+  const onDeleteStudentRequest = props.onDeleteStudentRequest;
+  const onEditStudentRequest = props.on
   return (<Table>
     <thead>
       <tr>

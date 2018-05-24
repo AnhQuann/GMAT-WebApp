@@ -18,7 +18,13 @@ export const ROUTER_QUESTION_ADD = `${ROUTER_LECTURER}/question/add`;
 export const ROUTER_QUESTION_EDIT = `${ROUTER_LECTURER}/question/edit/:id`;
 export const ROUTER_QUESTION_EDIT_OR_ADD = `${ROUTER_QUESTION}/(edit|add)`;
 
-export const ROUTER_STUDENT_MANAGEMENT = `${ROUTER_LECTURER}/student-management`
+export const ROUTER_STUDENT_MANAGEMENT = `${ROUTER_LECTURER}/student-management`;
+export const ROUTER_STUDENT_MANAGEMENT_ADD = `${ROUTER_STUDENT_MANAGEMENT}/add`;
+export const ROUTER_STUDENT_MANAGEMENT_EDIT = `${ROUTER_STUDENT_MANAGEMENT}/edit/:id`;
+
+export const ROUTER_CLASS_ROOM = `${ROUTER_LECTURER}/class-room`;
+export const ROUTER_CLASS_ROOM_ADD = `${ROUTER_LECTURER}/class-room/add`;
+export const ROUTER_CLASS_ROOM_EDIT = `${ROUTER_LECTURER}/class-room/edit/:id`;
 
 export const ROOT_URL = 'https://gmat-api.herokuapp.com';
 export const API_URL = `${ROOT_URL}/api`;
@@ -29,3 +35,5 @@ export const SIGN_IN = `${API_URL}/signin`;
 export const API_QUESTIONS = `${API_URL}/questions`;
 export const API_QUESTION_PACKS = `${API_URL}/questionpacks`;
 export const API_RESULT = `${API_URL}/results`;
+export const API_STUDENT = `${API_URL}/students`;
+export const API_CLASSROOM = `${API_URL}/classrooms`
