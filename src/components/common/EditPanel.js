@@ -42,7 +42,7 @@ class EditPanel extends Component {
     return assign.bind(this);
   }
 
-  tryGet(path, defaultValue, converter=null) {
+  tryGetState(path, defaultValue, converter=null) {
     const value = this.state[path];
     if (value) return converter == null ? value : converter(value);
     return defaultValue;
