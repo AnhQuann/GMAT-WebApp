@@ -21,8 +21,8 @@ export function fetchStudent(studentId) {
   const request = axios.get(`${API_STUDENT}/${studentId}`);
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
-      if(checkFields(response, 'data.success', 'data.student')) {
-        resolve(response.data.student);
+      if(checkFields(response, 'data.success', 'data.foundStudent')) {
+        resolve(response.data.foundStudent);
       } else {
         reject();
       }
@@ -36,8 +36,8 @@ export function addStudent(student) {
   
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
-      if(checkFields(response, 'data.success', 'data.student')) {
-        resolve(response.data.student);
+      if(checkFields(response, 'data.success', 'data.addedStudent')) {
+        resolve(response.data.addedStudent);
       } else {
         reject();
       }
@@ -65,8 +65,8 @@ export function deleteStudent(student) {
   const request = axios.delete(`${API_STUDENT}/${student._id}`);
   const inteceptor = (response) => {
     return new Promise((resolve, reject) => {
-      if(checkFields(response, 'data.success')) {
-        resolve(student);
+      if(checkFields(response, 'data.success', 'data.studentBefore')) {
+        resolve(response.data.studentBefore);
       } else {
         reject();
       }

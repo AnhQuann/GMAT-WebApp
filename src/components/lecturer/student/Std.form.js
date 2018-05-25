@@ -11,8 +11,11 @@ class StdForm extends Component {
 
   validate(values) {
     const errors = {};
-    if(!values.name) {
-      errors.name = "Name is required";
+    if(!values.lastName) {
+      errors.name = "Lastname is required";
+    }
+    if(!values.firstName) {
+      errors.firstName = "Firstname is required";
     }
     if(!values.email) {
       errors.email = "Email is required";
@@ -34,15 +37,26 @@ class StdForm extends Component {
     return (
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>Tên</Label>
+          <Label>Lastname</Label>
           <Input
             type='text'
-            name='name'
-            invalid={!!touched.name && !!errors.name}
+            name='lastName'
+            invalid={!!touched.lastName && !!errors.lastName}
             onBlur={handleBlur}
             onChange={handleChange}
           />
-          <div className="text-danger">{touched.name ? errors.name : ""}</div>
+          <div className="text-danger">{touched.lastName ? errors.lastName : ""}</div>
+        </FormGroup>
+        <FormGroup>
+          <Label>Firstname</Label>
+          <Input
+            type='text'
+            name='firstName'
+            invalid={!!touched.firstName && !!errors.firstName}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
+          <div className="text-danger">{touched.firstName ? errors.firstName : ""}</div>
         </FormGroup>
         <FormGroup>
           <Label>Email</Label>

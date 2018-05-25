@@ -22,7 +22,10 @@ class StdEditPanel extends Component {
     const studentId = this.props.match.params.id;
     fetchStudent(studentId).then((student) => {
       this.setState({
-        student
+        student: {
+          ...student,
+          ...student.info
+        }
       });
     })
   }

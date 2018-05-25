@@ -20,11 +20,12 @@ class StdAddPanel extends Component {
         <legend>Add student</legend>
         <StdForm
             initialValues={{
-              name: "",
+              fisrtName: "",
+              lastName: "",
               email: ""
             }}
             onSubmit={this.onSubmit}
-          />
+        />
       </div>
     );
   }

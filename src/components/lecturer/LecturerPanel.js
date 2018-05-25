@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import QPanel from './QPanel';
 import QPackPanel from './QPackPanel';
-import StdPanel from './StdPanel';
+import StdPanel from './student/StdPanel';
 import CRoomPanel from './classroom/CRoom.panel';
 import NavBar from '../navbar/NavBar';
 
