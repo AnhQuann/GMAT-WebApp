@@ -48,7 +48,7 @@ class CRoomListPanel extends Component {
                     <td>{classroom.questionPacks.length}</td>
                     <td>
                       <Link to={`${ROUTER_CLASS_ROOM_EDIT}/${classroom._id}`} >
-                        <i className="far fa-edit question-edit text-warning" />
+                        <i className="far fa-edit question-edit" />
                       </Link>
                       <i className="fas fa-trash question-remove text-danger" />
                     </td>

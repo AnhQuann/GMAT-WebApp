@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, Input, Button } from 'reactstrap';
 
-import QList from './QList';
+import QList from '../QList';
 
 import { searchQuestion } from '../../actions';
 
