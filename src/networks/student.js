@@ -2,8 +2,8 @@ import axios from 'axios';
 import { checkFields  } from '../utils';
 import { API_STUDENT } from '../constants';
 
-export function fetchStudents() {
-  const request = axios.get(API_STUDENT);
+export function fetchStudents(name="") {
+  const request = axios.get(`${API_STUDENT}?name=${name}`);
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
       if(checkFields(response, 'data.success', 'data.students')) {

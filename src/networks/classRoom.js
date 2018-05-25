@@ -4,7 +4,7 @@ import { API_CLASSROOM } from '../constants';
 import { checkFields } from '../utils';
 
 export function fetchClassRooms() {
-  const request = axios.get(`${API_CLASSROOM}`);
+  const request = axios.get(API_CLASSROOM);
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
       if(checkFields(response, 'data.success', 'data.classrooms')) {

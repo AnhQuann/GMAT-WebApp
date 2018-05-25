@@ -7,12 +7,17 @@ class CRoomEditPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      classRoom: null
+      classroom: null
     };
   }
 
   componentWillMount() {
-
+    const classroomId = this.props.match.params.id;
+    fetchClassRoom(classroomId).then((classroom) => {
+      this.setState({
+        classroom
+      });
+    });
   }
 
   onSubmit(values) {
@@ -20,12 +25,12 @@ class CRoomEditPanel extends Component {
   }
 
   render() {
-    if(!this.state.classRoom) return <div className="panel">Loading...</div>;
+    if(!this.state.classroom) return <div className="panel">Loading...</div>;
     return (
       <div className="panel">
-        <legend>Edit class room</legend>
+        <h3>Edit classroom</h3>
         <CRoomForm
-          initialValues={this.state.classRoom}
+          initialValues={this.state.classroom}
           onSubmit={this.onSubmit}
         />
       </div>

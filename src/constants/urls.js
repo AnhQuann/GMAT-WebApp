@@ -22,9 +22,9 @@ export const ROUTER_STUDENT_MANAGEMENT = `${ROUTER_LECTURER}/student-management`
 export const ROUTER_STUDENT_MANAGEMENT_ADD = `${ROUTER_STUDENT_MANAGEMENT}/add`;
 export const ROUTER_STUDENT_MANAGEMENT_EDIT = `${ROUTER_STUDENT_MANAGEMENT}/edit/:id`;
 
-export const ROUTER_CLASS_ROOM = `${ROUTER_LECTURER}/class-room`;
-export const ROUTER_CLASS_ROOM_ADD = `${ROUTER_LECTURER}/class-room/add`;
-export const ROUTER_CLASS_ROOM_EDIT = `${ROUTER_LECTURER}/class-room/edit/:id`;
+export const ROUTER_CLASS_ROOM = `${ROUTER_LECTURER}/classroom`;
+export const ROUTER_CLASS_ROOM_ADD = `${ROUTER_CLASS_ROOM}/add`;
+export const ROUTER_CLASS_ROOM_EDIT = `${ROUTER_CLASS_ROOM}/edit`;
 
 export const ROOT_URL = 'https://gmat-api.herokuapp.com';
 export const API_URL = `${ROOT_URL}/api`;

@@ -1,0 +1,18 @@
+.deletable {
+  border: 0.1rem solid rgba(25, 118, 210, 0.651) ;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  margin: 0.125rem;
+}
+
+.deletable span {
+  margin-right: 0.25rem;
+}
+
+.deletable i {
+  cursor: pointer;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+}

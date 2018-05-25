@@ -10,7 +10,7 @@ export default function(props) {
   return (
     <Switch>
       <Route path={ROUTER_CLASS_ROOM_ADD} component={CRoomAddPanel} />
-      <Route path={ROUTER_CLASS_ROOM_EDIT} component={CRoomEditPanel} />
+      <Route path={`${ROUTER_CLASS_ROOM_EDIT}/:id`} component={CRoomEditPanel} />
       <Route path={ROUTER_CLASS_ROOM} component={CRoomListPanel} />
     </Switch>
   );

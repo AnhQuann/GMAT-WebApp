@@ -59,11 +59,11 @@ class StdListPanel extends Component {
     return (<Table>
       <thead>
         <tr>
-          <td>#</td>
-          <td>Last name</td>
-          <td>First name</td>
-          <td>Email</td>
-          <td>Actions</td>
+          <th>#</th>
+          <th>Last name</th>
+          <th>First name</th>
+          <th>Email</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>

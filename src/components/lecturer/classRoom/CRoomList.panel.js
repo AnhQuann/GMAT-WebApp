@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import { fetchClassRooms } from '../../networks';
+import { ROUTER_CLASS_ROOM_EDIT } from '../../constants';
   
 class CRoomListPanel extends Component {
   constructor(props) {
@@ -27,18 +29,29 @@ class CRoomListPanel extends Component {
         <Table>
           <thead>
             <tr>
-              <td>Class no</td>
-              <td>Students</td>
+              <th>#</th>
+              <th>Name</th>
+              <th>Students</th>
+              <th>Packs</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {
-              _.map(this.state.classrooms, (classroom, id) => {
+              _.values(this.state.classrooms).map((classroom, index) => {
                 return (
-                  <tr>
-                    <td>{classroom.classNo}</td>
-                    <td>Students</td>
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{classroom.name}</td>
+                    <td>{classroom.students.length}</td>
+                    <td>{classroom.questionPacks.length}</td>
+                    <td>
+                      <Link to={`${ROUTER_CLASS_ROOM_EDIT}/${classroom._id}`} >
+                        <i className="far fa-edit question-edit text-warning" />
+                      </Link>
+                      <i className="fas fa-trash question-remove text-danger" />
+                    </td>
                   </tr>
                 );
               })
