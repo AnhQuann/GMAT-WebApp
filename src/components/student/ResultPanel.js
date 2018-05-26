@@ -6,7 +6,7 @@ import moment from 'moment';
 import Loading from '../common/Loading';
 
 import { fetchResult } from '../../networks';
-import { ROUTER_STUDENT, QUESTION_DIFFICULTIES } from '../../constants';
+import { ROUTER_STUDENT, QUESTION_DIFFICULTIES, ROUTER_REVIEW } from '../../constants';
 
 class ResultPanel extends Component {
     constructor(props) {
@@ -101,7 +101,9 @@ class ResultPanel extends Component {
                   <Col sm="6">
                       <h2>Review your responses</h2>
                   </Col>
+                  
                   <Col sm="6" className="text-right">
+                      <Button color="info" className="mr-2" onClick={() => { this.props.history.push(`${ROUTER_REVIEW}/${this.props.match.params.id}`); }}>Review</Button>
                       <Button color="info" onClick={() => { this.props.history.push(ROUTER_STUDENT); }}>Back to Homepage</Button>
                   </Col>
               </Row>

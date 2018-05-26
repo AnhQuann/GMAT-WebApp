@@ -1,0 +1,11 @@
+.choice-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.choice-wrapper input, .choice-wrapper i {
+  position: relative;
+  top: 0.35rem;
+  margin-right: 0.25rem;
+}

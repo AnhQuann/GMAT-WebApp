@@ -4,6 +4,7 @@ export const ROUTER_PACK = `${ROUTER_STUDENT}/pack`;
 export const ROUTER_PACK_PARAM_ID = `${ROUTER_PACK}/:id`;
 
 export const ROUTER_RESULT = "/result";
+export const ROUTER_REVIEW = "/review";
 export const ROUTER_RESULT_PARAM_ID = `${ROUTER_RESULT}/:id`;
 
 export const ROUTER_LECTURER = "/lecturer";
@@ -21,6 +22,7 @@ export const ROUTER_QUESTION_EDIT_OR_ADD = `${ROUTER_QUESTION}/(edit|add)`;
 export const ROUTER_STUDENT_MANAGEMENT = `${ROUTER_LECTURER}/student-management`;
 export const ROUTER_STUDENT_MANAGEMENT_ADD = `${ROUTER_STUDENT_MANAGEMENT}/add`;
 export const ROUTER_STUDENT_MANAGEMENT_EDIT = `${ROUTER_STUDENT_MANAGEMENT}/edit/:id`;
+
 
 export const ROUTER_CLASS_ROOM = `${ROUTER_LECTURER}/classroom`;
 export const ROUTER_CLASS_ROOM_ADD = `${ROUTER_CLASS_ROOM}/add`;
