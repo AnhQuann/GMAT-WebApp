@@ -17,7 +17,7 @@ export default function(props) {
 
 function renderHTML(html) {
   return (
-    <div className="mb-3 text-justify">
+    <div className="mb-3">
       <span dangerouslySetInnerHTML={{__html: html}} />
     </div>
   );
