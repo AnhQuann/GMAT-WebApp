@@ -29,8 +29,6 @@ class TestQDetail extends Component {
     } = formProps;
     
     const { details } = values;
-    // console.log(values);
-    // console.log(nestedFormikProps(formProps, `details[0]`));
     return (
       <Form onSubmit={handleSubmit}
       >

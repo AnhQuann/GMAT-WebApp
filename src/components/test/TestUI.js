@@ -38,7 +38,6 @@ class TestForm extends Component {
   }
 
   onSubmit(values) {
-    console.log(values);
   }
 
   // onSubmit(values, {setSubmitting, setErrors}) {

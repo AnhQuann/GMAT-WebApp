@@ -4,7 +4,6 @@ import ReactQuill from 'react-quill';
 import { Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
 import { Form, Button, FormGroup } from 'reactstrap';
-// import QuestionDetail, { validate as questionDetailValidate } from './qDetail.form';
 
 import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
 
