@@ -58,7 +58,23 @@ export function nestedFormikValidate(validate, nestedFieldName) {
   return (values) => {
     let errors = {};
     let subErrors = validate(_.get(values, nestedFieldName));
-    _.set(errors, nestedFieldName, subErrors);
+    if(!!subErrors && !_.isEmpty(subErrors)) {
+      _.set(errors, nestedFieldName, subErrors);
+    }
+    return errors;
+  }
+}
+
+export function nestFormikArrayValidate(validate, arrayFieldName) {
+  return (values) => {
+    let errors = [];
+    let arrayValues = _.get(values, arrayFieldName);
+    arrayValues.forEach((arrayValue, index) => {
+      const subError = validate(arrayValue);
+      if (!!subError && !_.isEmpty(subError)) {
+        errors[index] = subError;
+      }
+    })
     return errors;
   }
 }
