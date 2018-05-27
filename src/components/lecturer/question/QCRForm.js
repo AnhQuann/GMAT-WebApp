@@ -6,7 +6,7 @@ import { deEmpty, stripHTML } from '../../utils';
 import { Form, Button, FormGroup } from 'reactstrap';
 import QuestionDetail, { validate as questionDetailValidate } from './qDetail.form';
 
-import { nestedFormikProps, nestedFormikValidate } from '../nestedFormik';
+import { nestedFormikProps, nestedFormikValidate } from '../../nestedFormik';
 
 import 'react-quill/dist/quill.snow.css';
 import './QForm.css';

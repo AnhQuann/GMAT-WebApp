@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestedFormikProps } from '../nestedFormik';
+import { nestedFormikProps } from '../../nestedFormik';
 import ChoiceForm from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';

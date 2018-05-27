@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import QPanel from './QPanel';
+import QPanel from './question/QPanel';
 import QPackPanel from './questionpack/QPackPanel';
 import StdPanel from './student/StdPanel';
 import CRoomPanel from './classroom/CRoom.panel';
