@@ -1,5 +1,5 @@
 import React from 'react';
-import QDetail, { validate as validateQDetail } from './qDetail.form';
+import QDetail, { validate as validateQDetail } from './QDetail.form';
 import { nestedFormikProps, nestFmkArrayValidate, nestedFormikValidate } from '../../nestedFormik';
 
 export default function(formProps) {
@@ -7,10 +7,10 @@ export default function(formProps) {
     values,
     custom
   } = formProps;
-  
+
   return (
     <div>
-      { 
+      {
         values.map((_, index) => {
           return <QDetail
                     key={index}
