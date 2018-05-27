@@ -49,7 +49,10 @@ class QuestionPackByIdPanel extends Component {
         }];
 
         this.setState({
-          questionPack
+          questionPack: {
+            ...questionPack,
+            questions: questionPack.questions.filter((question) => !!question.choices)
+          }
         });
         this.startTimer();
       });
@@ -138,8 +141,9 @@ class QuestionPackByIdPanel extends Component {
     const userChoice = this.state.userChoice;
     if (!questionPack) return (<Loading />);
     if(!questionPack.questions || questionPack.questions.length == 0) return (<div>This pack does not have any questions</div>);
+    const questions = questionPack.questions;
     return (
-      questionPack.questions.map((question, index) => {
+      questions.map((question, index) => {
         return (
           <TabPane tabId={`${index}`} key={index}>
             <Row>
