@@ -4,7 +4,9 @@ import ReactQuill from 'react-quill';
 import { Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
 import { Form, Button, FormGroup } from 'reactstrap';
-import QuestionDetail, { validate as questionDetailValidate } from './qDetail.form';
+// import QuestionDetail, { validate as questionDetailValidate } from './qDetail.form';
+
+import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
 
 import { nestedFormikProps, nestedFormikValidate } from '../../nestedFormik';
 
@@ -25,14 +27,10 @@ class QCRForm extends Component {
       errors.stimulus = "Stimulus required";
     }
     
-    values.details.forEach((detail, index) => {
-      errors = {
-        ...errors,
-        ...nestedFormikValidate(questionDetailValidate, `details.${index}`)(values)
-      }
-    })
-    
-    return errors;
+    return {
+      ...errors,
+      ...nestedFormikValidate(validateQDetailList, "details")(values)
+    };
   }
 
   renderForm(formProps) {
@@ -69,17 +67,9 @@ class QCRForm extends Component {
           <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
         </FormGroup>
         
-        { 
-          values.details.map((_, index) => {
-            return <QuestionDetail
-                      key={index}
-                      custom={{
-                        allowStimulus: false
-                      }}
-                      {...nestedFormikProps(formProps, `details.${index}`)}
-                    />
-          })
-        } 
+        <QDetailListForm
+          {...nestedFormikProps(formProps, "details")}
+        />
         
         <div className="d-flex justify-content-end">
           <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>

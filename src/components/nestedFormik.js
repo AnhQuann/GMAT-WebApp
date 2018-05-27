@@ -28,17 +28,13 @@ export function nestedFormikProps (formProps, nestedFieldName) {
 
   const nestedHandleBlur = (event) => {
     nestedSetFieldTouched(event.target.name, true);
-    validateForm({
-      ...values,
-      [combineWithFieldName(event.target.name)]: event.target.value
-    });
+    validateForm(values);
   }
 
   const nestedValidateForm = (fieldValues) => {
-    validateForm({
-      ...values,
-      [nestedFieldName]: fieldValues
-    });
+    const valuesToValidate = _.cloneDeep(values);
+    _.set(valuesToValidate, nestedFieldName, fieldValues);
+    validateForm(valuesToValidate);
   }
 
   return {
@@ -65,12 +61,11 @@ export function nestedFormikValidate(validate, nestedFieldName) {
   }
 }
 
-export function nestFormikArrayValidate(validate, arrayFieldName) {
+export function nestFmkArrayValidate(validate) {
   return (values) => {
     let errors = [];
-    let arrayValues = _.get(values, arrayFieldName);
-    arrayValues.forEach((arrayValue, index) => {
-      const subError = validate(arrayValue);
+    values.forEach((value, index) => {
+      const subError = validate(value);
       if (!!subError && !_.isEmpty(subError)) {
         errors[index] = subError;
       }

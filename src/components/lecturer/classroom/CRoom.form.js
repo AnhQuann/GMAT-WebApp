@@ -106,7 +106,6 @@ class CRoomForm extends Component {
               toggle={() => this.setState({modalIsOpen: false})}
               onStudentsSelect={(selectedStudents) => {
                 const studentDict = _.mapKeys(values.students, "_id");
-                console.log(studentDict);
                 selectedStudents.forEach((selectedStudent) => {
                   studentDict[selectedStudent._id] = selectedStudent;
                 });

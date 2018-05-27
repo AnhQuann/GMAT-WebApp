@@ -74,7 +74,6 @@ export default function(formProps) {
             setFieldTouched("stem", true);
           }}
           onBlur={() => {
-            validateForm(values);
             setFieldTouched("stem", true);
           }}
           />

@@ -62,7 +62,7 @@ class QSCForm extends Component {
               return (<Choice
                         choiceLetter={CHOICE_LETTERS[index]}
                         value={choice}
-                        name={`details[0].choices[${index}]`}
+                        name={`details.0.choices[${index}]`}
                       />);
             })
           }
