@@ -106,7 +106,7 @@ class QPackForm extends Component {
         </FormGroup>
         <div className="d-flex justify-content-end">
           <Button color="seconary" onClick={this.props.onCancel}>Cancel</Button>
-          <Button color="primary" className="ml-2">OK</Button>
+          <Button color="primary" className="ml-2">Submit</Button>
         </div>
       </Form>
     );

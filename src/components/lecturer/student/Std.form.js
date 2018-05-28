@@ -69,7 +69,7 @@ class StdForm extends Component {
           />
           <div className="text-danger">{touched.email ? errors.email : ""}</div>
         </FormGroup>
-        <Button color="primary">OK</Button>
+        <Button color="primary">Submit</Button>
       </Form>
     );
   }
