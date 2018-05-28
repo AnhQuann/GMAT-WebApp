@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function nestFmikProps (formProps, nestedFieldName) {
+export function nestFmkProps (formProps, nestedFieldName) {
   const {
     values,
     errors,

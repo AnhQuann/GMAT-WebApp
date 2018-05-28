@@ -1,6 +1,6 @@
 import React from 'react';
 import QDetail, { validate as validateQDetail } from './QDetail.form';
-import { nestFmikProps, nestFmkArrayValidate, nestFmkValidate } from '../../nestedFormik';
+import { nestFmkProps, nestFmkArrayValidate, nestFmkValidate } from '../../nestedFormik';
 
 export default function(formProps) {
   const {
@@ -15,7 +15,7 @@ export default function(formProps) {
           return <QDetail
                     key={index}
                     custom={custom}
-                    {...nestFmikProps(formProps, `[${index}]`)}
+                    {...nestFmkProps(formProps, `[${index}]`)}
                  />
         })
       }

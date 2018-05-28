@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestFmikProps } from '../../nestedFormik';
+import { nestFmkProps } from '../../nestedFormik';
 import ChoiceForm from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';
@@ -85,7 +85,7 @@ export default function(formProps) {
 
       <FormGroup>
         <legend>Choices</legend>
-        <ChoiceForm {...nestFmikProps(formProps, "choices")} />
+        <ChoiceForm {...nestFmkProps(formProps, "choices")} />
       </FormGroup>
 
       <FormGroup>
