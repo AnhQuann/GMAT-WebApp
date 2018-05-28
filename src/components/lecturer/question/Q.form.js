@@ -5,6 +5,7 @@ import  { Formik } from 'formik';
 import ReactQuill from 'react-quill';
 
 import QCRForm, {validate as validateQForm} from './QCR.form';
+import QSCForm from './QSC.form';
 
 class QForm extends Component {
   constructor(props) {
@@ -15,6 +16,15 @@ class QForm extends Component {
 
   validate(values) {
     return validateQForm(values);
+  }
+
+  renderFormDetail(type, formProps) {
+    switch(type) {
+      case "CR":
+        return <QCRForm {...formProps} />;
+      default:
+        return <QSCForm {...formProps} />;
+    }
   }
 
   renderForm(formProps) {
@@ -51,7 +61,7 @@ class QForm extends Component {
           </Input>
         </FormGroup>
         
-        <QCRForm {...formProps} />
+        {this.renderFormDetail(type, formProps)}
 
         <div className="d-flex justify-content-end">
           <Button onClick={this.props.onCancel}>Cancel</Button>
