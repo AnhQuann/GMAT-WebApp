@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function nestedFormikProps (formProps, nestedFieldName) {
+export function nestFmikProps (formProps, nestedFieldName) {
   const {
     values,
     errors,
@@ -50,7 +50,7 @@ export function nestedFormikProps (formProps, nestedFieldName) {
   };
 }
 
-export function nestedFormikValidate(validate, nestedFieldName) {
+export function nestFmkValidate(validate, nestedFieldName) {
   return (values) => {
     let errors = {};
     let subErrors = validate(_.get(values, nestedFieldName));

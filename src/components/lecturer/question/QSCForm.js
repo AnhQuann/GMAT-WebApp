@@ -1,7 +1,9 @@
 import React from 'react';
 import {FormGroup} from 'reactstrap';
-import ChoiceForm from './choice.form';
-import { nestedFormikProps } from '../../nestedFormik';
+import ChoiceForm, { validate } from './choice.form';
+import { nestFmikProps, nestFmkArrayValidate, nestFmkValidate } from '../../nestedFormik';
+
+import {QDetailListForm, validate as validateQDetailList} from './QDetailList.form';
 
 export default function(formProps) {
   const {
@@ -19,24 +21,15 @@ export default function(formProps) {
 
   return (
     <div>
-      <FormGroup>
-        <legend>Stem</legend>
-        <ReactQuill
-          className='quill'
-          theme='snow'
-          name='stem'
-          value={stem}
-          onChange={(html) => {
-            setFieldValue('stem', html);
-            setFieldTouched('stem', true);
-          }}
-          onBlur={() => validateForm(values)}
-          />
-      </FormGroup>
-      <FormGroup>
-        <legend>Choices</legend>
-        <ChoiceForm {...nestedFormikProps(formProps)} />
-      </FormGroup>
+      <QDetailListForm {...nestFmikProps(formProps)} />
+      <div className="d-flex justify-content-end">
+        <Button className="mb-2" color="secondary" onClick={this.props.onCancel}>Cancel</Button>
+        <Button className="mb-2 ml-2" color="primary">Submit</Button>
+      </div>
     </div>
   )
+}
+
+export function validate(values) {
+  return nestFmkValidate(validateQDetailList, "details")(values);
 }

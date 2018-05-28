@@ -4,10 +4,10 @@ import ReactQuill from 'react-quill';
 import { Formik } from 'formik';
 import { deEmpty, stripHTML } from '../../utils';
 import { Form, Button, FormGroup } from 'reactstrap';
-
+ 
 import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
 
-import { nestedFormikProps, nestedFormikValidate } from '../../nestedFormik';
+import { nestFmikProps, nestFmkValidate } from '../../nestedFormik';
 
 import 'react-quill/dist/quill.snow.css';
 import './QForm.css';
@@ -21,14 +21,14 @@ class QCRForm extends Component {
 
   validate(values) {
     let errors = {};
-
+    
     if(!stripHTML(values.stimulus)) {
       errors.stimulus = "Stimulus required";
     }
     
     return {
       ...errors,
-      ...nestedFormikValidate(validateQDetailList, "details")(values)
+      ...nestFmkValidate(validateQDetailList, "details")(values)
     };
   }
 
@@ -67,7 +67,7 @@ class QCRForm extends Component {
         </FormGroup>
         
         <QDetailListForm
-          {...nestedFormikProps(formProps, "details")}
+          {...nestFmikProps(formProps, "details")}
         />
         
         <div className="d-flex justify-content-end">

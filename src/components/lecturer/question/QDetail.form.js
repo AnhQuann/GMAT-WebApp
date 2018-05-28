@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestedFormikProps } from '../../nestedFormik';
+import { nestFmikProps } from '../../nestedFormik';
 import ChoiceForm from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';
@@ -24,17 +24,20 @@ export default function(formProps) {
     custom
   } = formProps;
 
-  const { highlightStimulus, stem, rightChoice, renderHighlightStimulus } = values;
+  const { highlightStimulus, stem, rightChoice, explanation } = values;
+  const { mustRenderExplanation, mustRenderHighlightStimulus } = values;
   const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: false, originalStimulus: ""};
-  const showHighlightStimulus = !!highlightStimulus || !!renderHighlightStimulus;
   
+  const showHighlightStimulus = !!highlightStimulus || mustRenderHighlightStimulus;
+  const renderExplanation = !!explanation || mustRenderExplanation;
+
   return (
     <div className="bg-white">
       { showHighlightStimulus ?
        <FormGroup>
           <legend className="d-inline">Hightlight stimulus</legend>
           <Button className="m-2" color="danger" size="sm" onClick={() => {
-            setFieldValue("renderHighlightStimulus", false);
+            setFieldValue("mustRenderHighlightStimulus", false);
             setFieldValue("highlightStimulus", "");
           }}>
             Remove
@@ -55,7 +58,7 @@ export default function(formProps) {
         (
           !!allowStimulus &&
             <Button className="m-2" size="sm"  onClick={() => {
-              setFieldValue("renderHighlightStimulus", true);
+              setFieldValue("mustRenderHighlightStimulus", true);
               setFieldValue("highlightStimulus", originalStimulus ? originalStimulus : "");
             }}> 
               Add highlight stimulus
@@ -82,7 +85,7 @@ export default function(formProps) {
 
       <FormGroup>
         <legend>Choices</legend>
-        <ChoiceForm {...nestedFormikProps(formProps, "choices")} />
+        <ChoiceForm {...nestFmikProps(formProps, "choices")} />
       </FormGroup>
 
       <FormGroup>
@@ -101,6 +104,44 @@ export default function(formProps) {
           })}
         </Input>
       </FormGroup>
+      {
+        mustRenderExplanation ?
+        <FormGroup>
+          <div>
+            <legend>Explanation</legend>
+            <Button
+              size="sm"
+              color="danger"
+              onClick={() => {
+                setFieldValue("mustRenderExplanation", false);
+                setFieldValue("explanation", "");                
+              }}
+            >
+              Remove
+            </Button>
+          </div>
+          <ReactQuill
+            className='quill'
+            theme='snow'
+            name='explanation'
+            value={explanation}
+            onChange={(html) => {
+              setFieldValue('explanation', html);
+              setFieldTouched('explanation', true);
+            }}
+            onBlur={() => validateForm(values)}
+            />
+        </FormGroup>
+        :
+        <Button
+          size="sm"
+          onClick={() => {
+            setFieldValue("mustRenderExplanation", true);
+          }}
+        >
+          Add explanation
+        </Button>
+      }
     </div>
   );
 }
