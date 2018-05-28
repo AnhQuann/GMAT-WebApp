@@ -27,6 +27,7 @@ class QAddPanel extends Component {
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
           initialValues={{
+            type: "",
             stimulus: "",
             details: [{
               stem: "",

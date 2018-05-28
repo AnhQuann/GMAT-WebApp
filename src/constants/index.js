@@ -17,6 +17,10 @@ export const QUESTION_DIFFICULTIES = [
   },
 ]
 
+export const VERBAL_QUESTION_TYPES = [
+  "SC", "CR", "RC"
+]
+
 export const CHOICE_LETTERS = [
   "A", "B", "C", "D", "E"
 ]

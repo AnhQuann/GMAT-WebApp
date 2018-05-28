@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, FormGroup, Button } from 'reactstrap';
+import { VERBAL_QUESTION_TYPES } from '../../constants';
 import  { Formik } from 'formik';
 import ReactQuill from 'react-quill';
 
@@ -27,6 +28,8 @@ class QForm extends Component {
       isSubmitting,
     } = formProps;
 
+    const { type } = values;
+
     return (
       <Form
         onSubmit={handleSubmit}
@@ -34,11 +37,18 @@ class QForm extends Component {
         <FormGroup>
           <legend>Type</legend>
           <Input  
-            type='type'
+            type="select"
             name='type'
+            value={type}
             onBlur={handleBlur}
             onChange={handleChange}
-          />
+          >
+          {
+            VERBAL_QUESTION_TYPES.map((questionType, index) => {
+              return <option key={questionType}>{questionType}</option>
+            })
+          }
+          </Input>
         </FormGroup>
         
         <QCRForm {...formProps} />
