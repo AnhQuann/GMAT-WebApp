@@ -26,7 +26,7 @@ export default function(formProps) {
 
   const { highlightStimulus, stem, rightChoice, explanation } = values;
   const { mustRenderExplanation, mustRenderHighlightStimulus } = values;
-  const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: false, originalStimulus: ""};
+  const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: true, originalStimulus: ""};
   
   const showHighlightStimulus = !!highlightStimulus || mustRenderHighlightStimulus;
   const renderExplanation = !!explanation || mustRenderExplanation;
@@ -35,8 +35,8 @@ export default function(formProps) {
     <div className="bg-white">
       { showHighlightStimulus ?
        <FormGroup>
-          <legend className="d-inline">Hightlight stimulus</legend>
-          <Button className="m-2" color="danger" size="sm" onClick={() => {
+          <legend>Hightlight stimulus</legend>
+          <Button className="mb-1" color="danger" size="sm" onClick={() => {
             setFieldValue("mustRenderHighlightStimulus", false);
             setFieldValue("highlightStimulus", "");
           }}>
@@ -57,7 +57,7 @@ export default function(formProps) {
         </FormGroup> :
         (
           !!allowStimulus &&
-            <Button className="m-2" size="sm"  onClick={() => {
+            <Button className="mb-2" size="sm"  onClick={() => {
               setFieldValue("mustRenderHighlightStimulus", true);
               setFieldValue("highlightStimulus", originalStimulus ? originalStimulus : "");
             }}> 
@@ -112,6 +112,7 @@ export default function(formProps) {
             <Button
               size="sm"
               color="danger"
+              className="mb-1"
               onClick={() => {
                 setFieldValue("mustRenderExplanation", false);
                 setFieldValue("explanation", "");                
