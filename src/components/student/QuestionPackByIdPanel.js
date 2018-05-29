@@ -51,7 +51,7 @@ class QuestionPackByIdPanel extends Component {
         this.setState({
           questionPack: {
             ...questionPack,
-            questions: questionPack.questions.filter((question) => !!question.choices)
+            questions: questionPack.questions.filter((question) => !!question.details)
           }
         });
         this.startTimer();
@@ -155,7 +155,7 @@ class QuestionPackByIdPanel extends Component {
                   <div>
                     <p dangerouslySetInnerHTML={{ __html: question.stimulus}}></p>
                     <p dangerouslySetInnerHTML={{ __html: question.stem}}></p>
-                    { this.renderChoices(question.id, question.choices) }
+                    { this.renderChoices(question.id, question.details[0].choices) }
                     <FormGroup check className="guess_chkbox">
                       <Label check>
                         <Input type="checkbox" />{' '}
