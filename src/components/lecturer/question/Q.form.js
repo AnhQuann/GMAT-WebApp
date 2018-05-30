@@ -48,7 +48,8 @@ class QForm extends Component {
       touched,
       handleChange,
       handleBlur,
-      handleSubmit
+      handleSubmit,
+      setFieldValue
     } = formProps;
 
     const { type } = values;
@@ -64,7 +65,13 @@ class QForm extends Component {
             name='type'
             value={type}
             onBlur={handleBlur}
-            onChange={handleChange}
+            onChange={(event) => {
+              const type = event.target.value;
+              if(type === "SC" || type === "CR") {
+                setFieldValue("details", [values.details[0]]);
+              } 
+              setFieldValue("type", type);
+            }}
           >
           {
             VERBAL_QUESTION_TYPES.map((questionType, index) => {
@@ -83,9 +90,6 @@ class QForm extends Component {
       </Form>
     );
   }
-
-  // onSubmit(values, {setSubmitting, setErrors}) {
-  // }
 
   render() {
     return (
