@@ -26,7 +26,7 @@ export default function(formProps) {
 
   const { highlightStimulus, stem, rightChoice, explanation } = values;
   const { mustRenderExplanation, mustRenderHighlightStimulus } = values;
-  const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: true, originalStimulus: ""};
+  const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: false, originalStimulus: ""};
   
   const showHighlightStimulus = !!highlightStimulus || mustRenderHighlightStimulus;
   const renderExplanation = !!explanation || mustRenderExplanation;
