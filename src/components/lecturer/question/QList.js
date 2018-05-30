@@ -17,6 +17,7 @@ export default function(props) {
         <thead className="">
           <tr className="">
             <th>#</th>
+            <th>Type</th>
             <th>Stimulus</th>
             {showActions && <th className="">Actions</th>}
           </tr>
@@ -28,6 +29,7 @@ export default function(props) {
               const highlight = checkFields(question, 'details[0].choices') && question.details[0].choices.length == 5 ? "" : "bg-danger";
               return (<tr key={index} className={`${trClassName} ${highlight}`} onClick={() => onQuestionClicked(question)}> 
                 { renderId(index + 1) }
+                { renderType(question.type) }
                 { renderStimulus(elipsis(question.stimulus, stimulusMaxLength)) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
               </tr>);
@@ -42,6 +44,10 @@ function renderId(id)  {
   return (
     <th scope="row"> { id }</th>
   );
+}
+
+function renderType(type) {
+  return <td>{type}</td>
 }
 
 function renderStimulus(stimulus) {
