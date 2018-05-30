@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 
 import QCRForm, {validate as validateQCRForm} from './QCR.form';
 import QSCForm, {validate as validateQSCForm} from './QSC.form';
+import QRCForm, {validate as validateQRCForm} from './QRC.form';
 
 class QForm extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class QForm extends Component {
         return validateQCRForm(values);
       case "SC":
         return validateQSCForm(values);
+      case "RC":
+        return validateQRCForm(values);
       default:
         return {};
     }
@@ -29,8 +32,12 @@ class QForm extends Component {
     switch(type) {
       case "CR":
         return <QCRForm {...formProps} />;
-      default:
+      case "SC":
         return <QSCForm {...formProps} />;
+      case "RC":
+        return <QRCForm {...formProps} />;
+      default:
+        return <div>No question type selected, check your code</div>;
     }
   }
 
@@ -41,8 +48,7 @@ class QForm extends Component {
       touched,
       handleChange,
       handleBlur,
-      handleSubmit,
-      isSubmitting,
+      handleSubmit
     } = formProps;
 
     const { type } = values;

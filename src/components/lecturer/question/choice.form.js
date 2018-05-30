@@ -17,8 +17,8 @@ export default function(formProps) {
       {
         CHOICE_LETTERS.map((choiceLetter, index) => {
           return (
-            <div>
-                <div className="choice-input-wrapper mt-2" key={choiceLetter}>
+            <div key={choiceLetter}>
+                <div className="choice-input-wrapper mt-2" >
                   <span>{ choiceLetter }.</span>
                   <Input
                     type={"text"}
