@@ -6,7 +6,7 @@ import moment from 'moment';
 import Loading from '../common/Loading';
 
 import { fetchResult } from '../../networks';
-import { ROUTER_STUDENT, QUESTION_DIFFICULTIES, ROUTER_REVIEW } from '../../constants';
+import { ROUTER_STUDENT, ROUTER_REVIEW } from '../../constants';
 
 class ResultPanel extends Component {
     constructor(props) {
@@ -15,7 +15,6 @@ class ResultPanel extends Component {
         this.state = {};
 
         this.renderResultTable = this.renderResultTable.bind(this);
-        this.renderDifficulty = this.renderDifficulty.bind(this);
         this.renderQuestionType = this.renderQuestionType.bind(this);
     }
 
@@ -39,17 +38,6 @@ class ResultPanel extends Component {
       }
     }
 
-    renderDifficulty(difficulty) {
-        switch(difficulty) {
-          case 0:
-          case 1:
-          case 2:
-          case 3:
-            return (<span>{QUESTION_DIFFICULTIES[difficulty].text}</span>);
-          default: return (<span>Unknown</span>);
-        }
-    }
-
     renderResultTable() {
         const result = this.state.result;
         const answers = result.answers;
@@ -65,7 +53,6 @@ class ResultPanel extends Component {
                         <tr>
                             <th className="text-center">Order</th>
                             <th className="text-center">Question Type</th>
-                            <th className="text-center">Difficulty</th>
                             <th className="text-center">Response</th>
                             <th className="text-center">Guess</th>
                             <th className="text-center">Time</th>
@@ -77,8 +64,7 @@ class ResultPanel extends Component {
                                 return (
                                     <tr key={index}>
                                         <th scope="row" className="text-center">{ index + 1 }</th>
-                                        <td className="text-center">Verbal / { this.renderDifficulty(answer.question.type) }</td>
-                                        <td className="text-center">{ this.renderDifficulty(answer.question.difficulty) }</td>
+                                        <td className="text-center">Verbal</td>
                                         <td className="text-center">{ answer.choice == answer.question.rightChoice ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i> }</td>
                                         <td className="text-center"></td>
                                         <td className="text-center">{moment().startOf('day').seconds(answer.time).format(`${answer.time > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</td>
