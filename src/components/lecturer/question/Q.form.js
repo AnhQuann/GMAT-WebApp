@@ -4,8 +4,8 @@ import { VERBAL_QUESTION_TYPES } from '../../constants';
 import  { Formik } from 'formik';
 import ReactQuill from 'react-quill';
 
-import QCRForm, {validate as validateQForm} from './QCR.form';
-import QSCForm from './QSC.form';
+import QCRForm, {validate as validateQCRForm} from './QCR.form';
+import QSCForm, {validate as validateQSCForm} from './QSC.form';
 
 class QForm extends Component {
   constructor(props) {
@@ -15,7 +15,14 @@ class QForm extends Component {
   }
 
   validate(values) {
-    return validateQForm(values);
+    switch(values.type) {
+      case "CR":
+        return validateQCRForm(values);
+      case "SC":
+        return validateQSCForm(values);
+      default:
+        return {};
+    }
   }
 
   renderFormDetail(type, formProps) {
