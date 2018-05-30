@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import _ from 'lodash';
 
-import { elipsis } from '../../utils';
+import { elipsis, checkFields } from '../../utils';
 
 import './QList.css';
 
@@ -25,7 +25,8 @@ export default function(props) {
           { 
             _.values(questions).map((question, index) => {
               const trClassName = question.selected ? `q-selected ${pointer}` : pointer;
-              return (<tr key={index} className={trClassName} onClick={() => onQuestionClicked(question)}> 
+              const highlight = checkFields(question, 'details[0].choices') && question.details[0].choices.length == 5 ? "" : "bg-danger";
+              return (<tr key={index} className={`${trClassName} ${highlight}`} onClick={() => onQuestionClicked(question)}> 
                 { renderId(index + 1) }
                 { renderStimulus(elipsis(question.stimulus, stimulusMaxLength)) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
