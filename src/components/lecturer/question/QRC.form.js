@@ -1,17 +1,12 @@
-import _ from 'lodash';
-import React from 'react';
+import React, { Component } from 'react';
+import  { withFormik, Formik } from 'formik';
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
-import { Formik } from 'formik';
-import { FormGroup } from 'reactstrap';
 
-import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
-import { deEmpty, stripHTML } from 'utils';
-import { nestFmkProps, nestFmkValidate } from 'nestFmk';
+import QDetailListForm, { validate as validateDetailList } from './QDetailList.form';
+import { nestFmkProps } from 'nestFmk';
 
-import 'react-quill/dist/quill.snow.css';
-import './Q.form.css';
-
-export default function(formProps) {
+export default function (formProps) {
   const {
     values,
     errors,
@@ -20,13 +15,13 @@ export default function(formProps) {
     handleBlur,
     handleSubmit,
     isSubmitting,
-    setFieldValue,
     setFieldTouched,
+    setFieldValue,
     validateForm
   } = formProps;
 
   const { stimulus } = values;
-  
+
   return (
     <div>
       <FormGroup className="q-group">
@@ -45,25 +40,22 @@ export default function(formProps) {
             setFieldTouched("stimulus", true);
           }}
          />
-        <div className="text-danger" >{ touched.stimulus ? errors.stimulus : "" }</div>
       </FormGroup>
-      
       <QDetailListForm
         {...nestFmkProps(formProps, "details")}
+        custom={{canAddQuestionDetail: true, allowStimulus: true, originalStimulus: stimulus}}
       />
     </div>
   );
 }
 
 export function validate(values) {
-  let errors = {};
-    
-    if(!stripHTML(values.stimulus)) {
-      errors.stimulus = "Stimulus required";
-    }
-    
-    return {
-      ...errors,
-      ...nestFmkValidate(validateQDetailList, "details")(values)
-    };
+  const errors = {};
+
+  return errors;
 }
+
+  // onSubmit(values, {setSubmitting, setErrors}) {
+  // }
+
+  

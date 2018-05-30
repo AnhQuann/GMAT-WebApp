@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { DEFAULT_QUESTION_VALUE } from '../../constants';
 import QForm from './Q.form';
 import { addQuestion } from '../../actions';
  
@@ -26,17 +27,7 @@ class QAddPanel extends Component {
         <QForm
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          initialValues={{
-            type: "",
-            stimulus: "",
-            details: [{
-              stem: "",
-              choices: ["", "", "", "", ""],
-              rightChoice: 0,
-              explanation: "",
-              difficulty: 0,
-            }],
-          }} 
+          initialValues={DEFAULT_QUESTION_VALUE} 
         />
       </div>
     );

@@ -2,8 +2,8 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestFmkProps } from '../../nestedFormik';
-import ChoiceForm from './choice.form';
+import { nestFmkProps, nestFmkValidate } from 'nestFmk';
+import ChoiceForm, { validate as validateChoices } from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';
 import { stripHTML } from '../../utils';
@@ -32,7 +32,7 @@ export default function(formProps) {
   const renderExplanation = !!explanation || mustRenderExplanation;
 
   return (
-    <div className="bg-white">
+    <div className="bg-white mb-2">
       { showHighlightStimulus ?
        <FormGroup>
           <legend>Hightlight stimulus</legend>
@@ -104,45 +104,20 @@ export default function(formProps) {
           })}
         </Input>
       </FormGroup>
-      {
-        mustRenderExplanation ?
-        <FormGroup>
-          <div>
-            <legend>Explanation</legend>
-            <Button
-              size="sm"
-              color="danger"
-              className="mb-1"
-              onClick={() => {
-                setFieldValue("mustRenderExplanation", false);
-                setFieldValue("explanation", "");                
-              }}
-            >
-              Remove
-            </Button>
-          </div>
-          <ReactQuill
-            className='quill'
-            theme='snow'
-            name='explanation'
-            value={explanation}
-            onChange={(html) => {
-              setFieldValue('explanation', html);
-              setFieldTouched('explanation', true);
-            }}
-            onBlur={() => validateForm(values)}
-            />
-        </FormGroup>
-        :
-        <Button
-          size="sm"
-          onClick={() => {
-            setFieldValue("mustRenderExplanation", true);
+      <FormGroup>
+        <legend>Explanation</legend>
+        <ReactQuill
+          className='quill'
+          theme='snow'
+          name='explanation'
+          value={explanation}
+          onChange={(html) => {
+            setFieldValue('explanation', html);
+            setFieldTouched('explanation', true);
           }}
-        >
-          Add explanation
-        </Button>
-      }
+          onBlur={() => validateForm(values)}
+          />
+      </FormGroup>
     </div>
   );
 }
@@ -152,5 +127,9 @@ export function validate(values) {
   if(!stripHTML(values.stem)) {
     errors.stem = "Stem is required";
   }
-  return errors;
+  
+  return {
+    ...errors,
+    ...nestFmkValidate(validateChoices, "choices")(values)
+  };
 }

@@ -1,7 +1,11 @@
 .question-panel {
   flex: 1 1 auto;
   margin: 16px;
-  background-color: #FFFF;
+  padding: 8px;
+}
+
+.q-group {
+  background-color: #FFFFFF;
   padding: 8px;
 }
 

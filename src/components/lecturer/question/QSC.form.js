@@ -1,6 +1,6 @@
 import React from 'react';
 import  { Formik } from 'formik';
-import { nestFmkProps, nestFmkValidate } from '../../nestedFormik';
+import { nestFmkProps, nestFmkValidate } from 'nestFmk';
 import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
 
 import 'react-quill/dist/quill.snow.css';
