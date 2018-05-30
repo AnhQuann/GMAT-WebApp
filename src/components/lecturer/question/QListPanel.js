@@ -63,6 +63,13 @@ class QListPanel extends Component {
   }
 
   render() {
+    const questions = this.props.questionReducer;
+    if (!questions) {
+      return <div className="panel">Loading...</div>
+    }
+    else {
+      console.log(questions);
+    }
     return (
       <div>
         <Button 
@@ -72,7 +79,7 @@ class QListPanel extends Component {
           >
             Add new question
         </Button>
-        <QList questions={this.props.questionReducer} onEditRequest={this.onEditRequest} onDeleteRequest={this.onDeleteRequest} />
+        <QList questions={questions} onEditRequest={this.onEditRequest} onDeleteRequest={this.onDeleteRequest} />
       </div>
     );
   }
