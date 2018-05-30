@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestFmkProps, nestFmkValidate } from '../../nestedFormik';
+import { nestFmkProps, nestFmkValidate } from 'nestFmk';
 import ChoiceForm, { validate as validateChoices } from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';

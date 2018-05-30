@@ -4,7 +4,7 @@ import { Form, FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
 import QDetailListForm, { validate as validateDetailList } from './QDetailList.form';
-import { nestFmkProps } from '../../nestedFormik';
+import { nestFmkProps } from 'nestFmk';
 
 export default function (formProps) {
   const {

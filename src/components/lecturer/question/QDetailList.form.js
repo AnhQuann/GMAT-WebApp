@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap'; 
 import QDetail, { validate as validateQDetail } from './QDetail.form';
-import { nestFmkProps, nestFmkArrayValidate, nestFmkValidate } from '../../nestedFormik';
+import { nestFmkProps, nestFmkArrayValidate, nestFmkValidate } from 'nestFmk';
 
 import { DEFAULT_QUESTION_DETAIL_VALUE } from '../../constants';
 

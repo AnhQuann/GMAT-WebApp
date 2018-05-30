@@ -5,8 +5,8 @@ import { Formik } from 'formik';
 import { FormGroup } from 'reactstrap';
 
 import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
-import { deEmpty, stripHTML } from '../../utils';
-import { nestFmkProps, nestFmkValidate } from '../../nestedFormik';
+import { deEmpty, stripHTML } from 'utils';
+import { nestFmkProps, nestFmkValidate } from 'nestFmk';
 
 import 'react-quill/dist/quill.snow.css';
 import './Q.form.css';
