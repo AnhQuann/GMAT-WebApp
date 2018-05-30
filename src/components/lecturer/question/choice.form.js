@@ -45,6 +45,5 @@ export function validate(values) {
       errors[index] = `Choice ${choiceLetter} is required`;
     }
   })
-  console.log(errors);
   return errors;
 }
