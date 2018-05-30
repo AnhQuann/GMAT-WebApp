@@ -67,9 +67,6 @@ class QListPanel extends Component {
     if (!questions) {
       return <div className="panel">Loading...</div>
     }
-    else {
-      console.log(questions);
-    }
     
     return (
       <div>

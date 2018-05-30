@@ -9,7 +9,7 @@ import './QList.css';
 export default function(props) {
     const questions = props.questions;
     const showActions = props.onEditRequest || props.onDeleteRequest;
-    const stimulusMaxLength = props.stimulusMaxLength ? props.stimulusMaxLength : 100;
+    const descriptionMaxLength = props.descriptionMaxLength ? props.descriptionMaxLength : 100;
     const onQuestionClicked = props.onQuestionClicked ? props.onQuestionClicked : () => {};
     const pointer = props.pointer? "pointer": "";
     return (
@@ -30,7 +30,7 @@ export default function(props) {
               return (<tr key={index} className={`${trClassName} ${highlight}`} onClick={() => onQuestionClicked(question)}> 
                 { renderId(index + 1) }
                 { renderType(question.type) }
-                { renderStimulus(question, stimulusMaxLength) }
+                { renderDescription(question, descriptionMaxLength) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
               </tr>);
             })
@@ -50,18 +50,18 @@ function renderType(type) {
   return <td>{type}</td>
 }
 
-function renderStimulus(question, stimulusMaxLength) {
+function renderDescription(question, maxLength) {
   switch(question.type) {
     case "SC":
       return (
         <td className="td-stimulus">
-          <span dangerouslySetInnerHTML={{__html: elipsis(question.details[0].stem, stimulusMaxLength)}} />
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.details[0].stem, maxLength)}} />
         </td>
       )
     default:
       return (
         <td className="td-stimulus">
-          <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus, stimulusMaxLength)}} />
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus, maxLength)}} />
         </td> 
       );
   }
