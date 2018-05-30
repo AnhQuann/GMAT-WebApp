@@ -2,8 +2,8 @@ import React from 'react';
 import { FormGroup, Input, Button } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import { nestFmkProps } from '../../nestedFormik';
-import ChoiceForm from './choice.form';
+import { nestFmkProps, nestFmkValidate } from '../../nestedFormik';
+import ChoiceForm, { validate as validateChoices } from './choice.form';
 
 import { CHOICE_LETTERS } from '../../constants';
 import { stripHTML } from '../../utils';
@@ -152,5 +152,9 @@ export function validate(values) {
   if(!stripHTML(values.stem)) {
     errors.stem = "Stem is required";
   }
-  return errors;
+  
+  return {
+    ...errors,
+    ...nestFmkValidate(validateChoices, "choices")(values)
+  };
 }

@@ -3,10 +3,18 @@
   align-items: center;
 }
 
+.choice-input-wrapper .input {
+  flex-grow: 100;
+}
+
 .choice-input-wrapper span {
   min-width: 20px;
 }
 
 .choice-input-wrapper span {
   margin-right: 8px;
+}
+
+.validate-error {
+  margin-left: 28px;  
 }

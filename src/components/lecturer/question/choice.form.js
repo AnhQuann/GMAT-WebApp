@@ -7,7 +7,9 @@ export default function(formProps) {
   const {
     values,
     handleChange,
-    handleBlur
+    handleBlur,
+    touched,
+    errors
   } = formProps;
 
   return (
@@ -15,15 +17,19 @@ export default function(formProps) {
       {
         CHOICE_LETTERS.map((choiceLetter, index) => {
           return (
-            <div className="choice-input-wrapper mt-2" key={choiceLetter}>
-              <span>{ choiceLetter }.</span>
-              <Input
-                type={"text"}
-                name={`[${index}]`}
-                value={values[index]}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
+            <div>
+                <div className="choice-input-wrapper mt-2" key={choiceLetter}>
+                  <span>{ choiceLetter }.</span>
+                  <Input
+                    type={"text"}
+                    name={`[${index}]`}
+                    invalid={touched[index] && !!errors[index]}
+                    value={values[index]}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="validate-error text-danger">{ touched[index] ? errors[index]: "" }</div>
             </div>
           );
         })
@@ -33,5 +39,12 @@ export default function(formProps) {
 }
 
 export function validate(values) {
-  return {};
+  const errors = []
+  CHOICE_LETTERS.forEach((choiceLetter, index) => {
+    if (!values[index] || values[index] === "") {
+      errors[index] = `Choice ${choiceLetter} is required`;
+    }
+  })
+  console.log(errors);
+  return errors;
 }
