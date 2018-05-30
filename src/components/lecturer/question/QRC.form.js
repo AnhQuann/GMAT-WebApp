@@ -32,7 +32,7 @@ export default function (formProps) {
       </FormGroup>
       <QDetailListForm
         {...nestFmkProps(formProps, "details")}
-        custom={{canAddQuestionDetail: true}}
+        custom={{canAddQuestionDetail: true, allowStimulus: true, originalStimulus: stimulus}}
       />
     </div>
   );
