@@ -30,7 +30,7 @@ export default function(props) {
               return (<tr key={index} className={`${trClassName} ${highlight}`} onClick={() => onQuestionClicked(question)}> 
                 { renderId(index + 1) }
                 { renderType(question.type) }
-                { renderStimulus(elipsis(question.stimulus, stimulusMaxLength)) }
+                { renderStimulus(question, stimulusMaxLength) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
               </tr>);
             })
@@ -50,12 +50,21 @@ function renderType(type) {
   return <td>{type}</td>
 }
 
-function renderStimulus(stimulus) {
-  return (
-    <td className="td-stimulus">
-      <span dangerouslySetInnerHTML={{__html: stimulus}} />
-    </td> 
-  );
+function renderStimulus(question, stimulusMaxLength) {
+  switch(question.type) {
+    case "SC":
+      return (
+        <td className="td-stimulus">
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.details[0].stem, stimulusMaxLength)}} />
+        </td>
+      )
+    default:
+      return (
+        <td className="td-stimulus">
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus, stimulusMaxLength)}} />
+        </td> 
+      );
+  }
 }
 
 function renderActions(question, editRequest, deleteRequest) {
