@@ -29,7 +29,7 @@ export default function(formProps) {
   
   return (
     <div>
-      <FormGroup>
+      <FormGroup className="q-group">
         <legend>Stimulus</legend>
         <ReactQuill
           className="quill"

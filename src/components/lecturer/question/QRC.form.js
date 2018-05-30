@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  { withFormik, Formik } from 'formik';
 import { Form, FormGroup, Input, Button } from 'reactstrap';
+import ReactQuill from 'react-quill';
 
 import QDetailListForm, { validate as validateDetailList } from './QDetailList.form';
 import { nestFmkProps } from '../../nestedFormik';
@@ -14,21 +15,31 @@ export default function (formProps) {
     handleBlur,
     handleSubmit,
     isSubmitting,
+    setFieldTouched,
+    setFieldValue,
+    validateForm
   } = formProps;
 
   const { stimulus } = values;
 
   return (
     <div>
-      <FormGroup>
-        <legend>Stimlus</legend>
-        <Input
-          type='text'
-          name='stimulus'
+      <FormGroup className="q-group">
+        <legend>Stimulus</legend>
+        <ReactQuill
+          className="quill"
+          theme="snow"
+          name="stimulus"
           value={stimulus}
-          onBlur={handleBlur}
-          onChange={handleChange}
-        />
+          onChange={(html) => {
+            setFieldValue("stimulus", html);
+            setFieldTouched("stimulus", true);
+          }}
+          onBlur={() => {
+            validateForm(values);
+            setFieldTouched("stimulus", true);
+          }}
+         />
       </FormGroup>
       <QDetailListForm
         {...nestFmkProps(formProps, "details")}

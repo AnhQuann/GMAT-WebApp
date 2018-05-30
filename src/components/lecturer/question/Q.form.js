@@ -58,7 +58,7 @@ class QForm extends Component {
       <Form
         onSubmit={handleSubmit}
       >
-        <FormGroup>
+        <FormGroup className="q-group">
           <legend>Type</legend>
           <Input  
             type="select"
