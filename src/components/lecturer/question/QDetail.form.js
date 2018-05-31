@@ -104,20 +104,6 @@ export default function(formProps) {
           })}
         </Input>
       </FormGroup>
-      <FormGroup>
-        <legend>Explanation</legend>
-        <ReactQuill
-          className='quill'
-          theme='snow'
-          name='explanation'
-          value={explanation}
-          onChange={(html) => {
-            setFieldValue('explanation', html);
-            setFieldTouched('explanation', true);
-          }}
-          onBlur={() => validateForm(values)}
-          />
-      </FormGroup>
     </div>
   );
 }
