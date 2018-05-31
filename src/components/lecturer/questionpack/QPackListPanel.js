@@ -69,8 +69,7 @@ class QPackListPanel extends Component {
           </tr>
         </thead>
         <tbody>
-          {
-             _.values(questionPacks).map((questionPack, index) => {
+          { _.values(questionPacks).map((questionPack, index) => {
             return (
               <tr key={index}>
                 <th scope="column">{index + 1}</th>
