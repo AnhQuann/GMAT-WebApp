@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+ 
 class Loading extends Component {
     render() {
         return (
@@ -7,7 +7,7 @@ class Loading extends Component {
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
-                </div>
+                </div> 
             </div>
         );
     }

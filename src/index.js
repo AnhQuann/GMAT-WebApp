@@ -10,16 +10,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import reducers from './reducers';
 
-import App from './app';
+import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+
+// import TestQDetail from './components/test/TestQDetail';
+
+// const logMiddleware = store => next => action => {
+//   next(action);
+// } 
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter >
-            <App />
-        </BrowserRouter>
-    </Provider>
-    , document.getElementById('root'));
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+  , document.getElementById('root'));
 registerServiceWorker();

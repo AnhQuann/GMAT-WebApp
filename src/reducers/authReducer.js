@@ -3,25 +3,28 @@ import { LOGIN, LOGOUT, CHECK_TOKEN } from '../actions';
 export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: null, user: null }, action) => {
     switch (action.type) {
         case LOGIN:
-            var now = new Date();
-            var nowGMT = new Date(now.setDate(now.getDate() + 7)).toGMTString();
-            document.cookie = action.payload.data ? `token=${action.payload.data.token}; expires=${nowGMT}; path=/` : '';
+            const data = action.payload.data;
+            const user = data.user ? data.user : null;
             return {
                 ...state,
-                isLoggedIn: action.payload.data.success === 1,
-                errMessage: action.payload.data.success === 0 ? action.payload.data.messaage : null,
-                user: action.payload.data && action.payload.data.user ? action.payload.data.user : null
+                isLoggedIn: data.success === 1,
+                errMessage: data.success !== 1 ? data.messaage : null,
+                user: user,
+                role: user ? user.role: null
             };
         case CHECK_TOKEN:
-            if(!action.payload.data || (action.payload.data && action.payload.data.success === 0)) document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            const payload = action.payload;
+            if (!payload) return state;
+            
+            const token = payload.token;
+            const role = payload.role;
             return {
-                ...state,
-                doneCheckToken: true,
-                isLoggedIn: action.payload.data ? action.payload.data.success === 1 : false,
-                user: action.payload.data && action.payload.data.user ? action.payload.data.user : null
+              ...state,
+              isLoggedIn: token != null,
+              role
             };
         case LOGOUT:
-            return { ...state, isLoggedIn: false, user: null };
+            return { ...state, isLoggedIn: false, user: null, role: "" };
         default:
             return state;
     }

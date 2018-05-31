@@ -1,40 +1,54 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Container } from 'reactstrap';
-import { Route, Switch } from 'react-router-dom';
 
-import { checkToken } from './actions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Login from './components/user/login';
-import Main from './components/main';
-import Dummy from './components/dummy';
-import Loading from './components/common/loading';
+import LecturerContainer from './components/lecturer/LecturerContainer';
+import StudentContainer from './components/student/StudentContainer';
+import Popup from './components/common/Popup';
+import { checkToken } from './actions';
+
+import { ROLE_LECTURER }  from './constants';
 
 class App extends Component {
+
+  render() {
+    const authReducer = this.props.authReducer;
+    if (authReducer.isLoggedIn) {
+      return this.renderApp(authReducer.role);
+    }
+    else {
+      return (<Login />);
+    }
+  }
+
   componentWillMount() {
     this.props.checkToken();
   }
 
-  render() {
+  renderApp(role) {
     return (
-      <Container>{
-        this.props.authReducer.doneCheckToken
-          ? (this.props.authReducer.isLoggedIn
-            ? (<main>
-              <Switch>
-                <Route exact path="/" component={Main} />
-                <Route path="/dummy" component={Dummy} />
-              </Switch>
-            </main>)
-            : <Login />)
-          : <Loading />
-      }</Container>
+      <div>
+        <Popup />
+        {
+          role === ROLE_LECTURER ?
+          <LecturerContainer /> :
+          <StudentContainer />
+        }
+      </div>
     );
   }
 }
 
-function mapStateToProps({ authReducer }) {
+function mapReducerToState({ authReducer }) {
   return { authReducer };
 }
 
-export default connect(mapStateToProps, { checkToken })(App);
+const actions = {
+  checkToken
+}
+
+export default withRouter (
+  connect(mapReducerToState, actions)(App)
+);

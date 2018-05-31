@@ -1,0 +1,11 @@
+.next-button {
+  -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  text-align: left;
+  padding-left: 15px;
+  width: 4.5em;
+  padding-bottom: 9px;
+  background-color: #D1E8FA;
+  border-width: 0px;  
+  color: #013F6E;
+}
