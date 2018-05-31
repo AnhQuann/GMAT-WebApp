@@ -77,6 +77,22 @@ class QListPanel extends Component {
     this.props.openPopup(proceedDelete, null);
   }
 
+  renderQuestionTypeFilter() {
+    return (<div className="d-flex">
+              <Input
+                type="select"
+                onChange={(event) => this.setState({questionTypeFilter: event.target.value})}
+              >
+              <option>ALL</option>
+              {
+                VERBAL_QUESTION_TYPES.map((type, index) => {
+                  return <option key={type}>{type}</option>
+                })
+              }
+              </Input>
+          </div>);
+  }
+
   render() {
     const questions = this.questionsToShow();
     if (!questions) {
@@ -85,20 +101,8 @@ class QListPanel extends Component {
 
     return (
       <div>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex">
-            <Input
-              type="select"
-              onChange={(event) => this.setState({questionTypeFilter: event.target.value})}
-            >
-            <option>ALL</option>
-            {
-              VERBAL_QUESTION_TYPES.map((type, index) => {
-                return <option key={type}>{type}</option>
-              })
-            }
-            </Input>
-          </div>
+        <div className="d-flex justify-content-between align-items-center">
+          {this.renderQuestionTypeFilter()}
           <Button 
             color="primary"
             className="add-button-right"
