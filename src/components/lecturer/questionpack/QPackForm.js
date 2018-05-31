@@ -71,7 +71,7 @@ class QPackForm extends Component {
               <div>
                 <div className="d-flex justify-content-between">
                   <legend>Questions</legend>
-                  <Button color="secondary" onClick={()=> {
+                  <Button className="mr-3" color="secondary" onClick={()=> {
                     this.setState({
                       modalIsOpen: true,
                       onSelectNewQuestionsDone: (selectedQuestions) => {
@@ -87,19 +87,23 @@ class QPackForm extends Component {
                     });
                   }}>Add questions</Button>
                 </div>
+               <table>   
+                 <tbody>
                 {
                   questions.map((question, index) => (
-                    <div key={index} className="my-2 d-flex align-items-center">
-                      <span className="mr-2">{index + 1}.</span>
-                      <Input disabled={true} value={elipsis(question.stimulus)} className="col"/>
-                      {/* <span dangerouslySetInnerHTML={{__html: question.stimulus}} className="col" /> */}
+                    <div key={index} className="my-2 d-flex align-items-center border-bottom">
+                      <span>{index + 1}.</span>
+                      <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus)}} className='col mt-3' />
                       <i 
-                        className="fas fa-times ml-2 text-danger pointer question-remove"
+                        className="fas fa-times mx-3 text-danger pointer question-remove"
                         onClick={() => {arrayHelpers.remove(index)}}
                       />
                     </div>
                   ))
                 }
+                </tbody>
+                </table>
+
               </div>
             ) }
           />
