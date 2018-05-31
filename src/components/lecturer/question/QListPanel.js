@@ -1,9 +1,11 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'reactstrap';
+import { Button, Label, Input } from 'reactstrap';
 
 import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from '../../actions';
 import QList from './QList';
+import { VERBAL_QUESTION_TYPES } from '../../constants';
 
 import "./QPanel.css";
 
@@ -11,7 +13,8 @@ class QListPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      questionTypeFilter: "ALL"
     };
     this.modalToggle = this.modalToggle.bind(this);
 
@@ -46,6 +49,18 @@ class QListPanel extends Component {
     this.props.history.push(`/lecturer/question/edit/${question._id}`);
   }
 
+  questionsToShow() {
+    const questions = this.props.questionReducer;
+    if(!questions) return null;
+    const questionTypeFilter = this.state.questionTypeFilter
+    switch(questionTypeFilter) {
+      case "ALL":
+        return questions;
+      default:
+        return _.filter(questions, (question, id) => question.type == questionTypeFilter);
+    }
+  }
+
   onAddRequest() {
     const handleOK = (addedQuestion) => { this.props.addQuestion(addedQuestion); };
     const handleCancel = () => {};
@@ -63,20 +78,35 @@ class QListPanel extends Component {
   }
 
   render() {
-    const questions = this.props.questionReducer;
+    const questions = this.questionsToShow();
     if (!questions) {
       return <div className="panel">Loading...</div>
     }
-    
+
     return (
       <div>
-        <Button 
-          color="primary"
-          className="add-button-right"
-          onClick={this.onAddRequest}
-          >
-            Add new question
-        </Button>
+        <div className="d-flex justify-content-between">
+          <div className="d-flex">
+            <Input
+              type="select"
+              onChange={(event) => this.setState({questionTypeFilter: event.target.value})}
+            >
+            <option>ALL</option>
+            {
+              VERBAL_QUESTION_TYPES.map((type, index) => {
+                return <option key={type}>{type}</option>
+              })
+            }
+            </Input>
+          </div>
+          <Button 
+            color="primary"
+            className="add-button-right"
+            onClick={this.onAddRequest}
+            >
+              Add new question
+          </Button>
+        </div>
         <QList questions={questions} onEditRequest={this.onEditRequest} onDeleteRequest={this.onDeleteRequest} />
       </div>
     );

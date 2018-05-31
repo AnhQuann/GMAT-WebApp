@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import _ from 'lodash';
 
-import { elipsis, checkFields } from '../../utils';
+import { elipsis, checkFields } from 'utils';
 
 import './QList.css';
 
