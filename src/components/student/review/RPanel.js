@@ -9,15 +9,14 @@ import './RPanel.css';
 export default function(props) {
   const answer = props.answer;
   const userChoice = answer.choice;
-  const rightChoice = answer.question.rightChoice;
+  const rightChoice = answer.question.details[0].rightChoice;
 
   const explanation = answer.question.explanation;
-
   const answerDetail = {
     stimulus: answer.question.stimulus,
     stem: answer.question.stem,
     skip: (userChoice < 0 || userChoice > 5),
-    choices: answer.question.choices.map((choice, index) => {
+    choices: answer.question.details[0].choices.map((choice, index) => {
       return {
         value: choice,
         isRightChoice: index == rightChoice,

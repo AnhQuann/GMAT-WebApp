@@ -2,14 +2,14 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import _ from 'lodash';
 
-import { elipsis, checkFields } from '../../utils';
+import { elipsis, checkFields } from 'utils';
 
 import './QList.css';
 
 export default function(props) {
     const questions = props.questions;
     const showActions = props.onEditRequest || props.onDeleteRequest;
-    const stimulusMaxLength = props.stimulusMaxLength ? props.stimulusMaxLength : 100;
+    const descriptionMaxLength = props.descriptionMaxLength ? props.descriptionMaxLength : 100;
     const onQuestionClicked = props.onQuestionClicked ? props.onQuestionClicked : () => {};
     const pointer = props.pointer? "pointer": "";
     return (
@@ -17,6 +17,7 @@ export default function(props) {
         <thead className="">
           <tr className="">
             <th>#</th>
+            <th>Type</th>
             <th>Stimulus</th>
             {showActions && <th className="">Actions</th>}
           </tr>
@@ -28,7 +29,8 @@ export default function(props) {
               const highlight = checkFields(question, 'details[0].choices') && question.details[0].choices.length == 5 ? "" : "bg-danger";
               return (<tr key={index} className={`${trClassName} ${highlight}`} onClick={() => onQuestionClicked(question)}> 
                 { renderId(index + 1) }
-                { renderStimulus(elipsis(question.stimulus, stimulusMaxLength)) }
+                { renderType(question.type) }
+                { renderDescription(question, descriptionMaxLength) }
                 { showActions  && renderActions(question, props.onEditRequest, props.onDeleteRequest) }
               </tr>);
             })
@@ -44,12 +46,25 @@ function renderId(id)  {
   );
 }
 
-function renderStimulus(stimulus) {
-  return (
-    <td className="td-stimulus">
-      <span dangerouslySetInnerHTML={{__html: stimulus}} />
-    </td> 
-  );
+function renderType(type) {
+  return <td>{type}</td>
+}
+
+function renderDescription(question, maxLength) {
+  switch(question.type) {
+    case "SC":
+      return (
+        <td className="td-stimulus">
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.details[0].stem, maxLength)}} />
+        </td>
+      )
+    default:
+      return (
+        <td className="td-stimulus">
+          <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus, maxLength)}} />
+        </td> 
+      );
+  }
 }
 
 function renderActions(question, editRequest, deleteRequest) {
