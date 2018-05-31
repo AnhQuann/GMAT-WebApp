@@ -4,6 +4,8 @@ import { Form, FormGroup, Input, Button } from 'reactstrap';
 import { Formik, FieldArray } from 'formik';
 import { elipsis } from '../../utils';
 import QPackAddQuestionModal from './QPackAddQuestionModal';
+import { Link } from 'react-router-dom';
+import { ROUTER_QUESTION_EDIT_ID } from '../../constants';
 
 class QPackForm extends Component {
   constructor(props) {
@@ -93,7 +95,11 @@ class QPackForm extends Component {
                   questions.map((question, index) => (
                     <div key={index} className="my-2 d-flex align-items-center border-bottom">
                       <span>{index + 1}.</span>
-                      <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus)}} className='col mt-3' />
+                      <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus)}} className='col mt-3'>
+                      </span>
+                          <Link to={`${ROUTER_QUESTION_EDIT_ID}/${question._id}`} >
+                            <i className="fas fa-eye" />
+                          </Link>
                       <i 
                         className="fas fa-times mx-3 text-danger pointer question-remove"
                         onClick={() => {arrayHelpers.remove(index)}}
