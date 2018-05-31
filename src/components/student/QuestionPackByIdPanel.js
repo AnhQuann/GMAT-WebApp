@@ -154,7 +154,7 @@ class QuestionPackByIdPanel extends Component {
                   </div>
                   <div>
                     <p dangerouslySetInnerHTML={{ __html: question.stimulus}}></p>
-                    <p dangerouslySetInnerHTML={{ __html: question.stem}}></p>
+                    <p dangerouslySetInnerHTML={{ __html: question.details[0].stem}}></p>
                     { this.renderChoices(question.id, question.details[0].choices) }
                     <FormGroup check className="guess_chkbox">
                       <Label check>
