@@ -8,7 +8,7 @@ import { addQuestionPack, editQuestionPack, fetchQuestionPacks } from '../../act
 
 import { ROUTER_QUESTION_PACK_EDIT, ROUTER_QUESTION_PACK_ADD }  from '../../constants';
 
- 
+
 class QPackListPanel extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +56,7 @@ class QPackListPanel extends Component {
     // this.props.selectQuestionPack(questionPack, handlers, "Add question pack");
     this.props.history.push(`${ROUTER_QUESTION_PACK_EDIT}/${questionPack._id}`);
   }
-  
+
   renderQuestionPacks(questionPacks) {
     return (
       <Table>
@@ -69,10 +69,11 @@ class QPackListPanel extends Component {
           </tr>
         </thead>
         <tbody>
-          { _.map(questionPacks, (questionPack, id) => {
+          {
+             _.values(questionPacks).map((questionPack, index) => {
             return (
-              <tr key={id}>
-                <th scope="column">{questionPack.id}</th>
+              <tr key={index}>
+                <th scope="column">{index + 1}</th>
                 <td>{questionPack.name}</td>
                 <td>{questionPack.questions.length}</td>
                 <td>
@@ -93,5 +94,5 @@ function mapReducerToState({ questionPackReducer }) {
 }
 
 const actions = { closePopup, openPopup, fetchQuestionPacks, removeQuestionPack, selectQuestionPack, addQuestionPack, editQuestionPack  };
- 
+
 export default connect(mapReducerToState, actions)(QPackListPanel);
