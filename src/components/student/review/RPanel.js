@@ -12,12 +12,12 @@ export default function(props) {
   const rightChoice = answer.question.rightChoice;
 
   const explanation = answer.question.explanation;
-
+  console.log(answer.question);
   const answerDetail = {
     stimulus: answer.question.stimulus,
     stem: answer.question.stem,
     skip: (userChoice < 0 || userChoice > 5),
-    choices: answer.question.choices.map((choice, index) => {
+    choices: answer.question.details[0].choices.map((choice, index) => {
       return {
         value: choice,
         isRightChoice: index == rightChoice,
