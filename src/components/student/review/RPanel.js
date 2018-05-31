@@ -9,10 +9,10 @@ import './RPanel.css';
 export default function(props) {
   const answer = props.answer;
   const userChoice = answer.choice;
-  const rightChoice = answer.question.rightChoice;
+  const rightChoice = answer.question.details[0].rightChoice;
 
   const explanation = answer.question.explanation;
-  console.log(answer.question);
+  console.log(answer);
   const answerDetail = {
     stimulus: answer.question.stimulus,
     stem: answer.question.stem,
