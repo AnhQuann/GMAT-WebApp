@@ -12,7 +12,6 @@ export default function(props) {
   const rightChoice = answer.question.details[0].rightChoice;
 
   const explanation = answer.question.explanation;
-  console.log(answer);
   const answerDetail = {
     stimulus: answer.question.stimulus,
     stem: answer.question.stem,
