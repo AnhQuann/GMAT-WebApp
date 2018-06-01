@@ -7,6 +7,8 @@ import questionPackReducer from './questionPackReducer';
 import currentQuestionPackReducer from './currentQuestionPackReducer';
 import questionSearchResultReducer from './questionSearchResultReducer';
 import resultReducer from './resultReducer';
+import studentReducer from './studentReducer';
+import classRoomReducer from './classRoomReducer';
 
 const rootReducer = combineReducers({
     authReducer,
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
     questionPackReducer,
     currentQuestionPackReducer,
     questionSearchResultReducer,
-    resultReducer
+    resultReducer,
+    studentReducer,
+    classRoomReducer
 });
 
 export default rootReducer;
