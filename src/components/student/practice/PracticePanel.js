@@ -11,7 +11,6 @@ import { fetchQuestionPack, addResult } from 'networks';
 import Loading from '../../common/Loading';
 
 import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from '../../../constants';
-
 class PracticePanel extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +29,9 @@ class PracticePanel extends Component {
     this.answers = [];
 
     this.renderTabsQuestion = this.renderQuestion.bind(this);
-    this.onSubmitUserChoice = this.onSubmitUserChoice.bind(this);
     this.backToPreviousQuestion = this.backToPreviousQuestion.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
-    this.submitChoice = this.submitChoice.bind(this);
+    this.onSubmitUserChoice = this.onSubmitUserChoice.bind(this);
     this.submitTest = this.submitTest.bind(this);
     this.handlePause = this.handlePause.bind(this);
   }
@@ -82,10 +80,6 @@ class PracticePanel extends Component {
     });
   }
 
-  submitChoice() {
-    
-  }
-
   currentQuestionDetailIsLast() {
     const question = this.state.questionPack.questions[this.state.currentQuestionIndex];
     const currentQuestionDetailIndex = this.state.currentQuestionDetailIndex;
@@ -99,10 +93,12 @@ class PracticePanel extends Component {
   onSubmitUserChoice({choice}) {
     if(!this.currentQuestionDetailIsLast()) {
       this.setState({
+        userChoice: -1,
         currentQuestionDetailIndex: this.state.currentQuestionDetailIndex + 1
       });
     } else if(!this.currentQuestionIsLast()) {
       this.setState({
+        userChoice: -1,        
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
         currentQuestionDetailIndex: 0
       })
@@ -125,7 +121,7 @@ class PracticePanel extends Component {
           Verbal :: {VERBAL_QUESTION_DESCRIPTIONS[question.type]} :: {question._id}
         </div>
         <div>
-        <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
+          <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
         </div>
         <div>
           <p dangerouslySetInnerHTML={{ __html: stem}} />       
@@ -133,7 +129,7 @@ class PracticePanel extends Component {
         <UserChoiceForm
           onSubmit={this.onSubmitUserChoice}
           choices={choices}
-          initialValues={{choice: -1}}
+          initialValues={{choice: this.state.userChoice}}
         />
       </div>
     );
