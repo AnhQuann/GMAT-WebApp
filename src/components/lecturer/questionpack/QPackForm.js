@@ -93,7 +93,11 @@ class QPackForm extends Component {
                   questions.map((question, index) => (
                     <div key={index} className="my-2 d-flex align-items-center border-bottom">
                       <span>{index + 1}.</span>
-                      <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus)}} className='col mt-3' />
+                      <span dangerouslySetInnerHTML={{
+                        __html: question.type == "SC" ? elipsis(question.details[0].stem) : elipsis(question.stimulus)
+                        }} 
+                        className='col mt-3' 
+                      />
                       <i 
                         className="fas fa-times mx-3 text-danger pointer question-remove"
                         onClick={() => {arrayHelpers.remove(index)}}
