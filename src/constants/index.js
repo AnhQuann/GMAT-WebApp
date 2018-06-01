@@ -21,6 +21,12 @@ export const VERBAL_QUESTION_TYPES = [
   "SC", "CR", "RC"
 ]
 
+export const VERBAL_QUESTION_DESCRIPTIONS = {
+  "SC": "Sentence correction",
+  "CR": "Critical reasoning",
+  "RC": "Reading comprehension"  
+}
+
 export const CHOICE_LETTERS = [
   "A", "B", "C", "D", "E"
 ]

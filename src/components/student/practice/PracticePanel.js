@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button, Form, FormGroup, Input, Label, TabContent, TabPane } from 'reactstrap';
+import UserChoiceForm from './UserChoice.form';
+
 import _ from 'lodash';
 import moment from 'moment';
 import progressBar, { Circle } from 'react-progressbar';
 
-import { fetchQuestionPack, addResult } from '../../networks';
+import { fetchQuestionPack, addResult } from 'networks';
 
-import Loading from '../common/Loading';
+import Loading from '../../common/Loading';
 
-import { ROUTER_RESULT } from '../../constants';
+import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from '../../../constants';
 
-class QuestionPackByIdPanel extends Component {
+class PracticePanel extends Component {
   constructor(props) {
     super(props);
 
@@ -20,22 +22,20 @@ class QuestionPackByIdPanel extends Component {
         totalTime: 0,
         idealTimeSpentPerQuestion: 108,
         currentQuestionIndex: 0,
+        currentQuestionDetailIndex: 0,
         userChoice: -1,
         finished: false
     };
 
     this.answers = [];
 
-    this.renderTabsQuestion = this.renderTabsQuestion.bind(this);
-    this.renderChoices = this.renderChoices.bind(this);
-    this.handleSelectChoice = this.handleSelectChoice.bind(this);
+    this.renderTabsQuestion = this.renderQuestion.bind(this);
+    this.onSubmitUserChoice = this.onSubmitUserChoice.bind(this);
     this.backToPreviousQuestion = this.backToPreviousQuestion.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.submitChoice = this.submitChoice.bind(this);
-    this.clearChoice = this.clearChoice.bind(this);
     this.submitTest = this.submitTest.bind(this);
     this.handlePause = this.handlePause.bind(this);
-    this.renderQuestionType = this.renderQuestionType.bind(this);
   }
 
   componentWillMount() {
@@ -71,12 +71,6 @@ class QuestionPackByIdPanel extends Component {
     }, 1000);
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.resultReducer.result) {
-        this.props.history.push(ROUTER_RESULT);
-    }
-  }
-
   submitTest() {
     clearInterval(this.timer);
     let newResult = {
@@ -89,96 +83,59 @@ class QuestionPackByIdPanel extends Component {
   }
 
   submitChoice() {
-    this.saveUserChoice(this.state.currentQuestionIndex, this.currentQuestion()._id, this.state.userChoice);
-    if(this.currentQuestionIsLast()) {
-      this.submitTest();
-    } else {
-      this.goToNextQuestion();
-    }
+    
+  }
+
+  currentQuestionDetailIsLast() {
+    const question = this.state.questionPack.questions[this.state.currentQuestionIndex];
+    const currentQuestionDetailIndex = this.state.currentQuestionDetailIndex;
+    return currentQuestionDetailIndex === question.details.length - 1;
   }
 
   currentQuestionIsLast() {
     return this.state.currentQuestionIndex === this.state.questionPack.questions.length - 1;
   }
 
-  clearChoice() {
-    this.setState({
-      userChoice: -1
-    });
-  }
-
-  handleSelectChoice(index) {
-    this.setState({
-      userChoice: index
-    });
-  }
-
-  renderChoices(questionId, choices) {
-    return choices.map((choice, index) => {
-      return (
-        <FormGroup key={index} check>
-          <Label check>
-          <Input checked={index == this.state.userChoice} type="radio" name={questionId} value={index} 
-            onChange={(e) => { this.handleSelectChoice(index) }} />{' '}
-            {choice}
-          </Label>
-        </FormGroup>
-      );
-    });
-  }
-
-  renderQuestionType(questionType) {
-    switch(questionType) {
-      case "CR":
-        return "Critical Reasoning";
-      default:
-        return questionType;
+  onSubmitUserChoice({choice}) {
+    if(!this.currentQuestionDetailIsLast()) {
+      this.setState({
+        currentQuestionDetailIndex: this.state.currentQuestionDetailIndex + 1
+      });
+    } else if(!this.currentQuestionIsLast()) {
+      this.setState({
+        currentQuestionIndex: this.state.currentQuestionIndex + 1,
+        currentQuestionDetailIndex: 0
+      })
+    } else {
+      // TODO: Submit test here
     }
   }
 
-  renderTabsQuestion() {
+  renderQuestion() {
     const questionPack = this.state.questionPack;
-    const userChoice = this.state.userChoice;
     if (!questionPack) return (<Loading />);
     if(!questionPack.questions || questionPack.questions.length == 0) return (<div>This pack does not have any questions</div>);
-    const questions = questionPack.questions;
+    const question = questionPack.questions[this.state.currentQuestionIndex];
+    const stimulus = question.stimulus;
+    const detail = question.details[this.state.currentQuestionDetailIndex];
+    const { stem, choices } = detail;
     return (
-      questions.map((question, index) => {
-        return (
-          <TabPane tabId={`${index}`} key={index}>
-            <Row>
-              <Col sm="12">
-                <Form onSubmit={this.submitChoice}>
-                  <div className="question_title">
-                    Verbal :: {this.renderQuestionType(question.type)} :: {question._id}
-                  </div>
-                  <div>
-                    <p dangerouslySetInnerHTML={{ __html: question.stimulus}}></p>
-                    <p dangerouslySetInnerHTML={{ __html: question.details[0].stem}}></p>
-                    { this.renderChoices(question.id, question.details[0].choices) }
-                    <FormGroup check className="guess_chkbox">
-                      <Label check>
-                        <Input type="checkbox" />{' '}
-                        This is a guess
-                      </Label>
-                    </FormGroup>
-                    <FormGroup className="form_menu">
-                      <Button onClick={this.submitChoice} className="btn-success" disabled={ userChoice === -1 }>Submit</Button>
-                      <div>
-                        <div>
-                          <Button onClick={() => { this.clearChoice() }}>Clear answer</Button>
-                          <Button disabled={ userChoice === -1 }>Show answer</Button>
-                        </div>
-                        <Button><i className="far fa-star"></i> Bookmark this question</Button>
-                      </div>
-                    </FormGroup>
-                  </div>
-                </Form>
-              </Col>
-            </Row>
-          </TabPane>
-        );
-      })
+      <div>
+        <div className="question_title">
+          Verbal :: {VERBAL_QUESTION_DESCRIPTIONS[question.type]} :: {question._id}
+        </div>
+        <div>
+        <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
+        </div>
+        <div>
+          <p dangerouslySetInnerHTML={{ __html: stem}} />       
+        </div>
+        <UserChoiceForm
+          onSubmit={this.onSubmitUserChoice}
+          choices={choices}
+          initialValues={{choice: -1}}
+        />
+      </div>
     );
   }
 
@@ -247,17 +204,15 @@ class QuestionPackByIdPanel extends Component {
         <Row>
           <Col sm="12">
             <Container>
-              <TabContent activeTab={`${currentQuestionIndex}`}>
-                {this.renderTabsQuestion()}
-              </TabContent>
+              {this.renderQuestion()}
             </Container>
           </Col>
         </Row>
         <Row>
           <Container>
-            <Col md="4" className={`text-left ${currentQuestion.time < this.state.idealTimeSpentPerQuestion ? 'green_text' : 'red_text'}`}><span>Time spent on this question:</span> <span>{moment().startOf('day').seconds(currentQuestion.time).format(`${currentQuestion.time > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col>
+            {/* <Col md="4" className={`text-left ${currentQuestion.time < this.state.idealTimeSpentPerQuestion ? 'green_text' : 'red_text'}`}><span>Time spent on this question:</span> <span>{moment().startOf('day').seconds(currentQuestion.time).format(`${currentQuestion.time > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col>
             <Col md="4" className="text-center">{`Question ${currentQuestionIndex + 1}/${questionPack.questions ? questionPack.questions.length : 0}`}</Col>
-            <Col md="4" className={`text-right ${currentQuestion.time < this.state.idealTimeSpentPerQuestion*questionPack.questions.length ? 'green_text' : 'red_text'}`}><span>Question set total time:</span> <span>{moment().startOf('day').seconds(this.state.totalTime).format(`${this.state.totalTime > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col>
+            <Col md="4" className={`text-right ${currentQuestion.time < this.state.idealTimeSpentPerQuestion*questionPack.questions.length ? 'green_text' : 'red_text'}`}><span>Question set total time:</span> <span>{moment().startOf('day').seconds(this.state.totalTime).format(`${this.state.totalTime > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col> */}
           </Container>
         </Row>
       </Container>
@@ -265,4 +220,4 @@ class QuestionPackByIdPanel extends Component {
   }
 }
 
-export default QuestionPackByIdPanel;
+export default PracticePanel;
