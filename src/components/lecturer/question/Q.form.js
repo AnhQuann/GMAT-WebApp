@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, FormGroup, Button } from 'reactstrap';
-import { VERBAL_QUESTION_TYPES } from '../../constants';
+import { VERBAL_QUESTION_TYPES } from 'statics';
 import  { Formik } from 'formik';
 import ReactQuill from 'react-quill';
 

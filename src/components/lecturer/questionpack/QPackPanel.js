@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import QPackListPanel from './QPackListPanel';
 import QPackEditPanel from './QPackEditPanel';
-import { ROUTER_QUESTION_PACK, ROUTER_QUESTION_PACK_EDIT_WITH_PARAM, ROUTER_QUESTION_PACK_ADD } from '../../constants';
+import { ROUTER_QUESTION_PACK, ROUTER_QUESTION_PACK_EDIT_WITH_PARAM, ROUTER_QUESTION_PACK_ADD } from 'statics';
 import QPackAddPanel from './QPackAddPanel';
  
 class QPackPanel extends Component {

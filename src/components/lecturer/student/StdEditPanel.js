@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { editStudent, fetchStudent } from '../../networks';
+import { editStudent, fetchStudent } from 'networks';
 import StdForm from './Std.form';
  
 class StdEditPanel extends Component {

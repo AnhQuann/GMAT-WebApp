@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { fetchClassRooms } from '../../networks';
-import { ROUTER_CLASS_ROOM_EDIT } from '../../constants';
+import { fetchClassRooms } from 'networks';
+import { ROUTER_CLASS_ROOM_EDIT } from 'statics';
   
 class CRoomListPanel extends Component {
   constructor(props) {

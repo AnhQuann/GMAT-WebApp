@@ -5,8 +5,8 @@ import ReactQuill from 'react-quill';
 import { nestFmkProps, nestFmkValidate } from 'nestFmk';
 import ChoiceForm, { validate as validateChoices } from './choice.form';
 
-import { CHOICE_LETTERS } from '../../constants';
-import { stripHTML } from '../../utils';
+import { CHOICE_LETTERS } from 'statics';
+import { stripHTML } from 'utils';
 
 import 'react-quill/dist/quill.snow.css';
 import './quill.custom.css'

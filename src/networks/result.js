@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_RESULT } from '../constants';
-import  { checkFields }  from '../utils';
+import { API_RESULT } from 'statics';
+import  { checkFields }  from 'utils';
 
 export function addResult(body) {
   const request = axios.post(API_RESULT, body);

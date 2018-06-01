@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { ROUTER_CLASS_ROOM, ROUTER_CLASS_ROOM_ADD, ROUTER_CLASS_ROOM_EDIT } from '../../constants';
+import { ROUTER_CLASS_ROOM, ROUTER_CLASS_ROOM_ADD, ROUTER_CLASS_ROOM_EDIT } from 'statics';
 
 import CRoomAddPanel from './CRoomAdd.panel';
 import CRoomEditPanel from './CRoomEdit.panel';

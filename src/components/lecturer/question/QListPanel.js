@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Label, Input } from 'reactstrap';
 
-import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from '../../actions';
+import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from 'actions';
 import QList from './QList';
-import { VERBAL_QUESTION_TYPES } from '../../constants';
+import { VERBAL_QUESTION_TYPES } from 'statics';
 
 import "./QPanel.css";
 

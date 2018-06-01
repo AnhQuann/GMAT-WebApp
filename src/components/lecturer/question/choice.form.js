@@ -1,7 +1,7 @@
 import React from 'react';
 import './choice.form.css';
 import { Input } from 'reactstrap';
-import { CHOICE_LETTERS } from '../../constants';
+import { CHOICE_LETTERS } from 'statics';
 
 export default function(formProps) {
   const {

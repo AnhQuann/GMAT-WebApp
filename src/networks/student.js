@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { checkFields  } from '../utils';
-import { API_STUDENT } from '../constants';
+import { checkFields  } from 'utils';
+import { API_STUDENT } from 'statics';
 
 export function fetchStudents(name="") {
   const request = axios.get(`${API_STUDENT}?name=${name}`);
