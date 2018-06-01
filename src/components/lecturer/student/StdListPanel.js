@@ -7,33 +7,22 @@ import { connect } from 'react-redux';
 import { ROUTER_STUDENT_MANAGEMENT_ADD } from '../../constants';
 
 import StdList from './StdList';
-import { openPopup, closePopup } from '../../actions';
-import { fetchStudents, deleteStudent } from '../../networks';
+import { openPopup, closePopup } from 'actions';
+import { fetchStudents, deleteStudent } from 'actions/student';
   
 class StdListPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      students: null
-    };
     this.requestDelete = this.requestDelete.bind(this);
   }
 
   componentWillMount() {
-    fetchStudents().then((students) => {
-      this.setState({
-        students: _.mapKeys(students, "_id")
-      });
-    });
+    this.props.fetchStudents();
   }
 
   requestDelete(student) {
     const yesCallBack = (() => {
-      deleteStudent(student).then((studentBefore) => {
-        this.setState({
-          students: _.omit(this.state.students, studentBefore._id)
-        });
-      });
+      this.props.deleteStudent();
       this.props.closePopup();
     });
 
@@ -41,8 +30,7 @@ class StdListPanel extends Component {
   }
 
   render() {
-    if(!this.state.students) return <div className="panel">Loading...</div>;
-    
+    const studentsList = this.props.studentReducer;
     return (
       <div className="panel">
         <div className="d-flex justify-content-end mb-2 pr-2">
@@ -50,7 +38,7 @@ class StdListPanel extends Component {
             <Button color="primary">Add new student</Button>
           </Link>
         </div>
-        {this.renderStudents(this.state.students)}
+        {this.renderStudents(studentsList)}
       </div>
     );
   }
@@ -87,9 +75,15 @@ class StdListPanel extends Component {
   }
 }
 
-const actions = {
-  openPopup,
-  closePopup
+function mapReducerToState({ studentReducer }) {
+  return { studentReducer };
 }
 
-export default connect(null, actions)(StdListPanel);
+const actions = {
+  openPopup,
+  closePopup,
+  fetchStudents,
+  deleteStudent
+}
+
+export default connect(mapReducerToState, actions)(StdListPanel);
