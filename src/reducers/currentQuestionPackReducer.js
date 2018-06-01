@@ -1,4 +1,4 @@
-import { SELECT_QUESTION_PACK } from '../actions';
+import { SELECT_QUESTION_PACK } from 'actions';
 
 export default function (state = null, action) {
   switch(action.type) {

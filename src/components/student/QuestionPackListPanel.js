@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, CardDeck, CardTitle, CardText, Button } from 'reactstrap';
 import _ from 'lodash';
 
-import { fetchQuestionPacks } from '../../actions';
+import { fetchQuestionPacks } from 'actions';
 
-import { ROUTER_PACK } from '../../constants';
+import { ROUTER_PACK } from 'statics';
 
 import NavBar from '../navbar/NavBar';
 

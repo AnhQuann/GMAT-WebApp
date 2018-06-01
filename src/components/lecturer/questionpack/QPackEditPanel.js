@@ -7,8 +7,8 @@ import QPackQuestionListPanel from './QPackQuestionListPanel';
 
 import QPackForm from './QPackForm';
 
-import { editQuestionPack } from '../../actions';
-import { fetchQuestionPack  } from '../../networks';
+import { editQuestionPack } from 'actions';
+import { fetchQuestionPack  } from 'networks';
  
 class QPackEditPanel extends Component {
   constructor(props) {

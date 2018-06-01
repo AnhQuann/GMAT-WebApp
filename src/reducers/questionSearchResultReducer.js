@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { SEARCH_QUESTION, TOGGLE_QUESTION_SELECTION, CLEAR_QUESTION_SELECTIONS } from '../actions';
+import { SEARCH_QUESTION, TOGGLE_QUESTION_SELECTION, CLEAR_QUESTION_SELECTIONS } from 'actions';
 
 export default function(state = {}, action) {
   switch(action.type) {

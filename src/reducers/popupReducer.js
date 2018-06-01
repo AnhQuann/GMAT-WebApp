@@ -1,4 +1,4 @@
-import { POPUP_OPEN, POPUP_CLOSE } from '../actions';
+import { POPUP_OPEN, POPUP_CLOSE } from 'actions';
 
 export default function(state = { isOpen: false }, action) {
   switch(action.type) {

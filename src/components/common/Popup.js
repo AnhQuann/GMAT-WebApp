@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { closePopup } from '../../actions';
+import { closePopup } from 'actions';
 
 class Popup extends Component {
     render() {

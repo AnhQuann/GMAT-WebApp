@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import _ from 'lodash';
 
-import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from '../../actions';
-import { addQuestionPack, editQuestionPack, fetchQuestionPacks } from '../../actions';
+import { openPopup, closePopup, removeQuestionPack, selectQuestionPack  } from 'actions';
+import { addQuestionPack, editQuestionPack, fetchQuestionPacks } from 'actions';
 
-import { ROUTER_QUESTION_PACK_EDIT, ROUTER_QUESTION_PACK_ADD }  from '../../constants';
+import { ROUTER_QUESTION_PACK_EDIT, ROUTER_QUESTION_PACK_ADD }  from 'statics';
 
 
 class QPackListPanel extends Component {

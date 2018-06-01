@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import SideBar from '../sidebar/SideBar';
 import LecturerPanel from './LecturerPanel';
 
-import { ROUTER_QUESTION, ROUTER_QUESTION_PACK, ROUTER_STUDENT_MANAGEMENT, ROUTER_CLASS_ROOM  } from '../../constants/urls';
+import { ROUTER_QUESTION, ROUTER_QUESTION_PACK, ROUTER_STUDENT_MANAGEMENT, ROUTER_CLASS_ROOM  } from 'statics';
  
 class LecturerComtainer extends Component {
     render() {

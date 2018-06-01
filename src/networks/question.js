@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { API_QUESTIONS } from '../constants';
-import  { checkFields }  from '../utils';
+import { API_QUESTIONS } from 'statics';
+import  { checkFields }  from 'utils';
 
 export function fetchQuestion(questionId) {
   const request = axios.get(`${API_QUESTIONS}/${questionId}`);

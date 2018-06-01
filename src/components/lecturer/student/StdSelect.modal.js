@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 
-import { fetchStudents } from '../../networks';
+import { fetchStudents } from 'networks';
 import StdList from './StdList';
 
 import SearchBar from '../../common/SearchBar';

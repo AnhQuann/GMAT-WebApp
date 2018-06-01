@@ -4,11 +4,11 @@ import _ from 'lodash';
 import moment from 'moment';
 import progressBar, { Circle } from 'react-progressbar';
 
-import { fetchQuestionPack, addResult } from '../../networks';
+import { fetchQuestionPack, addResult } from 'networks';
 
 import Loading from '../common/Loading';
 
-import { ROUTER_RESULT } from '../../constants';
+import { ROUTER_RESULT } from 'statics';
 
 class QuestionPackByIdPanel extends Component {
   constructor(props) {

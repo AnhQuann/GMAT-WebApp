@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { checkFields } from './utils';
-import { API_QUESTIONS } from './urls';
+import { checkFields } from 'utils';
+import { API_QUESTIONS } from 'statics';
 
 export const REMOVE_QUESTION = "Remove question";
 export const EDIT_QUESTION = "Edit question";

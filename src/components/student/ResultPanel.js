@@ -5,8 +5,8 @@ import moment from 'moment';
 
 import Loading from '../common/Loading';
 
-import { fetchResult } from '../../networks';
-import { ROUTER_STUDENT, ROUTER_REVIEW } from '../../constants';
+import { fetchResult } from 'networks';
+import { ROUTER_STUDENT, ROUTER_REVIEW } from 'statics';
 
 class ResultPanel extends Component {
     constructor(props) {

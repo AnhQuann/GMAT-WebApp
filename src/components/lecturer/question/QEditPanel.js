@@ -3,12 +3,12 @@ import { FormGroup, Button, Input } from 'reactstrap';
 import _ from 'lodash';
 
 import { connect } from 'react-redux';
-import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from '../../constants';
+import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from 'statics';
 
 import QForm from './Q.form';
 
-import { editQuestion } from '../../actions';
-import { fetchQuestion } from '../../networks';
+import { editQuestion } from 'actions';
+import { fetchQuestion } from 'networks';
 
 import "./QEditPanel.css";
  

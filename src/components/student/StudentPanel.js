@@ -6,7 +6,7 @@ import QuestionPackByIdPanel from './QuestionPackByIdPanel';
 import ResultPanel from './ResultPanel';
 import RContainer from './review/RContainer';
 
-import { ROUTER_STUDENT, ROUTER_PACK_PARAM_ID, ROUTER_RESULT_PARAM_ID, ROUTER_REVIEW } from '../../constants';
+import { ROUTER_STUDENT, ROUTER_PACK_PARAM_ID, ROUTER_RESULT_PARAM_ID, ROUTER_REVIEW } from 'statics';
 
 import './StudentPanel.css';
 

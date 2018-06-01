@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Button, Form, Input, Container, FormGroup } from 'reactstrap';
 
-import { login } from '../../actions';
+import { login } from 'actions';
 
 import EditPanel from '../common/EditPanel';
 

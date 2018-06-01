@@ -4,11 +4,11 @@ import { Button, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { ROUTER_STUDENT_MANAGEMENT_ADD } from '../../constants';
+import { ROUTER_STUDENT_MANAGEMENT_ADD } from 'statics';
 
 import StdList from './StdList';
-import { openPopup, closePopup } from '../../actions';
-import { fetchStudents, deleteStudent } from '../../networks';
+import { openPopup, closePopup } from 'actions';
+import { fetchStudents, deleteStudent } from 'networks';
   
 class StdListPanel extends Component {
   constructor(props) {

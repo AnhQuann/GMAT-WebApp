@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RPanel from './RPanel';
 import RNavBar from './RNavbar';
 
-import { fetchResult } from '../../networks';
+import { fetchResult } from 'networks';
 
 import './RContainer.css';
   

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, CHECK_TOKEN } from '../actions';
+import { LOGIN, LOGOUT, CHECK_TOKEN } from 'actions';
 
 export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: null, user: null }, action) => {
     switch (action.type) {
