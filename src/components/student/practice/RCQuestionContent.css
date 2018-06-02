@@ -1,0 +1,14 @@
+.rc-content-panel {
+  display: flex;
+  flex-flow: row;
+}
+
+.rc-content-panel  {
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+
+.rc-content-panel div {
+  flex-grow: 1;
+  flex-basis: 100%;
+}

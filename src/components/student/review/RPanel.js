@@ -7,20 +7,19 @@ import { Row, Col } from 'reactstrap';
 import './RPanel.css';
 
 export default function(props) {
-  const answer = props.answer;
-  const userChoice = answer.choice;
-  const rightChoice = answer.question.details[0].rightChoice;
-
-  const explanation = answer.question.explanation;
+  const {answer, userChoice, detail} = props;
+  const rightChoice = detail.rightChoice;
+  const explanation = detail.explanation;
+  
   const answerDetail = {
     stimulus: answer.question.stimulus,
-    stem: answer.question.stem,
-    skip: (userChoice < 0 || userChoice > 5),
-    choices: answer.question.details[0].choices.map((choice, index) => {
+    stem: detail.stem,
+    skip: (userChoice.choice < 0 || userChoice.choice > 5),
+    choices: detail.choices.map((questionChoice, index) => {
       return {
-        value: choice,
+        value: questionChoice,
         isRightChoice: index == rightChoice,
-        isSelectedButWrong: index == userChoice && index != rightChoice
+        isSelectedButWrong: index == userChoice.choice && index != rightChoice
       }
     })
   }
