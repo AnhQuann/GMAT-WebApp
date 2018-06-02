@@ -98,7 +98,7 @@ class QPackForm extends Component {
                       <span dangerouslySetInnerHTML={{__html: elipsis(question.stimulus)}} className='col mt-3'>
                       </span>
                           <Link to={`${ROUTER_QUESTION_EDIT_ID}/${question._id}`} >
-                            <i className="fas fa-eye" />
+                            <i className="fas fa-link" />
                           </Link>
                       <i 
                         className="fas fa-times mx-3 text-danger pointer question-remove"
