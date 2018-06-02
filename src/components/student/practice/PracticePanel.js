@@ -11,7 +11,7 @@ import './PracticePanel.css';
 
 import Loading from '../../common/Loading';
 
-import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from '../../../constants';
+import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from 'statics';
 import Time from '../../common/Time';
 import QuestionContent from './QuestionContent';
 import RCQuestionContent from './RCQuestionContent';
