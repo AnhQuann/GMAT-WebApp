@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button, Form, FormGroup, Input, Label, TabContent, TabPane } from 'reactstrap';
-import UserChoiceForm from './UserChoice.form';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -14,6 +13,8 @@ import Loading from '../../common/Loading';
 
 import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from '../../../constants';
 import Time from '../../common/Time';
+import QuestionContent from './QuestionContent';
+import RCQuestionContent from './RCQuestionContent';
 class PracticePanel extends Component {
   constructor(props) {
     super(props);
@@ -144,19 +145,22 @@ class PracticePanel extends Component {
         <div className="question-title">
           Verbal :: {VERBAL_QUESTION_DESCRIPTIONS[question.type]} :: {question._id}
         </div>
-        <div className="question-content">
-          <div>
-            <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
-          </div>
-          <div>
-            <p dangerouslySetInnerHTML={{ __html: stem}} />       
-          </div>
-          <UserChoiceForm
-            onSubmit={this.onSubmitUserChoice}
+        {
+          question.type !== "RC" ?
+          <QuestionContent
+            stimulus={stimulus}
+            stem={stem}
             choices={choices}
-            initialValues={{choice: -1}}
+            onSubmitUserChoice={this.onSubmitUserChoice}
           />
-        </div>
+          :
+          <RCQuestionContent
+            stimulus={stimulus}
+            stem={stem}
+            choices={choices}
+            onSubmitUserChoice={this.onSubmitUserChoice}
+          />
+        }
       </div>
     );
   }

@@ -1,14 +1,15 @@
 .practice-panel {
   display: flex;
   flex-flow: column;
-  overflow: scroll;
   height: 100%;
   padding: 16px;
 }
 
-.question-title {
-
+.allow-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
 
 .question-content {
   flex-grow: 1;
