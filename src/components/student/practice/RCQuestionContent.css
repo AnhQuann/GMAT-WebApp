@@ -1,9 +1,7 @@
 .rc-content-panel {
   display: flex;
   flex-flow: row;
-}
-
-.rc-content-panel  {
+  min-height: 0; /* For FF */
   flex-basis: 100%;
   flex-grow: 1;
 }
