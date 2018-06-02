@@ -15,7 +15,7 @@ export default function(props) {
       <div className="allow-scroll">
         <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
       </div>
-      <div className="pl-3">
+      <div className="pl-3 allow-scroll">
         <div>
           <p dangerouslySetInnerHTML={{ __html: stem}} />       
         </div>
