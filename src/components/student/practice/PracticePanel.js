@@ -89,11 +89,14 @@ class PracticePanel extends Component {
 
   submitTest() {
     clearInterval(this.timer);
-    let newResult = {
+    this.setState({
+      finished: true
+    });
+    let result = {
       answers: this.answers,
       questionPack: this.state.questionPack._id
     }
-    addResult(newResult).then((resultId) => {
+    addResult(result).then((resultId) => {
       this.props.history.push(`${ROUTER_RESULT}/${resultId}`);
     });
   }
@@ -126,6 +129,7 @@ class PracticePanel extends Component {
       })
     } else {
       // TODO: Submit test here
+      this.submitTest()
     }
   }
 
@@ -151,7 +155,6 @@ class PracticePanel extends Component {
             onSubmit={this.onSubmitUserChoice}
             choices={choices}
             initialValues={{choice: -1}}
-            forceChoice={2}
           />
         </div>
       </div>
@@ -185,15 +188,6 @@ class PracticePanel extends Component {
     });
   }
 
-  saveUserChoice(questionIndex, questionId, userChoice) {
-    this.answers[questionIndex].question = questionId;
-    this.answers[questionIndex].choice = userChoice;
-  }
-
-  currentQuestion() {
-    return this.state.questionPack.questions[this.state.currentQuestionIndex];
-  }
-
   handlePause() {
     this.setState({
       ...this.state,
@@ -223,7 +217,7 @@ class PracticePanel extends Component {
             <Col sm={{ size: 6, offset: 6 }} className="btn_menu_top">
               <Button color="info" onClick={this.backToPreviousQuestion} disabled={isPause || currentQuestionIndex <= 0}>Back</Button>
               <Button color="info" onClick={this.handlePause}>{ isPause ? "Resume" : "Pause" }</Button>
-              <Button color="info" onClick={this.goToNextQuestion} disabled={isPause || currentQuestionIndex + 1 >= questionPack.questions.length}>Skip</Button>
+              <Button color="info" onClick={this.goToNextQuestion} disabled={isPause || this.currentQuestionIsLast()}>Skip</Button>
               <Button color="info" onClick={this.submitTest} disabled={isPause}>Finish</Button>
             </Col>
           </Container>
