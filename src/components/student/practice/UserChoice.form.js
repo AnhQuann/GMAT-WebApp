@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Form, FormGroup, Button, Input, Label } from 'reactstrap';
 import  { withFormik, Formik } from 'formik';
@@ -20,15 +19,21 @@ class UserChoiceForm extends Component {
       values,
       handleChange,
       handleSubmit,
-      setFieldValue
+      setFieldValue,
+      resetForm
     } = formProps;
 
     const choices = this.props.choices;
 
     const { choice } = values;
 
+    const handSubmitAndReset = (values) => {
+      handleSubmit(values);
+      resetForm();
+    }
+
     return (
-      <Form onSubmit={handleSubmit} className={this.props.className}>
+      <Form onSubmit={handSubmitAndReset} className={this.props.className}>
         {
           choices.map((availableChoice, index) => {
             return (

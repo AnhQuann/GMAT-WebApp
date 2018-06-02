@@ -8,9 +8,12 @@ import progressBar, { Circle } from 'react-progressbar';
 
 import { fetchQuestionPack, addResult } from 'networks';
 
+import './PracticePanel.css';
+
 import Loading from '../../common/Loading';
 
 import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from '../../../constants';
+import Time from '../../common/Time';
 class PracticePanel extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +25,6 @@ class PracticePanel extends Component {
         idealTimeSpentPerQuestion: 108,
         currentQuestionIndex: 0,
         currentQuestionDetailIndex: 0,
-        userChoice: -1,
         finished: false
     };
 
@@ -46,10 +48,23 @@ class PracticePanel extends Component {
           time: 0
         }];
 
+        const questions = questionPack.questions.filter((question) => !!question.details);
+        this.answers = questions.map((question, index) => {
+          return {
+            question: question._id,
+            userChoices: question.details.map((detail, index) => {
+              return {
+                choice: -1,
+                time: 0
+              }
+            })
+          }
+        });
+
         this.setState({
           questionPack: {
             ...questionPack,
-            questions: questionPack.questions.filter((question) => !!question.details)
+            questions
           }
         });
         this.startTimer();
@@ -58,9 +73,12 @@ class PracticePanel extends Component {
   }
 
   startTimer() {
-    this.timer = setInterval(()=>{
+    this.timer = setInterval(() => {
+      const currentQuestionIndex = this.state.currentQuestionIndex;
+      const currentQuestionDetailIndex = this.state.currentQuestionDetailIndex;
+
       if(!this.state.isPause) {
-          if(this.answers[this.state.currentQuestionIndex]) this.answers[this.state.currentQuestionIndex].time += 1;
+          this.answers[currentQuestionIndex].userChoices[currentQuestionDetailIndex].time += 1;
           this.setState({
               ...this.state,
               totalTime: this.state.totalTime + 1
@@ -90,15 +108,19 @@ class PracticePanel extends Component {
     return this.state.currentQuestionIndex === this.state.questionPack.questions.length - 1;
   }
 
+  currentUserChoice() {
+    const { currentQuestionIndex, currentQuestionDetailIndex } = this.state;
+    return this.answers[currentQuestionIndex].userChoices[currentQuestionDetailIndex];
+  }
+
   onSubmitUserChoice({choice}) {
+    this.currentUserChoice().choice = choice;
     if(!this.currentQuestionDetailIsLast()) {
       this.setState({
-        userChoice: -1,
         currentQuestionDetailIndex: this.state.currentQuestionDetailIndex + 1
       });
     } else if(!this.currentQuestionIsLast()) {
       this.setState({
-        userChoice: -1,        
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
         currentQuestionDetailIndex: 0
       })
@@ -109,28 +131,29 @@ class PracticePanel extends Component {
 
   renderQuestion() {
     const questionPack = this.state.questionPack;
-    if (!questionPack) return (<Loading />);
-    if(!questionPack.questions || questionPack.questions.length == 0) return (<div>This pack does not have any questions</div>);
     const question = questionPack.questions[this.state.currentQuestionIndex];
     const stimulus = question.stimulus;
     const detail = question.details[this.state.currentQuestionDetailIndex];
     const { stem, choices } = detail;
     return (
-      <div>
-        <div className="question_title">
+      <div className="practice-panel">
+        <div className="question-title">
           Verbal :: {VERBAL_QUESTION_DESCRIPTIONS[question.type]} :: {question._id}
         </div>
-        <div>
-          <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
+        <div className="question-content">
+          <div>
+            <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
+          </div>
+          <div>
+            <p dangerouslySetInnerHTML={{ __html: stem}} />       
+          </div>
+          <UserChoiceForm
+            onSubmit={this.onSubmitUserChoice}
+            choices={choices}
+            initialValues={{choice: -1}}
+            forceChoice={2}
+          />
         </div>
-        <div>
-          <p dangerouslySetInnerHTML={{ __html: stem}} />       
-        </div>
-        <UserChoiceForm
-          onSubmit={this.onSubmitUserChoice}
-          choices={choices}
-          initialValues={{choice: this.state.userChoice}}
-        />
       </div>
     );
   }
@@ -180,14 +203,23 @@ class PracticePanel extends Component {
 
   render() {
     const questionPack = this.state.questionPack;
+    
+    if (!questionPack || this.state.finished)
+      return (<Loading />);
+    
+    if(!questionPack.questions || questionPack.questions.length == 0)
+      return (<div>This pack does not have any questions</div>);
+
     const isPause = this.state.isPause;
     const currentQuestionIndex = this.state.currentQuestionIndex;
-    const currentQuestion = this.answers[currentQuestionIndex];
-    if(!questionPack && !this.state.finished) return (<Loading />);
+    const currentQuestionDetailIndex = this.state.currentQuestionDetailIndex;
+    const currentChoice = this.answers[currentQuestionIndex].userChoices[currentQuestionDetailIndex];
+    const questionCount = questionPack.questions.length;
+    const isOvertime = currentChoice.time < this.state.idealTimeSpentPerQuestion * questionCount;
+    const isOvertimeForCurrentQuestion = currentChoice.time < this.state.idealTimeSpentPerQuestion;
     return (
       <Container fluid className={`question_pack ${isPause ? "pause" : ""}`}>
-        <Row>
-          <Container>
+          <Container className="control-panel">
             <Col sm={{ size: 6, offset: 6 }} className="btn_menu_top">
               <Button color="info" onClick={this.backToPreviousQuestion} disabled={isPause || currentQuestionIndex <= 0}>Back</Button>
               <Button color="info" onClick={this.handlePause}>{ isPause ? "Resume" : "Pause" }</Button>
@@ -195,20 +227,32 @@ class PracticePanel extends Component {
               <Button color="info" onClick={this.submitTest} disabled={isPause}>Finish</Button>
             </Col>
           </Container>
-        </Row>
         { isPause ? <Row className="pause_overlay"><Button color="info" onClick={this.handlePause}>Click to resume</Button></Row> : null }
-        <Row>
-          <Col sm="12">
-            <Container>
-              {this.renderQuestion()}
-            </Container>
-          </Col>
-        </Row>
+        <Container>
+          {this.renderQuestion()}
+        </Container>
         <Row>
           <Container>
-            {/* <Col md="4" className={`text-left ${currentQuestion.time < this.state.idealTimeSpentPerQuestion ? 'green_text' : 'red_text'}`}><span>Time spent on this question:</span> <span>{moment().startOf('day').seconds(currentQuestion.time).format(`${currentQuestion.time > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col>
-            <Col md="4" className="text-center">{`Question ${currentQuestionIndex + 1}/${questionPack.questions ? questionPack.questions.length : 0}`}</Col>
-            <Col md="4" className={`text-right ${currentQuestion.time < this.state.idealTimeSpentPerQuestion*questionPack.questions.length ? 'green_text' : 'red_text'}`}><span>Question set total time:</span> <span>{moment().startOf('day').seconds(this.state.totalTime).format(`${this.state.totalTime > 3600 ? 'H:mm:ss' : 'm:ss'}`)}</span> </Col> */}
+            <Col
+              md="4"
+              className={`text-left ${isOvertimeForCurrentQuestion ? 'green_text' : 'red_text'}`}
+            >
+              <span>Time spent on this question:</span>
+              <Time value={currentChoice.time} />
+            </Col>
+            <Col
+              md="4"
+              className="text-center"
+            >
+              {`Question ${currentQuestionIndex + 1}/${questionCount}`}
+            </Col>
+            <Col
+              md="4"
+              className={`text-right ${isOvertime ? 'green_text' : 'red_text'}`}
+            >
+              <span> Question set total time: </span>
+              <Time value={this.state.totalTime} />
+            </Col>
           </Container>
         </Row>
       </Container>
