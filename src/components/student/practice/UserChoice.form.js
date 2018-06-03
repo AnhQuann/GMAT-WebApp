@@ -83,6 +83,7 @@ class UserChoiceForm extends Component {
         initialValues={this.props.initialValues}
         validate={this.validate}
         onSubmit={this.props.onSubmit}
+        enableReinitialize={true}
         render={this.renderForm}
       />
     );

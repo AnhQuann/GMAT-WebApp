@@ -108,8 +108,16 @@ class PracticePanel extends Component {
     return currentQuestionDetailIndex === question.details.length - 1;
   }
 
+  currentQuestionDetailIsFirst() {
+    return this.state.currentQuestionDetailIndex === 0;
+  }
+
   currentQuestionIsLast() {
     return this.state.currentQuestionIndex === this.state.questionPack.questions.length - 1;
+  }
+
+  currentQuestionIsFirst() {
+    return this.state.currentQuestionIndex === 0;
   }
 
   currentUserChoice() {
@@ -129,7 +137,6 @@ class PracticePanel extends Component {
         currentQuestionDetailIndex: 0
       })
     } else {
-      // TODO: Submit test here
       this.submitTest()
     }
   }
@@ -151,6 +158,7 @@ class PracticePanel extends Component {
             stimulus={stimulus}
             stem={stem}
             choices={choices}
+            currentUserChoice={this.currentUserChoice().choice}
             onSubmitUserChoice={this.onSubmitUserChoice}
           />
           :
@@ -158,6 +166,7 @@ class PracticePanel extends Component {
             stimulus={stimulus}
             stem={stem}
             choices={choices}
+            currentUserChoice={this.currentUserChoice().choice}
             onSubmitUserChoice={this.onSubmitUserChoice}
           />
         }
@@ -166,30 +175,35 @@ class PracticePanel extends Component {
   }
 
   backToPreviousQuestion() {
-    if(this.state.questionPack && this.state.currentQuestionIndex > 0) {
+    const { 
+      currentQuestionIndex,
+      currentQuestionDetailIndex,
+      questionPack : { questions }
+    } = this.state;
+    if(!this.currentQuestionDetailIsFirst()) {
       this.setState({
-        ...this.state,
-        currentQuestionIndex: this.state.currentQuestionIndex - 1,
-        userChoice: this.answers[this.state.currentQuestionIndex - 1].userChoice
+        currentQuestionDetailIndex: currentQuestionDetailIndex - 1,
       });
+    } else if(!this.currentQuestionIsFirst()) {
+      this.setState({
+        currentQuestionIndex: currentQuestionIndex - 1,
+        currentQuestionDetailIndex: questions[currentQuestionIndex - 1].details.length - 1
+      })
     }
   }
 
   goToNextQuestion() {
-    let nextQuestion = this.answers[this.state.currentQuestionIndex + 1];
-    if(!nextQuestion) {
-      this.answers.push({
-        question: this.state.questionPack.questions[this.state.currentQuestionIndex + 1]._id,
-        choice: -1,
-        time: 0
+    const { currentQuestionIndex, currentQuestionDetailIndex } = this.state;
+    if(!this.currentQuestionDetailIsLast()) {
+      this.setState({
+        currentQuestionDetailIndex: currentQuestionDetailIndex + 1
       });
+    } else if(!this.currentQuestionIsLast()) {
+      this.setState({
+        currentQuestionIndex: currentQuestionIndex + 1,
+        currentQuestionDetailIndex: 0
+      })
     }
-    
-    this.setState({
-      ...this.state,
-      currentQuestionIndex: this.state.currentQuestionIndex + 1,
-      userChoice: nextQuestion ? nextQuestion.userChoice : -1
-    });
   }
 
   handlePause() {
@@ -208,10 +222,15 @@ class PracticePanel extends Component {
     if(!questionPack.questions || questionPack.questions.length == 0)
       return (<div>This pack does not have any questions</div>);
 
-    const isPause = this.state.isPause;
-    const currentQuestionIndex = this.state.currentQuestionIndex;
-    const currentQuestionDetailIndex = this.state.currentQuestionDetailIndex;
-    const currentChoice = this.answers[currentQuestionIndex].userChoices[currentQuestionDetailIndex];
+    const {
+      isPause,
+      currentQuestionIndex,
+      currentQuestionDetailIndex
+    } = this.state;
+
+    // console.log(currentQuestionIndex, currentQuestionDetailIndex, this.currentUserChoice().choice);
+
+    const currentChoice = this.currentUserChoice()
     const questionCount = questionPack.questions.length;
     const isOvertime = currentChoice.time < this.state.idealTimeSpentPerQuestion * questionCount;
     const isOvertimeForCurrentQuestion = currentChoice.time < this.state.idealTimeSpentPerQuestion;
@@ -219,9 +238,9 @@ class PracticePanel extends Component {
       <Container fluid className={`question_pack ${isPause ? "pause" : ""}`}>
           <Container className="control-panel">
             <Col sm={{ size: 6, offset: 6 }} className="btn_menu_top">
-              <Button color="info" onClick={this.backToPreviousQuestion} disabled={isPause || currentQuestionIndex <= 0}>Back</Button>
+              <Button color="info" onClick={this.backToPreviousQuestion} disabled={isPause || (this.currentQuestionIsFirst() && this.currentQuestionDetailIsFirst())}>Back</Button>
               <Button color="info" onClick={this.handlePause}>{ isPause ? "Resume" : "Pause" }</Button>
-              <Button color="info" onClick={this.goToNextQuestion} disabled={isPause || this.currentQuestionIsLast()}>Skip</Button>
+              <Button color="info" onClick={this.goToNextQuestion} disabled={isPause || (this.currentQuestionIsLast() && this.currentQuestionDetailIsLast())}>Skip</Button>
               <Button color="info" onClick={this.submitTest} disabled={isPause}>Finish</Button>
             </Col>
           </Container>
