@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import QuestionPackListPanel from './QuestionPackListPanel';
 import PracticePanel from './practice/PracticePanel';
-import ResultPanel from './ResultPanel';
+import ResultPanel from './result/ResultPanel';
 import RContainer from './review/RContainer';
 
 import { ROUTER_STUDENT, ROUTER_PACK_PARAM_ID, ROUTER_RESULT_PARAM_ID, ROUTER_REVIEW } from 'statics';
