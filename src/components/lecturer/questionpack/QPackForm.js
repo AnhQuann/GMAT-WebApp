@@ -100,6 +100,9 @@ class QPackForm extends Component {
                         }} 
                         className='col mt-3' 
                       />
+                      <Link to={`${ROUTER_QUESTION_EDIT_ID}/${question._id}`} >
+                            <i className="fas fa-eye" />
+                          </Link>
                       <i 
                         className="fas fa-times mx-3 text-danger pointer question-remove"
                         onClick={() => {arrayHelpers.remove(index)}}

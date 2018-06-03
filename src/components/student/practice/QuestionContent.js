@@ -6,7 +6,8 @@ export default function (props) {
     stimulus,
     stem,
     choices,
-    onSubmitUserChoice
+    onSubmitUserChoice,
+    currentUserChoice
   } = props;
   return (
     <div className="question-content allow-scroll">
@@ -19,7 +20,7 @@ export default function (props) {
       <UserChoiceForm
         onSubmit={onSubmitUserChoice}
         choices={choices}
-        initialValues={{choice: -1}}
+        initialValues={{choice: currentUserChoice}}
       />
     </div>
   );
