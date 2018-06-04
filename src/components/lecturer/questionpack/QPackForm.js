@@ -44,7 +44,7 @@ class QPackForm extends Component {
       setFieldValue
     } = formProps;
 
-    const {name, questions} = values;
+    const {name, header, questions} = values;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -53,6 +53,16 @@ class QPackForm extends Component {
           toggle={this.closeModal}
           onSelectionDone={this.state.onSelectNewQuestionsDone}
         />
+        <FormGroup>
+          <legend>Header</legend>
+          <Input
+            type='text'
+            name='header'
+            value={header}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
+        </FormGroup>
         <FormGroup>
           <legend>Name</legend>
           <Input 

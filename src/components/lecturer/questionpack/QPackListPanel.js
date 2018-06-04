@@ -64,6 +64,7 @@ class QPackListPanel extends Component {
           <tr>
             <th scope="column">#</th>
             <th scope="column">Name</th>
+            <th scope="column">Header</th>
             <th scope="column">Number of questions</th>
             <th scope="column">Actions</th>
           </tr>
@@ -74,6 +75,7 @@ class QPackListPanel extends Component {
               <tr key={index}>
                 <th scope="column">{index + 1}</th>
                 <td>{questionPack.name}</td>
+                <td>{questionPack.header}</td>
                 <td>{questionPack.questions.length}</td>
                 <td>
                   <i className="far fa-edit question-edit" onClick={() => this.editRequest(questionPack)}></i>

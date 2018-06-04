@@ -8,6 +8,8 @@ import EditPanel from '../common/EditPanel';
 
 import Loading from '../common/Loading';
 
+import './login.css';
+
 class Login extends EditPanel {
   constructor(props) {
     super(props);
@@ -59,7 +61,7 @@ class Login extends EditPanel {
               </FormGroup>
 
               <FormGroup className="d-flex">
-                <Button className="ml-auto button text-dark" >Sign in</Button>
+                <Button className="ml-auto button text-dark login-btn" >Sign in</Button>
               </FormGroup>
             </Form>
           </Col>
