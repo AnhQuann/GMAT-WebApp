@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap';
 
-import { logout } from '../../actions';
+import { logout } from 'actions';
 
 import Student from './student';
 import Lecture from './lecture';

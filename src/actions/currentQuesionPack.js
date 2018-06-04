@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-import { API_QUESTION_PACKS } from './urls';
+import { API_QUESTION_PACKS } from 'statics';
 
 export const SELECT_QUESTION_PACK = "Select question pack";
 

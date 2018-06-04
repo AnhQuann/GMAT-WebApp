@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import CRoomForm from './CRoom.form';
-import { fetchClassRoom } from '../../networks';
+import { fetchClassRoom } from 'networks';
 
 class CRoomEditPanel extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { checkFields } from './utils';
+import { checkFields } from 'utils';
 
-import  { API_QUESTIONS }  from './urls'
+import  { API_QUESTIONS }  from 'statics'
 export const SELECT_QUESTION = "SELECT QUESTION";
 
 const defaultQuestion = () => {

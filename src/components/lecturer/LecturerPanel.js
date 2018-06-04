@@ -7,7 +7,7 @@ import StdPanel from './student/StdPanel';
 import CRoomPanel from './classroom/CRoom.panel';
 import NavBar from '../navbar/NavBar';
 
-import { ROUTER_QUESTION_PACK, ROUTER_QUESTION, ROUTER_STUDENT_MANAGEMENT, ROUTER_CLASS_ROOM } from '../../constants';
+import { ROUTER_QUESTION_PACK, ROUTER_QUESTION, ROUTER_STUDENT_MANAGEMENT, ROUTER_CLASS_ROOM } from 'statics';
  
 class LecturerPanel extends Component {
     render() {

@@ -7,7 +7,7 @@ import QAddPanel from './QAddPanel';
 
 import './QPanel.css';
 
-import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION_ADD, ROUTER_QUESTION_EDIT, ROUTER_QUESTION } from '../../constants';
+import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION_ADD, ROUTER_QUESTION_EDIT_PARAM_ID, ROUTER_QUESTION } from 'statics';
 
 class QPanel extends Component {
   render() {
@@ -15,7 +15,7 @@ class QPanel extends Component {
       <div className="question-panel full-height">
         <Switch>
           <Route path={ROUTER_QUESTION_ADD} component = {QAddPanel} />
-          <Route path={ROUTER_QUESTION_EDIT} component= { QEditPanel } />
+          <Route path={ROUTER_QUESTION_EDIT_PARAM_ID} component= { QEditPanel } />
           <Route path={ROUTER_QUESTION} component={ QListPanel } />
         </Switch>
       </div>

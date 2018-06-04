@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Button, Form, Input, Container, FormGroup } from 'reactstrap';
 
-import { login } from '../../actions';
+import { login } from 'actions';
 
 import EditPanel from '../common/EditPanel';
 
 import Loading from '../common/Loading';
 
+import './login.css';
+
 class Login extends EditPanel {
   constructor(props) {
     super(props);
-    
     this.state = {
       loggingIn: false
     };
@@ -42,25 +43,30 @@ class Login extends EditPanel {
 
   renderLoginForm() {
     return (
-      <Container className="d-flex align-items-center justify-content-center h-100">
-        <Col md="4">
-          <Form onSubmit={this.onSubmit}>
-            <FormGroup>
-              <label>Username</label>
-              <Input onChange={this.inputToProp("values.username")} />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>Password</label>
-              <Input type="password" onChange={this.inputToProp("values.password")}/>
-            </FormGroup>
+      <div className="bg-color vh-100">
+        <Container className=" d-flex align-items-center justify-content-center h-100">
+          <Col md="4">
+            <h2 className="login-header text-white"> iliat-gmat </h2>
+            <Form onSubmit={this.onSubmit}>
+              <FormGroup className="m-0px">
+                <Input className="input-top"
+                  onChange={this.inputToProp("values.username")}
+                  placeholder="Username" />
+              </FormGroup>
+              <FormGroup>
+                <Input className="input-bot"
+                  type="password"
+                  onChange={this.inputToProp("values.password")}
+                  placeholder="Password" />
+              </FormGroup>
 
-            <FormGroup className="d-flex">
-              <Button className="ml-auto" color="primary">Sign in</Button>
-            </FormGroup>
-          </Form>
-        </Col>
-      </Container>
+              <FormGroup className="d-flex">
+                <Button className="ml-auto button text-dark login-btn" >Sign in</Button>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Container>
+      </div>
     );
   }
 }

@@ -10,7 +10,6 @@ class StudentContainer extends Component {
         <div>
           <StudentPanel />
         </div>
-        
       );
     }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import QPackForm from './QPackForm';
-import { addQuestionPack } from '../../actions';
+import { addQuestionPack } from 'actions';
  
 class QPackAddPanel extends Component {
   constructor(props) {

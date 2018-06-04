@@ -1,6 +1,6 @@
-import { API_QUESTION_PACKS } from '../constants';
+import { API_QUESTION_PACKS } from 'statics';
 import axios from 'axios';
-import { checkFields } from '../utils';
+import { checkFields } from 'utils';
 
 export function fetchQuestionPack(id) {
   const request = axios.get(`${API_QUESTION_PACKS}/${id}`);

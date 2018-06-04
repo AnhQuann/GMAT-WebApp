@@ -4,21 +4,28 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, CardDeck, CardTitle, CardText, Button } from 'reactstrap';
 import _ from 'lodash';
 
-import { fetchQuestionPacks } from '../../actions';
+import { fetchQuestionPacks } from 'actions';
 
-import { ROUTER_PACK } from '../../constants';
+import { ROUTER_PACK } from 'statics';
 
-import NavBar from '../navbar/NavBar';
+import QPackCard from './QPackCard';
+import NavBar from '../../navbar/NavBar';
+import Loading from '../../common/Loading';
 
 class QuestionPackListPanel extends Component {
     constructor(props) {
-        super(props);
-
-        this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
+      super(props);
+      this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
     }
 
     componentWillMount() {
       this.props.fetchQuestionPacks();
+    }
+
+    questionTypes(questionPack) {
+        return _.uniq(questionPack.questions.map((question, index) => {
+            return question.type;
+        }))
     }
 
     renderQuestionPacks(questionPacks) {
@@ -27,13 +34,13 @@ class QuestionPackListPanel extends Component {
                 { questionPackRows.map((questionPack, index) => {
                     return (
                         <Col md="4" key={index}>
-                            <Card body outline color="info">
-                                <CardTitle>{questionPack.name}</CardTitle>
-                                <CardText>Number of Questions: {questionPack.questions.length}</CardText>
-                                <Link to={`${ROUTER_PACK}/${questionPack._id}`}>
-                                    <Button color="success">Start</Button>
-                                </Link>
-                            </Card>
+                          <QPackCard
+                            header={questionPack.header}
+                            title={questionPack.name}
+                            link={`${ROUTER_PACK}/${questionPack._id}`}
+                            questionCount={questionPack.questions.length}
+                            questionTypes={this.questionTypes(questionPack)}
+                          />
                         </Col>
                     );
                 }) }
@@ -42,11 +49,16 @@ class QuestionPackListPanel extends Component {
     }
 
     render() {
+        const questionPacks = this.props.questionPackReducer;
         return (
             <div>
                 <NavBar />
                 <Container className="question_pack_list">
-                    { this.renderQuestionPacks(this.props.questionPackReducer) }
+                    { !!questionPacks ?
+                        this.renderQuestionPacks(questionPacks)
+                        :
+                        <Loading />
+                    }
                 </Container>
             </div>
         );

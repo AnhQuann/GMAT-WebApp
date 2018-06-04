@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RPanel from './RPanel';
 import RNavBar from './RNavbar';
 
-import { fetchResult } from '../../networks';
+import { fetchResult } from 'networks';
 
 import './RContainer.css';
   
@@ -14,7 +14,8 @@ class RContainer extends Component {
     this.onDoneClick = this.onDoneClick.bind(this);
     this.state = {
       answers: null,
-      currentAnswerIndex: 0
+      currentAnswerIndex: 0,
+      currentChoiceIndex: 0
     };
   }
 
@@ -29,21 +30,41 @@ class RContainer extends Component {
     }
   }
 
+  currentChoiceIsFirst() {
+    return this.state.currentChoiceIndex === 0;
+  }
+
+  currentChoiceIsLast() {
+    const {currentAnswerIndex, currentChoiceIndex, answers} = this.state;
+    const currentAnswer = answers[currentAnswerIndex];
+    return currentChoiceIndex == currentAnswer.userChoices.length - 1;
+  }
+
+  currentAnswerIsFirst() {
+    return this.state.currentAnswerIndex === 0;
+  }
+
+  currentAnswerIsLast() {
+    const {currentAnswerIndex, answers} = this.state;
+    return currentAnswerIndex === answers.length - 1;
+  }
+
+
   render() {
-    const answers = this.state.answers;
-    const currentAnswerIndex = this.state.currentAnswerIndex;
+    const {answers,currentAnswerIndex, currentChoiceIndex} = this.state;
     
     if(!answers || !answers.length) return (<div className="panel">Loading...</div>);
     const currentAnswer = answers[currentAnswerIndex];
-
+    const currentChoice = currentAnswer.userChoices[currentChoiceIndex];
+    const currentDetail = currentAnswer.question.details[currentChoiceIndex];
     return (
       <div className="rcontainer">
         <RNavBar
-          onPrevClick={this.onPrevClick} prevDisabled={currentAnswerIndex === 0}
-          onNextClick={this.onNextClick} nextDisabled={currentAnswerIndex === answers.length - 1}
+          onPrevClick={this.onPrevClick} prevDisabled={this.currentChoiceIsFirst() && this.currentAnswerIsFirst()}
+          onNextClick={this.onNextClick} nextDisabled={this.currentChoiceIsLast() && this.currentAnswerIsLast()}
           onDoneClick={this.onDoneClick} 
         />
-        <RPanel answer={currentAnswer} />
+        <RPanel answer={currentAnswer} userChoice={currentChoice} detail={currentDetail} />
       </div>
     );
   }
@@ -53,19 +74,32 @@ class RContainer extends Component {
   }
 
   onPrevClick() {
-    const {currentAnswerIndex} = this.state;
-    if(currentAnswerIndex  > 0) {
+    const {answers, currentAnswerIndex, currentChoiceIndex} = this.state;
+    if(!this.currentChoiceIsFirst()) {
       this.setState({
-        currentAnswerIndex: currentAnswerIndex - 1
+        currentChoiceIndex: currentChoiceIndex - 1
+      });
+    }
+    else if(!this.currentAnswerIsFirst()) {
+      const currentAnswer = answers[currentAnswerIndex];
+      this.setState({
+        currentAnswerIndex: currentAnswerIndex - 1,
+        currentChoiceIndex: currentAnswer.userChoices.length - 1
       });
     }
   }
 
   onNextClick() {
-    const {answers, currentAnswerIndex} = this.state;
-    if(currentAnswerIndex < answers.length - 1) {
+    const {currentAnswerIndex, currentChoiceIndex} = this.state;
+    if(!this.currentChoiceIsLast()) {
       this.setState({
-        currentAnswerIndex: currentAnswerIndex + 1
+        currentChoiceIndex: currentChoiceIndex + 1
+      });
+    }
+    else if(!this.currentAnswerIsLast()) {
+      this.setState({
+        currentAnswerIndex: currentAnswerIndex + 1,
+        currentChoiceIndex: 0
       });
     }
   }

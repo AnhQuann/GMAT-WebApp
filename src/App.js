@@ -7,9 +7,9 @@ import Login from './components/user/login';
 import LecturerContainer from './components/lecturer/LecturerContainer';
 import StudentContainer from './components/student/StudentContainer';
 import Popup from './components/common/Popup';
-import { checkToken } from './actions';
+import { checkToken } from 'actions';
 
-import { ROLE_LECTURER }  from './constants';
+import { ROLE_LECTURER }  from 'statics';
 
 class App extends Component {
 

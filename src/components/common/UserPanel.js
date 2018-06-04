@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { logout, fetchUserInfo } from '../../actions';
+import { logout, fetchUserInfo } from 'actions';
 
 class UserPanel extends Component {
     constructor(props) {

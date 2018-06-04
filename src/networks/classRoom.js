@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { API_CLASSROOM } from '../constants';
-import { checkFields } from '../utils';
+import { API_CLASSROOM } from 'statics';
+import { checkFields } from 'utils';
 
 export function fetchClassRooms() {
   const request = axios.get(API_CLASSROOM);

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import { SIGN_IN, AUTH } from './urls';
+import { SIGN_IN, AUTH } from 'statics';
 import { AXIOS_CONFIGS } from './settings';
-import { fieldsNotEmpty } from './utils';
+import { fieldsNotEmpty } from 'utils';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';

@@ -1,0 +1,16 @@
+.practice-panel {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  padding: 16px;
+}
+
+.allow-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.question-content {
+  flex-grow: 1;
+}

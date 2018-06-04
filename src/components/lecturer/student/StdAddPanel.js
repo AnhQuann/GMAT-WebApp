@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StdForm from './Std.form';
-import { addStudent } from '../../networks';
+import { addStudent } from 'networks';
 
 class StdAddPanel extends Component {
   constructor(props) {

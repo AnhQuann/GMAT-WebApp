@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import QDetail, { validate as validateQDetail } from './QDetail.form';
 import { nestFmkProps, nestFmkArrayValidate, nestFmkValidate } from 'nestFmk';
 
-import { DEFAULT_QUESTION_DETAIL_VALUE } from '../../constants';
+import { DEFAULT_QUESTION_DETAIL_VALUE } from 'statics';
 
 export default function(formProps) {
   const {

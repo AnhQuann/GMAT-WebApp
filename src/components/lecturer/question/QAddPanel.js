@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DEFAULT_QUESTION_VALUE } from '../../constants';
+import { DEFAULT_QUESTION_VALUE } from 'statics';
 import QForm from './Q.form';
-import { addQuestion } from '../../actions';
+import { addQuestion } from 'actions';
  
 class QAddPanel extends Component {
   constructor(props) {

@@ -16,6 +16,8 @@
     height: 100vh;
     overflow: hidden;
     font-size: 15px;
+    display: flex;
+    flex-flow: column;
 }
 
 .question_pack .green_text > span:nth-child(2) {
@@ -31,6 +33,10 @@
 .question_pack > div:first-child {
     background: #013F6E;
     height: 11vh;
+}
+
+.question_pack > div:nth-child(2) {
+  height: 84vh;
 }
 
 .question_pack > div:last-child {
@@ -71,6 +77,8 @@
 .question_pack .btn_menu_top {
     justify-content: flex-end;
     display: flex;
+    width: 100%;
+    padding-right: 16px;
 }
 
 .question_pack .btn_menu_top > button {
@@ -118,7 +126,7 @@
     margin-left: 25px;
 }
 
-.question_pack .question_title {
+.question_pack .question-title {
     color: #124770;
     font-weight: 600;
     font-size: 0.9em;
@@ -137,15 +145,14 @@
     cursor: pointer;
 }
 
-.question_pack form {
-    height: 100%;
-    overflow: hidden;
+.question_pack .control-panel {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
 }
 
-.question_pack form > div:last-child {
-    height: calc(100% - 80px);
+.question_pack form {
     overflow: hidden;
-    overflow-y: auto;
 }
 
 .question_pack form .form-check input.form-check-input {

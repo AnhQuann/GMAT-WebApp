@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { logout } from '../../actions';
+import { logout } from 'actions';
 
 import './NavBar.css';
  

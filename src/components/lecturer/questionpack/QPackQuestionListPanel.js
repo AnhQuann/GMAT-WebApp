@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Button } from 'reactstrap';
 import _ from 'lodash';
 
-import { elipsis } from '../../utils';
+import { elipsis } from 'utils';
 
 import QPackAddQuestionModal from './QPackAddQuestionModal';
 

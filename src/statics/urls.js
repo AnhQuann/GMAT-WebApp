@@ -16,8 +16,9 @@ export const ROUTER_QUESTION_PACK_ADD = `${ROUTER_QUESTION_PACK}/add`;
 
 export const ROUTER_QUESTION = `${ROUTER_LECTURER}/question`;
 export const ROUTER_QUESTION_ADD = `${ROUTER_LECTURER}/question/add`;
-export const ROUTER_QUESTION_EDIT = `${ROUTER_LECTURER}/question/edit/:id`;
+export const ROUTER_QUESTION_EDIT_PARAM_ID = `${ROUTER_LECTURER}/question/edit/:id`;
 export const ROUTER_QUESTION_EDIT_OR_ADD = `${ROUTER_QUESTION}/(edit|add)`;
+export const ROUTER_QUESTION_EDIT_ID = `${ROUTER_QUESTION}/edit`;
 
 export const ROUTER_STUDENT_MANAGEMENT = `${ROUTER_LECTURER}/student-management`;
 export const ROUTER_STUDENT_MANAGEMENT_ADD = `${ROUTER_STUDENT_MANAGEMENT}/add`;

@@ -2,8 +2,8 @@ import _ from 'lodash';
 
 import axios from 'axios';
 
-import { API_QUESTIONS } from './urls';
-import { checkFields } from './utils';
+import { API_QUESTIONS } from 'statics';
+import { checkFields } from 'utils';
 
 export const SEARCH_QUESTION = "Search question";
 export const TOGGLE_QUESTION_SELECTION = "Select question selection";

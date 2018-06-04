@@ -4,7 +4,7 @@ import { Modal, ModalHeader, ModalBody, Input, Button } from 'reactstrap';
 
 import QList from '../question/QList';
 
-import { searchQuestion } from '../../actions';
+import { searchQuestion } from 'actions';
 
 import "./QPackAddQuestionModal.css";
 
