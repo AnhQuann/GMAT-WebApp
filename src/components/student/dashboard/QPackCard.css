@@ -1,0 +1,62 @@
+.qpack-card {
+  height: 240px;
+  width: 320px;
+  display: flex;
+  flex-flow: row;
+  color: #FFFFFF;
+  padding: 12px 16px 12px 24px;
+  background-color: rgb(37, 78, 126);
+  cursor: pointer;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.qpack-card:hover {
+  background-color: rgb(37, 78, 140);
+}
+
+.qpack-body {
+  flex-basis: 70%;
+  display: flex;
+  flex-flow: column; 
+  justify-content: center;
+}
+
+.qpack-body .week {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.qpack-body .title {
+  font-size: 1.6rem;
+}
+
+.qpack-body .q-type {
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.qpack-q-stats {
+  color: #FFFFFF;
+  display: flex;
+  flex-flow: column;
+  flex-basis: 30%;
+}
+
+.q-pack-stat-detail {
+  display: flex;
+  flex-flow: column;
+}
+
+.q-pack-stat-detail .big {
+  font-size: 1.8rem;
+  align-self: center;
+}
+
+.q-pack-stat-detail .title {
+  align-self: center;
+}
+
+.blur {
+  opacity: 0.5;
+}
