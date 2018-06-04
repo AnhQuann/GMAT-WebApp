@@ -8,13 +8,13 @@ import { fetchQuestionPacks } from 'actions';
 
 import { ROUTER_PACK } from 'statics';
 
-import NavBar from '../navbar/NavBar';
+import QPackCard from './QPackCard';
+import NavBar from '../../navbar/NavBar';
 
 class QuestionPackListPanel extends Component {
     constructor(props) {
-        super(props);
-
-        this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
+      super(props);
+      this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
     }
 
     componentWillMount() {
@@ -27,13 +27,12 @@ class QuestionPackListPanel extends Component {
                 { questionPackRows.map((questionPack, index) => {
                     return (
                         <Col md="4" key={index}>
-                            <Card body outline color="info">
-                                <CardTitle>{questionPack.name}</CardTitle>
-                                <CardText>Number of Questions: {questionPack.questions.length}</CardText>
-                                <Link to={`${ROUTER_PACK}/${questionPack._id}`}>
-                                    <Button color="success">Start</Button>
-                                </Link>
-                            </Card>
+                          <QPackCard
+                            header={questionPack.header}
+                            title={questionPack.name}
+                            link={`${ROUTER_PACK}/${questionPack._id}`}
+                            questionCount={questionPack.questions.length}
+                          />
                         </Col>
                     );
                 }) }

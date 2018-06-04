@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import QuestionPackListPanel from './QuestionPackListPanel';
+import QuestionPackListPanel from './dashboard/QuestionPackListPanel';
 import PracticePanel from './practice/PracticePanel';
 import ResultPanel from './result/ResultPanel';
 import RContainer from './review/RContainer';
