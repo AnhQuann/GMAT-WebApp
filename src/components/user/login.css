@@ -1,4 +1,17 @@
 .login-btn {
-  border-radius: 8px !important;
+  border-radius: 0.25rem !important;
   margin-top: 10px;  
+}
+
+
+.input-bot {
+border-radius: 0 !important;
+border-bottom-left-radius: 0.25rem !important;
+border-bottom-right-radius: 0.25rem !important;
+}
+
+.input-top {
+border-radius: 0 !important;
+border-top-left-radius: 0.25rem !important;
+border-top-right-radius: 0.25rem !important;
 }
