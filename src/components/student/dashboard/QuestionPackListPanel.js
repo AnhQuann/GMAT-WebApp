@@ -13,9 +13,8 @@ import NavBar from '../../navbar/NavBar';
 
 class QuestionPackListPanel extends Component {
     constructor(props) {
-        super(props);
-
-        this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
+      super(props);
+      this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
     }
 
     componentWillMount() {
