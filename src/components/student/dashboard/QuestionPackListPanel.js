@@ -31,7 +31,6 @@ class QuestionPackListPanel extends Component {
         return _.chunk(_.values(questionPacks), 3).map((questionPackRows, index) => {
             return <Row key={index}>
                 { questionPackRows.map((questionPack, index) => {
-                    console.log(this.questionTypes(questionPack));
                     return (
                         <Col md="4" key={index}>
                           <QPackCard
