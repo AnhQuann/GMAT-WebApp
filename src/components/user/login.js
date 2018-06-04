@@ -43,7 +43,7 @@ class Login extends EditPanel {
 
   renderLoginForm() {
     return (
-      <body className="bg-color">
+      <div className="bg-color vh-100">
         <Container className=" d-flex align-items-center justify-content-center h-100">
           <Col md="4">
             <h2 className="login-header text-white"> ILIAT-GMAT </h2>
@@ -66,7 +66,7 @@ class Login extends EditPanel {
             </Form>
           </Col>
         </Container>
-      </body>
+      </div>
     );
   }
 }
