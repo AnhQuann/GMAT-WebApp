@@ -10,6 +10,7 @@ import { ROUTER_PACK } from 'statics';
 
 import QPackCard from './QPackCard';
 import NavBar from '../../navbar/NavBar';
+import Loading from '../../common/Loading';
 
 class QuestionPackListPanel extends Component {
     constructor(props) {
@@ -41,11 +42,16 @@ class QuestionPackListPanel extends Component {
     }
 
     render() {
+        const questionPacks = this.props.questionPackReducer;
         return (
             <div>
                 <NavBar />
                 <Container className="question_pack_list">
-                    { this.renderQuestionPacks(this.props.questionPackReducer) }
+                    { !!questionPacks ?
+                        this.renderQuestionPacks(questionPacks)
+                        :
+                        <Loading />
+                    }
                 </Container>
             </div>
         );
