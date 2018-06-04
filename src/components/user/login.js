@@ -46,7 +46,7 @@ class Login extends EditPanel {
       <div className="bg-color vh-100">
         <Container className=" d-flex align-items-center justify-content-center h-100">
           <Col md="4">
-            <h2 className="login-header text-white"> ILIAT-GMAT </h2>
+            <h2 className="login-header text-white"> iliat-gmat </h2>
             <Form onSubmit={this.onSubmit}>
               <FormGroup className="m-0px">
                 <Input className="input-top"

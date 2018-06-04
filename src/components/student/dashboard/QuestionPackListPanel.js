@@ -5,12 +5,12 @@ import { Container, Row, Col, Card, CardDeck, CardTitle, CardText, Button } from
 import _ from 'lodash';
 
 import { fetchQuestionPacks } from 'actions';
-import Loading from '../../common/Loading';
 
 import { ROUTER_PACK } from 'statics';
 
 import QPackCard from './QPackCard';
 import NavBar from '../../navbar/NavBar';
+import Loading from '../../common/Loading';
 
 class QuestionPackListPanel extends Component {
     constructor(props) {
