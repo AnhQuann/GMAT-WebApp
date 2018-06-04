@@ -7,4 +7,5 @@ nav {
 .nav-link {
   color: #FFFFFF !important;
   cursor: pointer;
+  font-size: 1.5rem;
 }

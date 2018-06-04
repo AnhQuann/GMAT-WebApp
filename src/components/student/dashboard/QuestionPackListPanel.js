@@ -11,7 +11,6 @@ import { ROUTER_PACK } from 'statics';
 import QPackCard from './QPackCard';
 import NavBar from '../../navbar/NavBar';
 
-
 class QuestionPackListPanel extends Component {
     constructor(props) {
         super(props);
@@ -34,13 +33,6 @@ class QuestionPackListPanel extends Component {
                             link={`${ROUTER_PACK}/${questionPack._id}`}
                             questionCount={questionPack.questions.length}
                           />
-                            {/* <Card body outline color="info">
-                                <CardTitle>{questionPack.name}</CardTitle>
-                                <CardText>Number of Questions: {questionPack.questions.length}</CardText>
-                                <Link to={`${ROUTER_PACK}/${questionPack._id}`}>
-                                    <Button color="success">Start</Button>
-                                </Link>
-                            </Card> */}
                         </Col>
                     );
                 }) }
