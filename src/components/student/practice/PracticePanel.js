@@ -228,8 +228,6 @@ class PracticePanel extends Component {
       currentQuestionDetailIndex
     } = this.state;
 
-    // console.log(currentQuestionIndex, currentQuestionDetailIndex, this.currentUserChoice().choice);
-
     const currentChoice = this.currentUserChoice()
     const questionCount = questionPack.questions.length;
     const isOvertime = currentChoice.time < this.state.idealTimeSpentPerQuestion * questionCount;
