@@ -237,12 +237,12 @@ class PracticePanel extends Component {
     return (
       <div className={`question_pack ${isPause ? "pause" : ""}`}>
         <div className="control-panel w-100">
-          <Col sm={{ size: 6, offset: 6 }} className="btn_menu_top">
+          <div className="btn_menu_top">
             <Button color="info" onClick={this.backToPreviousQuestion} disabled={isPause || (this.currentQuestionIsFirst() && this.currentQuestionDetailIsFirst())}>Back</Button>
             <Button color="info" onClick={this.handlePause}>{ isPause ? "Resume" : "Pause" }</Button>
             <Button color="info" onClick={this.goToNextQuestion} disabled={isPause || (this.currentQuestionIsLast() && this.currentQuestionDetailIsLast())}>Skip</Button>
             <Button color="info" onClick={this.submitTest} disabled={isPause}>Finish</Button>
-          </Col>
+          </div>
         </div>
         { isPause ? <Row className="pause_overlay"><Button color="info" onClick={this.handlePause}>Click to resume</Button></Row> : null }
         <Container>
