@@ -22,6 +22,12 @@ class QuestionPackListPanel extends Component {
       this.props.fetchQuestionPacks();
     }
 
+    questionTypes(questionPack) {
+        return _.uniq(questionPack.questions.map((question, index) => {
+            return question.type;
+        }))
+    }
+
     renderQuestionPacks(questionPacks) {
         return _.chunk(_.values(questionPacks), 3).map((questionPackRows, index) => {
             return <Row key={index}>
@@ -33,7 +39,7 @@ class QuestionPackListPanel extends Component {
                             title={questionPack.name}
                             link={`${ROUTER_PACK}/${questionPack._id}`}
                             questionCount={questionPack.questions.length}
-                            questionTypes={["CR"]}
+                            questionTypes={this.questionTypes(questionPack)}
                           />
                         </Col>
                     );

@@ -9,7 +9,7 @@ export const EDIT_QUESTION_PACK = 'Edit question pack';
 export const FETCH_QUESTION_PACKS = "Fetch question pack";
 
 export function fetchQuestionPacks() {
-  const request = axios.get(API_QUESTION_PACKS);
+  const request = axios.get(`${API_QUESTION_PACKS}?showType=true`);
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
       if(_.get(response, 'data.success') && _.get(response, 'data.questionPacks')) {
