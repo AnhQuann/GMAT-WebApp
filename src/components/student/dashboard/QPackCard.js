@@ -7,7 +7,7 @@ export default function(props) {
     <Link to={props.link}>
       <div className="card qpack-card">
         <div className="qpack-body">
-          <span className="week">Week 4</span>        
+          <span className="week">{props.header}</span>        
           <span className="title">{props.title}</span>
           <div className="q-type">
             <span>CR</span> &#160;

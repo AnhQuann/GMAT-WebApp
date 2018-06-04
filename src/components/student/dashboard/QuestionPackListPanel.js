@@ -29,6 +29,7 @@ class QuestionPackListPanel extends Component {
                     return (
                         <Col md="4" key={index}>
                           <QPackCard
+                            header={questionPack.header}
                             title={questionPack.name}
                             link={`${ROUTER_PACK}/${questionPack._id}`}
                             questionCount={questionPack.questions.length}

@@ -4,7 +4,7 @@
   display: flex;
   flex-flow: row;
   color: #FFFFFF;
-  padding: 12px 16px 12px 24px;
+  padding: 16px 16px 16px 24px;
   background-color: rgb(37, 78, 126);
   cursor: pointer;
   margin-right: 16px;
@@ -17,14 +17,15 @@
 
 .qpack-body {
   flex-basis: 70%;
+  padding-top: 16px;
+  padding-bottom: 24px;
   display: flex;
-  flex-flow: column; 
-  justify-content: center;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
 .qpack-body .week {
   font-size: 1rem;
-  margin-bottom: 8px;
 }
 
 .qpack-body .title {
@@ -32,7 +33,6 @@
 }
 
 .qpack-body .q-type {
-  margin-top: 8px;
   font-size: 1rem;
 }
 
