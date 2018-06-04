@@ -32,6 +32,7 @@ class QuestionPackListPanel extends Component {
                             title={questionPack.name}
                             link={`${ROUTER_PACK}/${questionPack._id}`}
                             questionCount={questionPack.questions.length}
+                            questionTypes={["CR"]}
                           />
                         </Col>
                     );
