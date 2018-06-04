@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, CardDeck, CardTitle, CardText, Button } from
 import _ from 'lodash';
 
 import { fetchQuestionPacks } from 'actions';
+import Loading from '../../common/Loading';
 
 import { ROUTER_PACK } from 'statics';
 
@@ -21,12 +22,6 @@ class QuestionPackListPanel extends Component {
       this.props.fetchQuestionPacks();
     }
 
-    questionTypes(questionPack) {
-        return _.uniq(questionPack.questions.map((question, index) => {
-            return question.type;
-        }))
-    }
-
     renderQuestionPacks(questionPacks) {
         return _.chunk(_.values(questionPacks), 3).map((questionPackRows, index) => {
             return <Row key={index}>
@@ -38,7 +33,7 @@ class QuestionPackListPanel extends Component {
                             title={questionPack.name}
                             link={`${ROUTER_PACK}/${questionPack._id}`}
                             questionCount={questionPack.questions.length}
-                            questionTypes={this.questionTypes(questionPack)}
+                            questionTypes={questionPack.types}
                           />
                         </Col>
                     );
@@ -48,11 +43,16 @@ class QuestionPackListPanel extends Component {
     }
 
     render() {
+        const questionPackReducer = this.props.questionPackReducer;
         return (
             <div>
                 <NavBar />
                 <Container className="question_pack_list">
-                    { this.renderQuestionPacks(this.props.questionPackReducer) }
+                    {
+                        !!questionPackReducer ?
+                        this.renderQuestionPacks(questionPackReducer) :
+                        <Loading />
+                    }
                 </Container>
             </div>
         );

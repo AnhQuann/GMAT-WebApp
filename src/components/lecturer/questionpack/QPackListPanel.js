@@ -22,11 +22,12 @@ class QPackListPanel extends Component {
   }
 
   render() {
-    const questionPacks = this.props.questionPackReducer;
+    const questionPackReducer = this.props.questionPackReducer;
+    if (!questionPackReducer) return <div className="panel">Loading...</div>;
     return (
       <div className="panel">
         <Button className="add-button-right" color="primary" onClick={this.addRequest} >Add new pack</Button>
-        { this.renderQuestionPacks(questionPacks) }
+        {this.renderQuestionPacks(questionPackReducer) }
       </div>
     );
   }

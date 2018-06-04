@@ -2,6 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 
 import { API_QUESTION_PACKS } from 'statics';
+import { checkFields } from 'utils';
 
 export const REMOVE_QUESTION_PACK = 'Remove question pack';
 export const ADD_QUESTION_PACK = 'Add question pack';
@@ -12,7 +13,7 @@ export function fetchQuestionPacks() {
   const request = axios.get(`${API_QUESTION_PACKS}?showType=true`);
   const interceptor = (response) => {
     return new Promise((resolve, reject) => {
-      if(_.get(response, 'data.success') && _.get(response, 'data.questionPacks')) {
+      if(checkFields(response, 'data.questionPacks')) {
         resolve(response.data.questionPacks);
       } else {
         reject();
