@@ -13,10 +13,10 @@ export default function(props) {
   } = props;
   return (
     <div className="rc-content-panel py-1">
-      <div className="allow-scroll">
+      <div className="allow-scroll pr-3">
         <p dangerouslySetInnerHTML={{ __html: stimulus}} />  
       </div>
-      <div className="pl-3 allow-scroll">
+      <div className="px-3 allow-scroll">
         <div>
           <p dangerouslySetInnerHTML={{ __html: stem}} />       
         </div>
