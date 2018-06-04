@@ -103,21 +103,25 @@ class QPackForm extends Component {
                  <tbody>
                 {
                   questions.map((question, index) => (
-                    <div key={index} className="my-2 d-flex align-items-center border-bottom">
-                      <span>{index + 1}.</span>
-                      <span dangerouslySetInnerHTML={{
+                    <tr key={index} className="my-2 d-flex align-items-center border-bottom">
+                      <td>{index + 1}.</td>
+                      <td dangerouslySetInnerHTML={{
                         __html: question.type == "SC" ? elipsis(question.details[0].stem) : elipsis(question.stimulus)
                         }} 
                         className='col mt-3' 
                       />
-                      <Link to={`${ROUTER_QUESTION_EDIT_ID}/${question._id}`} >
-                            <i className="fas fa-eye" />
-                          </Link>
-                      <i 
-                        className="fas fa-times mx-3 text-danger pointer question-remove"
-                        onClick={() => {arrayHelpers.remove(index)}}
-                      />
-                    </div>
+                      <td>
+                        <Link to={`${ROUTER_QUESTION_EDIT_ID}/${question._id}`} >
+                              <i className="fas fa-eye" />
+                        </Link>
+                      </td>
+                      <td>
+                        <i 
+                          className="fas fa-times mx-3 text-danger pointer question-remove"
+                          onClick={() => {arrayHelpers.remove(index)}}
+                        />
+                      </td>
+                    </tr>
                   ))
                 }
                 </tbody>
