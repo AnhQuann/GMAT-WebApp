@@ -1,4 +1,4 @@
-export const ROOT_URL = 'https://gmat-api.herokuapp.com';
+export const ROOT_URL = 'http://techkids.vn:6996';
 // export const ROOT_URL = 'http://localhost:6996';
 export const API_URL = `${ROOT_URL}/api`;
 

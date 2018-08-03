@@ -29,7 +29,7 @@ export const ROUTER_CLASS_ROOM = `${ROUTER_LECTURER}/classroom`;
 export const ROUTER_CLASS_ROOM_ADD = `${ROUTER_CLASS_ROOM}/add`;
 export const ROUTER_CLASS_ROOM_EDIT = `${ROUTER_CLASS_ROOM}/edit`;
 
-export const ROOT_URL = 'https://gmat-api.herokuapp.com';
+export const ROOT_URL = 'http://techkids.vn:6996';
 export const API_URL = `${ROOT_URL}/api`;
 
 export const AUTH = `${API_URL}/auth`;
