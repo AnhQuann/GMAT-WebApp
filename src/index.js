@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
 
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 // import TestQDetail from './components/test/TestQDetail';
 
@@ -28,4 +28,3 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>
   , document.getElementById('root'));
-registerServiceWorker();
