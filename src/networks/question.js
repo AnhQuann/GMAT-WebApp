@@ -16,7 +16,7 @@ export function fetchQuestion(questionId) {
   return request.then(interceptor);
 }
 
-export function checkQuestionStem(stems) {
-  const request = axios.post(`${API_QUESTIONS}/checkstems`, { stems });
+export function checkQuestionStem(questions) {
+  const request = axios.post(`${API_QUESTIONS}/checkstems`, { questions });
   return request;
 }

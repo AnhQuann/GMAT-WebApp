@@ -49,7 +49,10 @@ class QForm extends Component {
       cb();
     } else {
       const stems = formProps.values.details.map(detail => {
-        return detail.stem;
+        return {
+          stem: detail.stem,
+          type: formProps.values.type
+        };
       });
       checkQuestionStem(stems)
         .then(response => {
@@ -63,6 +66,7 @@ class QForm extends Component {
                 return { stem: detail };
               });
               let errors = {
+                ...formProps.errors,
                 details: detailErrors
               }
               formProps.setErrors(errors);
