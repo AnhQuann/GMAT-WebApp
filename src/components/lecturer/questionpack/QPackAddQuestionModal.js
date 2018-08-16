@@ -20,7 +20,7 @@ class QPackAddQuestionModal extends Component {
     };
   }
   
-  componentWillMount() {
+  componentDidMount() {
     searchQuestion("").payload.then((questions) => {
       this.setState({
         questions: questions

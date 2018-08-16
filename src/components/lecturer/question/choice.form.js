@@ -27,7 +27,7 @@ export default function(formProps) {
                     value={values[index]}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    autoComplete={false}
+                    autoComplete="false"
                   />
                 </div>
                 <div className="validate-error text-danger">{ touched[index] ? errors[index]: "" }</div>

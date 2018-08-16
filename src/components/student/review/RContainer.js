@@ -19,7 +19,7 @@ class RContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const resultId = this.props.match.params.id;
     if(!!resultId) {
       fetchResult(resultId).then((result) => {

@@ -1,12 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
 import { Table } from 'reactstrap';
 
 import './StdList.css';
  
 export default function(props) {
   const students = props.students;
-  const onDeleteStudentRequest = props.onDeleteStudentRequest;
   const onStudentToggle = props.onStudentToggle;
   return (<Table>
     <thead>

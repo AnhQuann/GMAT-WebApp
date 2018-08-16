@@ -1,8 +1,3 @@
-import axios from 'axios';
-
-import { API_CLASSROOM } from 'statics';
-import { checkFields } from '../utils';
-
 import { fetchClassRooms as fetchClassRoomsPromise } from 'networks';
 import { fetchClassRoom as fetchClassRoomPromise } from 'networks';
 import { editClassRoom as editClassRoomPromise } from 'networks';
@@ -17,7 +12,6 @@ export const DELETE_CLASSROOM = "delete classroom";
 
 
 export function fetchClassRooms() {
-   
     return {
         type: FETCH_CLASSROOM_LIST,
         payload: fetchClassRoomsPromise()
@@ -25,7 +19,6 @@ export function fetchClassRooms() {
 }
 
 export function fetchClassRoom(classRoomId) {
-   
      return {
         type: FETCH_CLASSROOM,
         payload: fetchClassRoomPromise(classRoomId)
@@ -33,7 +26,6 @@ export function fetchClassRoom(classRoomId) {
 }
 
 export function editClassRoom(classRoom) {
-    
      return {
         type: EDIT_CLASSROOM,
         payload: editClassRoomPromise(classRoom)
@@ -41,7 +33,6 @@ export function editClassRoom(classRoom) {
 }
 
 export function deleteClassRoom(classRoomId) {
-   
      return {
         type: DELETE_CLASSROOM,
         payload: deleteClassRoomPromise(classRoomId)

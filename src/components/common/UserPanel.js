@@ -10,7 +10,7 @@ class UserPanel extends Component {
         this.logout = this.logout.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchUserInfo();
     }
 

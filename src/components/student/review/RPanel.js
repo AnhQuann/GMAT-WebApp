@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RAnswerDetail from './RAnswerDetail';
 import RQuestionExplantion from './RQuestionExplanation';
-
-import { Row, Col } from 'reactstrap';
 
 import './RPanel.css';
 

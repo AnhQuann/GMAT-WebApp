@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { REMOVE_QUESTION, EDIT_QUESTION, ADD_QUESTION, FETCH_QUESTIONS } from 'actions';
+import { REMOVE_QUESTION, FETCH_QUESTIONS } from 'actions';
 
 export default function(state = null, action) {
   switch(action.type) {

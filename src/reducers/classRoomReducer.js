@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_CLASSROOM_LIST, FETCH_CLASSROOM, EDIT_CLASSROOM, DELETE_CLASSROOM } from "actions/classRoom";
+import { FETCH_CLASSROOM_LIST, EDIT_CLASSROOM, DELETE_CLASSROOM } from "actions/classRoom";
 
 export default function(state = {}, action){
     switch(action.type) {

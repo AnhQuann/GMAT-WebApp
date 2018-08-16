@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { withFormik, Formik } from 'formik';
+import  { Formik } from 'formik';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 
 class StdForm extends Component {
@@ -25,13 +25,11 @@ class StdForm extends Component {
 
   renderForm(formProps) {
     const {
-      values,
       errors,
       touched,
       handleChange,
       handleBlur,
       handleSubmit,
-      isSubmitting,
     } = formProps;
 
     return (

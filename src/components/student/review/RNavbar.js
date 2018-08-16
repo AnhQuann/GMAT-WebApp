@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import NextButton from '../../common/NextButton';
 import PrevButton from '../../common/PrevButton';

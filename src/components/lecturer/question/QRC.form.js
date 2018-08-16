@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import  { withFormik, Formik } from 'formik';
-import { Form, FormGroup, Input, Button } from 'reactstrap';
+import React from 'react';
+import { FormGroup } from 'reactstrap';
 import ReactQuill from 'react-quill';
 
-import QDetailListForm, { validate as validateDetailList } from './QDetailList.form';
+import QDetailListForm from './QDetailList.form';
 import { nestFmkProps } from 'nestFmk';
 
 export default function (formProps) {
   const {
     values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting,
     setFieldTouched,
     setFieldValue,
     validateForm

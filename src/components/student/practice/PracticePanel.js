@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Form, FormGroup, Input, Label, TabContent, TabPane } from 'reactstrap';
-
-import _ from 'lodash';
-import moment from 'moment';
-import progressBar, { Circle } from 'react-progressbar';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 import { fetchQuestionPack, addResult } from 'networks';
 
@@ -11,7 +7,7 @@ import './PracticePanel.css';
 
 import Loading from '../../common/Loading';
 
-import { ROUTER_RESULT, QUESTION_DIFFICULTIES, VERBAL_QUESTION_DESCRIPTIONS } from 'statics';
+import { ROUTER_RESULT, VERBAL_QUESTION_DESCRIPTIONS } from 'statics';
 import Time from '../../common/Time';
 import QuestionContent from './QuestionContent';
 import RCQuestionContent from './RCQuestionContent';
@@ -39,7 +35,7 @@ class PracticePanel extends Component {
     this.handlePause = this.handlePause.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.match.params.id;
     if(id) {
       fetchQuestionPack(id).then((questionPack) => {
@@ -224,8 +220,7 @@ class PracticePanel extends Component {
 
     const {
       isPause,
-      currentQuestionIndex,
-      currentQuestionDetailIndex
+      currentQuestionIndex
     } = this.state;
 
     const currentChoice = this.currentUserChoice()

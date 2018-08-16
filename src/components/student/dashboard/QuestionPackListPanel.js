@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, CardDeck, CardTitle, CardText, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import _ from 'lodash';
 
 import { fetchQuestionPacks } from 'actions';
@@ -18,7 +17,7 @@ class QuestionPackListPanel extends Component {
       this.renderQuestionPacks = this.renderQuestionPacks.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.props.fetchQuestionPacks();
     }
 

@@ -17,7 +17,7 @@ class QPackListPanel extends Component {
     this.addRequest = this.addRequest.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchQuestionPacks();
   }
 

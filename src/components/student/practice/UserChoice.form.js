@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Button, Input, Label } from 'reactstrap';
-import  { withFormik, Formik } from 'formik';
+import  { Formik } from 'formik';
 
 class UserChoiceForm extends Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class UserChoiceForm extends Component {
   renderForm(formProps) {
     const {
       values,
-      handleChange,
       handleSubmit,
       setFieldValue,
       resetForm

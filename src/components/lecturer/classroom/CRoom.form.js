@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import  { withFormik, Formik, FieldArray } from 'formik';
-import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import  { Formik } from 'formik';
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 
 import StdSelectModal from '../student/StdSelect.modal';
 
@@ -52,7 +52,7 @@ class CRoomForm extends Component {
   onStudentsSelect(selectedStudents) {
     selectedStudents.forEach((selectedStudent) => {
       if(!this.state.students[selectedStudent._id]) {
-        this.state[selectedStudent._id] = selectedStudent
+        this.setState({ [selectedStudent._id]: selectedStudent });
       }
     });
   }
@@ -60,12 +60,8 @@ class CRoomForm extends Component {
   renderForm(formProps) {
     const {
       values,
-      errors,
-      touched,
       handleChange,
       handleBlur,
-      handleSubmit,
-      isSubmitting,
       setFieldValue
     } = formProps;
 
@@ -140,8 +136,6 @@ class CRoomForm extends Component {
     );
   }
 
-  // onSubmit(values, {setSubmitting, setErrors}) {
-  // }
   render() {
     return (
       <Formik

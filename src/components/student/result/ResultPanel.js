@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Table, Button } from 'reactstrap';
 import _ from 'lodash';
-import moment from 'moment';
 
 import Loading from '../../common/Loading';
 import Time from '../../common/Time';
@@ -19,7 +18,7 @@ class ResultPanel extends Component {
         this.renderQuestionType = this.renderQuestionType.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const id = this.props.match.params.id;
         if(id) {
           fetchResult(id).then((result) => {

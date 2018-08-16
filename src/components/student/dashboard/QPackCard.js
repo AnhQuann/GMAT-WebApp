@@ -1,10 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './QPackCard.css'
 
 export default function(props) {
   const {
-    link,
     header,
     title,
     questionCount,

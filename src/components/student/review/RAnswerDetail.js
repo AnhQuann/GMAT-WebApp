@@ -1,5 +1,4 @@
 import React from 'react';
-import { Label, Input } from 'reactstrap';
 
 import './RAnswerDetail.css';
 

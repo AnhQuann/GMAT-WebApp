@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Table, Button } from 'reactstrap';
+import { Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,11 +8,7 @@ import { fetchClassRooms } from 'actions/classRoom';
 import { ROUTER_CLASS_ROOM_EDIT } from 'statics';
   
 class CRoomListPanel extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchClassRooms();
   }
 

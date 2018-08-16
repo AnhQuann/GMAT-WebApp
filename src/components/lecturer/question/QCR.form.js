@@ -1,11 +1,9 @@
-import _ from 'lodash';
 import React from 'react';
 import ReactQuill from 'react-quill';
-import { Formik } from 'formik';
 import { FormGroup } from 'reactstrap';
 
 import QDetailListForm, { validate as validateQDetailList } from './QDetailList.form';
-import { deEmpty, stripHTML } from 'utils';
+import { stripHTML } from 'utils';
 import { nestFmkProps, nestFmkValidate } from 'nestFmk';
 
 import 'react-quill/dist/quill.snow.css';
@@ -16,10 +14,6 @@ export default function(formProps) {
     values,
     errors,
     touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmitting,
     setFieldValue,
     setFieldTouched,
     validateForm

@@ -1,16 +1,14 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import { SIGN_IN, AUTH } from 'statics';
-import { AXIOS_CONFIGS } from './settings';
-import { fieldsNotEmpty } from 'utils';
+import { SIGN_IN } from 'statics';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const CHECK_TOKEN = 'CHECK_TOKEN';
 export const GET_USER = "GET USER";
 
-axios.defaults.config = AXIOS_CONFIGS;
+axios.defaults.withCredentials = true;
 
 const tokenRequest = (request) => {
   const credentials = loadCredentials();
@@ -24,8 +22,15 @@ axios.interceptors.request.use(tokenRequest, (error) => Promise.reject(error));
 
 export function login(username, password) {
   const body = { username, password };
-  const request = axios.post(SIGN_IN, body);
-  const tokenInterceptor = (response, error) => {
+  const request = axios({
+    method: 'post',
+    url: SIGN_IN,
+    data: body,
+    validateStatus: function (status) {
+      return status >= 200 && status < 500;
+    }
+  });
+  const tokenInterceptor = (response) => {
     return new Promise(
       (resolve, reject) => {
         if (_.get(response, "data.token") && _.get(response, "data.user.role")) {
@@ -37,7 +42,7 @@ export function login(username, password) {
   };
   return  {
       type: LOGIN,
-      payload: request.then(tokenInterceptor)
+      payload: request.then(tokenInterceptor).catch(tokenInterceptor)
   };
 }
 
@@ -52,9 +57,19 @@ export function logout() {
 export function checkToken() {
     const credentials = loadCredentials();
     if (credentials && credentials.token && credentials.role) {
-      return {
-        type: CHECK_TOKEN,
-        payload: credentials
+      const now = new Date().valueOf();
+      const expirationTime = new Date(credentials.expirationTime).valueOf();
+      if(now < expirationTime) {
+        return {
+          type: CHECK_TOKEN,
+          payload: credentials
+        }
+      } else {
+        clearCredentials();
+        return {
+          type: CHECK_TOKEN,
+          payload: null
+        };
       }
     }
     else {

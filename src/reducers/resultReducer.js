@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { CHECK_ANSWERS } from 'actions';
 
 export default function(state = null, action) {

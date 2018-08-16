@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FETCH_STUDENT_LIST, FETCH_STUDENT, ADD_STUDENT, EDIT_STUDENT, DELETE_STUDENT } from "../actions/student";
+import { FETCH_STUDENT_LIST, ADD_STUDENT, EDIT_STUDENT, DELETE_STUDENT } from "../actions/student";
 
 export default function(state = {}, action) {
     switch(action.type) {

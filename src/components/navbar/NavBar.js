@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavItem, Collapse, NavbarBrand, NavbarToggler, NavLink  }  from 'reactstrap';
+import { Navbar, Nav, NavItem, Collapse, NavbarToggler, NavLink  }  from 'reactstrap';
 
 import React, { Component } from 'react';
 

@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import { ROUTER_STUDENT_MANAGEMENT_ADD } from 'statics';
 
-import StdList from './StdList';
 import { openPopup, closePopup } from 'actions';
 import { fetchStudents, deleteStudent } from 'actions/student';
   
@@ -16,7 +15,7 @@ class StdListPanel extends Component {
     this.requestDelete = this.requestDelete.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchStudents();
   }
 

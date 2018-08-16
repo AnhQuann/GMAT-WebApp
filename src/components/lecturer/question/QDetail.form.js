@@ -24,12 +24,11 @@ export default function(formProps) {
     custom
   } = formProps;
 
-  const { highlightStimulus, stem, rightChoice, explanation } = values;
-  const { mustRenderExplanation, mustRenderHighlightStimulus } = values;
+  const { highlightStimulus, stem, rightChoice } = values;
+  const { mustRenderHighlightStimulus } = values;
   const { allowStimulus, originalStimulus } = custom ? custom : {allowStimulus: false, originalStimulus: ""};
   
   const showHighlightStimulus = !!highlightStimulus || mustRenderHighlightStimulus;
-  const renderExplanation = !!explanation || mustRenderExplanation;
 
   return (
     <div className="bg-white mb-2">

@@ -7,7 +7,7 @@ import QAddPanel from './QAddPanel';
 
 import './QPanel.css';
 
-import { ROUTER_QUESTION_EDIT_OR_ADD, ROUTER_QUESTION_ADD, ROUTER_QUESTION_EDIT_PARAM_ID, ROUTER_QUESTION } from 'statics';
+import { ROUTER_QUESTION_ADD, ROUTER_QUESTION_EDIT_PARAM_ID, ROUTER_QUESTION } from 'statics';
 
 class QPanel extends Component {
   render() {

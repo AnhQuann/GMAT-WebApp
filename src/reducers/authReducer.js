@@ -4,11 +4,11 @@ export default (state = { isLoggedIn: false, doneCheckToken: false, errMessage: 
     switch (action.type) {
         case LOGIN:
             const data = action.payload.data;
-            const user = data.user ? data.user : null;
+            const user = data && data.user ? data.user : null;
             return {
                 ...state,
                 isLoggedIn: data.success === 1,
-                errMessage: data.success !== 1 ? data.messaage : null,
+                errMessage: data.success !== 1 ? data.message : null,
                 user: user,
                 role: user ? user.role: null
             };

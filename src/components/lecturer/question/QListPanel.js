@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Label, Input } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 
 import { openPopup, closePopup, removeQuestion, selectQuestion, editQuestion, addQuestion, fetchQuestions  } from 'actions';
 import QList from './QList';
@@ -23,7 +23,7 @@ class QListPanel extends Component {
     this.onAddRequest = this.onAddRequest.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchQuestions();
   }
 

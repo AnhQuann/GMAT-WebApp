@@ -32,7 +32,7 @@ class StdSelectModal extends Component {
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetchStudents("").then((students) => {
       this.setState({
         students: _.mapKeys(students, "_id")

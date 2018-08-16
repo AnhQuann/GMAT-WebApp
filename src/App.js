@@ -12,7 +12,6 @@ import { checkToken } from 'actions';
 import { ROLE_LECTURER }  from 'statics';
 
 class App extends Component {
-
   render() {
     const authReducer = this.props.authReducer;
     if (authReducer.isLoggedIn) {
@@ -23,7 +22,7 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.checkToken();
   }
 

@@ -11,7 +11,7 @@ class CRoomEditPanel extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const classroomId = this.props.match.params.id;
     fetchClassRoom(classroomId).then((classroom) => {
       this.setState({

@@ -1,7 +1,3 @@
-import axios from 'axios';
-import { checkFields } from '../utils';
-import { API_STUDENT } from 'statics';
-
 import { fetchStudents as fetchStudentsPromise } from 'networks'
 import { fetchStudent as fetchStudentPromise } from 'networks'
 import { addStudent as addStudentPromise } from 'networks'

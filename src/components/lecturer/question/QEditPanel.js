@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { FormGroup, Button, Input } from 'reactstrap';
-import _ from 'lodash';
 
 import { connect } from 'react-redux';
-import { QUESTION_DIFFICULTIES, CHOICE_LETTERS } from 'statics';
 
 import QForm from './Q.form';
 
@@ -22,7 +19,7 @@ class QuestionEditPanel extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const questionId = this.props.match.params.id;
     fetchQuestion(questionId).then((question) => {
       this.setState({
@@ -40,7 +37,9 @@ class QuestionEditPanel extends Component {
         <QForm
           initialValues={this.state.question}
           onSubmit={this.onSubmit}
-          onCancel={this.onCancel} />
+          onCancel={this.onCancel}
+          editForm
+        />
       </div>
     );
   }

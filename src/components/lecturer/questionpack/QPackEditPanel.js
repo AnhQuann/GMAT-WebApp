@@ -1,9 +1,5 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-
-import QPackQuestionListPanel from './QPackQuestionListPanel';
 
 import QPackForm from './QPackForm';
 
@@ -21,7 +17,7 @@ class QPackEditPanel extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const questionPackId = this.props.match.params.id;
     fetchQuestionPack(questionPackId).then((questionPack) => {
       this.setState({

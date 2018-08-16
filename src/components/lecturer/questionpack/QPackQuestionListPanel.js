@@ -17,7 +17,7 @@ class QPackQuestionListPanel extends Component {
       this.onNewQuestionsSelectionDone = this.onNewQuestionsSelectionDone.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.setState({
         questions: _.cloneDeep(this.props.defaultValue),
         modalIsOpen: false

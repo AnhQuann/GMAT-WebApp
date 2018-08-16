@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Col, Button, Form, Input, Container, FormGroup } from 'reactstrap';
+import { Col, Button, Form, Input, Container, FormGroup, FormFeedback } from 'reactstrap';
 
 import { login } from 'actions';
 
@@ -25,7 +25,8 @@ class Login extends EditPanel {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     this.setState({
       loggingIn: true
     });
@@ -33,7 +34,8 @@ class Login extends EditPanel {
   }
 
   render() {
-    if (this.state.loggingIn) {
+    const auth = this.props.authReducer;
+    if (!auth.errMessage && this.state.loggingIn) {
       return <Loading />;
     }
     else {
@@ -42,6 +44,7 @@ class Login extends EditPanel {
   }
 
   renderLoginForm() {
+    const auth = this.props.authReducer;
     return (
       <div className="bg-color vh-100">
         <Container className=" d-flex align-items-center justify-content-center h-100">
@@ -49,16 +52,25 @@ class Login extends EditPanel {
             <h2 className="login-header text-white"> iliat-gmat </h2>
             <Form onSubmit={this.onSubmit}>
               <FormGroup className="m-0px">
-                <Input className="input-top"
+                <Input
+                  className="input-top"
                   onChange={this.inputToProp("values.username")}
-                  placeholder="Username" />
+                  placeholder="Username"
+                  invalid={auth.errMessage !== null}
+                />
               </FormGroup>
               <FormGroup>
-                <Input className="input-bot"
+                <Input
+                  className="input-bot"
                   type="password"
                   onChange={this.inputToProp("values.password")}
-                  placeholder="Password" />
+                  placeholder="Password"
+                  invalid={auth.errMessage !== null}
+                />
               </FormGroup>
+
+              <Input type="hidden" invalid={auth.errMessage !== null} />
+              <FormFeedback>{auth.errMessage}</FormFeedback>
 
               <FormGroup className="d-flex">
                 <Button className="ml-auto button text-dark login-btn" >Sign in</Button>
@@ -71,8 +83,12 @@ class Login extends EditPanel {
   }
 }
 
+function mapReducerToState({ authReducer }) {
+  return { authReducer };
+}
+
 const actions = {
   login
 }
 
-export default connect(null, actions)(Login);
+export default connect(mapReducerToState, actions)(Login);
